@@ -1,0 +1,83 @@
+.swag-dialog {
+
+    z-index: 999;
+
+    position: absolute;
+    margin: auto;
+    background-color: #fff;
+    border: 2px solid #0263a0;
+    border-radius: 1em;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.24);
+    font-size: 1em;
+    animation-duration: 0.75s;
+    display: flex;
+    flex-direction: column;
+
+    .swag-dialog-header {
+        background-color: #0064a0;
+        color: #fff;
+        border-radius: 0.5em 0.5em 0em 0em;
+        padding: 1em 0.5em;
+        box-sizing: border-box;
+        text-align: center;
+        display: flex;
+        justify-content: space-between;
+        flex: 0 0 auto;
+
+        .mg-logo {
+            background-image: url("#{$cdnRoot}/images/header-logo.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+            flex: 1 1 100%;
+            font-size: 1.4em;
+            height: 1.6em;
+            margin: 0em 0.5em;
+        }
+
+        .mg-header-link {
+            flex: 1 1 40%;
+            line-height: 1.6em;
+            font-size: 1.4em;
+            height: 1.6em;
+            overflow: hidden;
+            cursor: pointer;
+
+            &[data-action="back"] {
+                background-color: #0484d4;
+                border-radius: 0.5em;
+
+                &:before {
+                    display: inline-block;
+                    content: "\003C";
+                    padding-right: 0.5em;
+                }
+
+                &:hover {
+                    background-color: #2075ab;
+                }
+            }
+        }
+    }
+
+    .swag-dialog-title {
+        padding: 0.3em 0em;
+        font-size: 2em;
+        text-align: center;
+        color: #53b0e1;
+    }
+
+    .swag-dialog-content {
+      overflow-y: hidden;
+    }
+
+    @media only screen and (max-width : 761px) {
+        .swag-dialog-header {
+            font-size: 0.7em;
+        }
+        .swag-dialog-title {
+            font-size: 1.4em;
+        }
+    }
+}

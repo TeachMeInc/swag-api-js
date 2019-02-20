@@ -1,0 +1,45 @@
+{
+  "name": "shockwave-api-js",
+  "version": "1.0.6",
+  "private": true,
+  "main": "./dist/bundle.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "browserslist": [
+    "Safari >= 4",
+    "iOS > 3",
+    "Explorer > 10",
+    "Firefox > 42",
+    "Chrome > 21"
+  ],
+  "devDependencies": {
+    "animate.css": "^3.5.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "component-emitter": "^1.2.1",
+    "css-loader": "^0.26.1",
+    "es6-promise": "^4.2.6",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^0.9.0",
+    "handlebars": "^4.0.11",
+    "handlebars-loader": "^1.7.0",
+    "json-loader": "^0.5.4",
+    "lodash": "^4.17.2",
+    "node-sass": "^3.13.0",
+    "object-to-formdata": "1.0.13",
+    "postcss-loader": "^1.2.1",
+    "preload-js": "^0.6.3",
+    "sass-loader": "^4.0.2",
+    "source-map-loader": "^0.1.5",
+    "style-loader": "^0.13.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^0.5.9",
+    "webpack": "^3.12.0"
+  },
+  "dependencies": {
+    "element-resize-event": "^2.0.7"
+  }
+}

@@ -1,0 +1,14 @@
+.mg-wrapper {
+
+    position: relative;
+    overflow-y: hidden;
+    font-family: "Arial, Helvetica, sans-serif";
+
+    * {
+      user-select: none;
+    }
+
+    @import "variables";
+    @import "../node_modules/animate.css/animate.min";
+    @import "dialog";
+}

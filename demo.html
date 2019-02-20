@@ -1,0 +1,118 @@
+<html>
+  <head>
+      <title>SWAG JS API Demo</title>
+      <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
+      <style>
+        .demo-stage {
+          display: flex;
+          flex-wrap: wrap;
+          visibility: hidden;
+          justify-content: center;
+        }
+        .demo-stage > * {
+          justify-content: center;
+          flex: 1 1 100%;
+          text-align: center;
+          align-items: center;
+        }
+        .demo-controls {
+          flex: 0 1 50%;
+        }
+        .demo-controls > div {
+          display: flex;
+          padding: 1em 1em;
+          flex-wrap: no-wrap;
+          justify-content: space-evenly;
+          align-items: center;
+          border: 1px solid #efefef;
+        }
+        .control-title {
+          flex: 0 1 30%
+          padding: 1em;
+          color: #2e2d33;
+          font-weight: bold;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="swag-api-wrapper" class="api-wrapper">
+          <div id="demo-stage" class="demo-stage">
+            <h1>SWAG API Demo</h1>
+            <div class="demo-controls">
+                <div>
+                  <div class="control-title">Submit Score</div>
+                  <select id="hs-post-level" class="level-select"></select>
+                  <input type="text" id="hs-post-value">
+                  <input type="button" value="post highscore" id="hs-post-submit">
+                </div>
+            </div>
+          </div>
+      </div>
+  </body>
+
+  <script src="./dist/swag-api.js"></script>
+  <script>
+
+    var wrapper =  document.getElementById('swag-api-wrapper');
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+//-------- Create MathGames API Instance ---------------------------------------
+
+      var api = SWAGAPI.getInstance({
+        wrapper: wrapper,
+        api_key: '5c6c3c056917a692f96f9651',
+        debug: true
+      });
+
+//-------- Demo Game --------------------------------------------------------
+
+      // Simple game example to demonstrate SWAG API functions
+      var game = {
+        init: function() {
+          return api.startSession();
+        },
+        start: function() {
+          //show the ui and populate selects
+          document.getElementById('demo-stage').style.visibility = 'visible';
+          return api.populateLevelSelect('hs-post-level');
+        }
+      };
+
+      // Demo Game Events
+      document.getElementById('hs-post-submit').addEventListener('click', function() {
+          var levelSelect = document.getElementById('hs-post-level'),
+              levelKey = levelSelect.options[levelSelect.selectedIndex].value,
+              scoreValue = document.getElementById('hs-post-value').value;
+          console.log(levelSelect.options);
+          return api.postHighscore(levelKey, scoreValue);
+      });
+
+//-------- SWAG API Listeners ---------------------------------------------
+
+      // The session is ready
+      // (optional event, used instead of using promise)
+      /*
+      api.on('SESSION_READY', function() {
+        console.log('the api is ready to use');
+      });
+      */
+
+      // The high score dialog has closed
+      api.on('HIGHSCORE_CLOSED', function() {
+      });
+
+      // An API error has occurred
+      api.on('ERROR', function(error) {
+          console.log('API ERROR: ' + error);
+      });
+
+//-------- Start the Game ------------------------------------------------------
+
+      game.init()
+        .then(function() {
+          game.start();
+        });
+  });
+  </script>
+</html>
