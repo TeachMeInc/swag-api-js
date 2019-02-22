@@ -1,4 +1,4 @@
 module.exports = {
-    //apiRoot: 'https://api.mathgames.com'
-    apiRoot: 'http://localhost:8888'
+    apiRoot: 'http://swagapi.shockwave.com'
+    //apiRoot: 'http://local.shockwave.com:8888'
 };

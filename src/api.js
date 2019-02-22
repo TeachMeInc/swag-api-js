@@ -7,6 +7,7 @@ var Emitter = require('component-emitter');
 var config = require('config');
 var preload = require('preload-js');
 var elementResizeEvent = require('element-resize-event');
+var jscookie = require('js-cookie');
 
 var templates = {
 };
@@ -14,7 +15,13 @@ var templates = {
 var apiMethods = {
   'getEntity': '/v1/user',
   'getHighscoreCategories': '/v1/highscore/categories',
-  'postHighscore': '/v1/highscore'
+  'getHighScores': '/v1/highscores',
+  'postHighscore': '/v1/highscore',
+  'getAchievementCategories': '/v1/achievement/categories',
+  'postAchievement': '/v1/achievement',
+  'getUserAchievements': '/v1/achievement/user',
+  'postDatastore': '/v1/datastore',
+  'getUserDatastore': '/v1/datastore/user'
 };
 
 var cleanSession = {
@@ -82,14 +89,53 @@ var methods = {
     return self._getHighscoreCategories();
   },
 
+  getHighScores: function(period, level_key, useEntity) {
+    var self = this;
+    return self._getHighScores(period, level_key, useEntity);
+  },
+
   postHighscore: function(level_key, value) {
     var self = this;
     return self._postHighscore(level_key, value);
   },
 
+  getAchievementCategories: function() {
+    var self = this;
+    return self._getAchievementCategories();
+  },
+
+  postAchievement: function(achievement_key, value) {
+    var self = this;
+    return self._postAchievement(achievement_key, value);
+  },
+
+  getUserAchievements: function() {
+    var self = this;
+    return self._getUserAchievements();
+  },
+
+  postDatastore: function(key, value) {
+    var self = this;
+    return self._postDatastore(key, value);
+  },
+
+  getUserDatastore: function() {
+    var self = this;
+    return self._getUserDatastore();
+  },
+
   populateLevelSelect: function(domId) {
     var self = this;
     return self._populateLevelSelect(domId);
+  },
+
+  populateAchievementSelect: function(domId) {
+    var self = this;
+    return self._populateAchievementSelect(domId);
+  },
+
+  getCurrentEntity: function() {
+    return this._session.entity;
   },
 
   // ---------------------------------------------------------------------------
@@ -135,6 +181,7 @@ var methods = {
       }).join('&');
 
       xhr.open('GET', encodeURI(apiRoot + options.method + params));
+      xhr.withCredentials = true;
       xhr.onload = function() {
         var response = xhr.status === 200
           ? JSON.parse(xhr.response)
@@ -154,7 +201,8 @@ var methods = {
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', encodeURI(config.apiRoot + options.method), true);
-      xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+      xhr.withCredentials = true;
       xhr.onload = function() {
         var response = xhr.status === 200
           ? JSON.parse(xhr.response)
@@ -178,8 +226,7 @@ var methods = {
         resolve(self._session.options.uid);
       } else {
         self._getAPIData({
-          method: apiMethods['getEntity'],
-          params: {}
+          method: apiMethods['getEntity']
         })
         .then(function(entity) {
           self._session.entity = entity;
@@ -196,7 +243,7 @@ var methods = {
       self._getAPIData({
         method: apiMethods['getHighscoreCategories'],
         params: {
-          api_key: self._options['api_key']
+          game: self._options['api_key']
         }
       })
       .then(function(categories) {
@@ -206,11 +253,36 @@ var methods = {
     return promise;
   },
 
-  _postHighscore: function(levelKey, value) {
+  _getHighScores: function(period, level_key, useEntity) {
+
+    var self = this;
+    var params = {
+      game: self._options['api_key'],
+      level_key: level_key,
+      period: period
+    };
+
+    if(useEntity) {
+      params.useEntity = true;
+    }
+
+    var promise = new Promise(function(resolve, reject) {
+      self._getAPIData({
+        method: apiMethods['getHighScores'],
+        params: params
+      })
+      .then(function(scores) {
+        resolve(scores);
+      });
+    });
+    return promise;
+  },
+
+  _postHighscore: function(level_key, value) {
     var self = this;
     var body = {
       game: self._options.api_key,
-      level_key: levelKey,
+      level_key: level_key,
       value: value
     };
     var urlParamsString = self.buildUrlParamString(body);
@@ -219,6 +291,83 @@ var methods = {
       body: body,
       params: urlParamsString
     });
+  },
+
+  _getAchievementCategories: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      self._getAPIData({
+        method: apiMethods['getAchievementCategories'],
+        params: {
+          game: self._options['api_key']
+        }
+      })
+      .then(function(categories) {
+        resolve(categories);
+      });
+    });
+    return promise;
+  },
+
+  _getUserAchievements: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      self._getAPIData({
+        method: apiMethods['getUserAchievements'],
+        params: {
+          game: self._options['api_key']
+        }
+      })
+      .then(function(achievements) {
+        resolve(achievements);
+      });
+    });
+    return promise;
+  },
+
+  _postAchievement: function(achievement_key, value) {
+    var self = this;
+    var body = {
+      game: self._options.api_key,
+      achievement_key: achievement_key
+    };
+    var urlParamsString = self.buildUrlParamString(body);
+    return this._postAPIData({
+      method: apiMethods['postAchievement'],
+      body: body,
+      params: urlParamsString
+    });
+  },
+
+  _postDatastore: function(key, value) {
+    var self = this;
+    var body = {
+      game: self._options.api_key,
+      key: key,
+      value: value
+    };
+    var urlParamsString = self.buildUrlParamString(body);
+    return this._postAPIData({
+      method: apiMethods['postDatastore'],
+      body: body,
+      params: urlParamsString
+    });
+  },
+
+  _getUserDatastore: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      self._getAPIData({
+        method: apiMethods['getUserDatastore'],
+        params: {
+          game: self._options['api_key']
+        }
+      })
+      .then(function(data) {
+        resolve(data);
+      });
+    });
+    return promise;
   },
 
   // UI Rendering
@@ -289,13 +438,27 @@ var methods = {
       .then(function(categories) {
         var levelSelect = document.getElementById(domId);
           categories.map(function(category) {
-            var opt = document.createElement("option");
+            var opt = document.createElement('option');
             opt.value= category.level_key;
             opt.innerHTML = category.name;
             levelSelect.appendChild(opt);
           });
       });
   },
+
+  _populateAchievementSelect: function(domId) {
+    var self = this;
+    return self.getAchievementCategories()
+      .then(function(categories) {
+        var achievementSelect = document.getElementById(domId);
+          categories.map(function(category) {
+            var opt = document.createElement('option');
+            opt.value= category.achievement_key;
+            opt.innerHTML = category.name;
+            achievementSelect.appendChild(opt);
+          });
+      });
+  }
 
 };
 

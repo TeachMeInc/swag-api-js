@@ -3,6 +3,9 @@
       <title>SWAG JS API Demo</title>
       <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
       <style>
+        body {
+          padding-bottom: 2em;
+        }
         .demo-stage {
           display: flex;
           flex-wrap: wrap;
@@ -11,26 +14,46 @@
         }
         .demo-stage > * {
           justify-content: center;
-          flex: 1 1 100%;
+          flex: 0 1 60%;
           text-align: center;
           align-items: center;
         }
         .demo-controls {
-          flex: 0 1 50%;
+          flex: 0 1 60%;
         }
         .demo-controls > div {
           display: flex;
           padding: 1em 1em;
           flex-wrap: no-wrap;
-          justify-content: space-evenly;
+          justify-content: space-between;
           align-items: center;
           border: 1px solid #efefef;
         }
         .control-title {
-          flex: 0 1 30%
+          flex: 0 1 30%;
           padding: 1em;
+          margin-right: 1em;
           color: #2e2d33;
           font-weight: bold;
+          background-color: #efefef;
+        }
+        input[type="button"] {
+          background-color: #efefef;
+        }
+        .demo-stage > h2 {
+          text-align: left;
+          border-bottom: 1px solid #efefef;
+          padding-bottom: 0.5em;
+        }
+        .demo-controls > .data-view {
+          border: 1px solid #efefef;
+          height: 400px;
+          overflow-y: scroll;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+        .data-view-select {
+          justify-content: space-around;
         }
       </style>
   </head>
@@ -38,14 +61,47 @@
       <div id="swag-api-wrapper" class="api-wrapper">
           <div id="demo-stage" class="demo-stage">
             <h1>SWAG API Demo</h1>
+            <h2>Current User</h2>
+            <div class="demo-controls">
+                <div id="user-info"></div>
+            </div>
+            <h2>Post Methods</h2>
             <div class="demo-controls">
                 <div>
                   <div class="control-title">Submit Score</div>
-                  <select id="hs-post-level" class="level-select"></select>
-                  <input type="text" id="hs-post-value">
-                  <input type="button" value="post highscore" id="hs-post-submit">
+                  <select id="post-level" class="level-select"></select>
+                  <input type="text" id="post-level-value">
+                  <input type="button" value="post highscore" id="post-level-submit">
+                </div>
+                <div>
+                  <div class="control-title">Submit Achievement</div>
+                  <select id="post-achievement" class="achievement-select"></select>
+                  <input type="button" value="post achievement" id="post-achievement-submit">
+                </div>
+                <div>
+                  <div class="control-title">Submit To Datastore</div>
+                  Key: <input type="text" id="post-data-key">
+                  Value: <input type="text" id="post-data-value">
+                  <input type="button" value="post data" id="post-data-submit">
                 </div>
             </div>
+            <h2>Data Views</h2>
+            <div class="demo-controls">
+                <div class="data-view-select">
+                  <select id="data-view-method" class="level-select">
+                    <option value="top-score-daily">Top Daily Scores</option>
+                    <option value="top-score-weekly">Top Weekly Scores</option>
+                    <option value="top-score-monthly">Top Montly Scores</option>
+                    <option value="top-score-alltime">Top All Time Scores</option>
+                    <option value="top-score-current">Top Scores - current user</option>
+                    <option value="achievements-current">Achievements for current user</option>
+                    <option value="datastore-current">Data Store for current user</option>
+                  </select>
+                  <select id="data-view-level" class="level-select"></select>
+                  <input type="button" value="view data" id="data-view-submit">
+                </div>
+                <div id="data-view" class="data-view">
+                </div>
           </div>
       </div>
   </body>
@@ -57,11 +113,12 @@
 
     document.addEventListener('DOMContentLoaded', function() {
 
-//-------- Create MathGames API Instance ---------------------------------------
+//-------- Create SWAG API Instance ---------------------------------------
 
       var api = SWAGAPI.getInstance({
         wrapper: wrapper,
         api_key: '5c6c3c056917a692f96f9651',
+        theme: 'shockwave',
         debug: true
       });
 
@@ -75,17 +132,111 @@
         start: function() {
           //show the ui and populate selects
           document.getElementById('demo-stage').style.visibility = 'visible';
-          return api.populateLevelSelect('hs-post-level');
+          api.populateLevelSelect('post-level');
+          api.populateLevelSelect('data-view-level');
+          api.populateAchievementSelect('post-achievement');
+          document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
         }
       };
 
       // Demo Game Events
-      document.getElementById('hs-post-submit').addEventListener('click', function() {
-          var levelSelect = document.getElementById('hs-post-level'),
+      document.getElementById('post-level-submit').addEventListener('click', function() {
+          var levelSelect = document.getElementById('post-level'),
               levelKey = levelSelect.options[levelSelect.selectedIndex].value,
-              scoreValue = document.getElementById('hs-post-value').value;
-          console.log(levelSelect.options);
+              scoreValue = document.getElementById('post-level-value').value;
           return api.postHighscore(levelKey, scoreValue);
+      });
+
+      document.getElementById('post-achievement-submit').addEventListener('click', function() {
+          var achievementSelect = document.getElementById('post-achievement'),
+              achievementKey = achievementSelect.options[achievementSelect.selectedIndex].value;
+          return api.postAchievement(achievementKey);
+      });
+
+      document.getElementById('post-data-submit').addEventListener('click', function() {
+          var dataKey = document.getElementById('post-data-key').value,
+              dataValue = document.getElementById('post-data-value').value;
+          return api.postDatastore(dataKey, dataValue);
+      });
+
+      document.getElementById('data-view-method').addEventListener('change', function(event) {
+          var methodSelect = document.getElementById('data-view-method'),
+              methodName = methodSelect.options[methodSelect.selectedIndex].value;
+
+              switch(methodName) {
+                case "achievements-current":
+                  levelSelect = document.getElementById('data-view-level').style.visibility = 'hidden';
+                  break;
+                case "datastore-current":
+                  levelSelect = document.getElementById('data-view-level').style.visibility = 'hidden';
+                  break;
+                default:
+                  levelSelect = document.getElementById('data-view-level').style.visibility = 'visible';
+            };
+      });
+
+      document.getElementById('data-view-submit').addEventListener('click', function(event) {
+          var methodSelect = document.getElementById('data-view-method'),
+              levelSelect = document.getElementById('data-view-level'),
+              dataView = document.getElementById('data-view'),
+              methodName = methodSelect.options[methodSelect.selectedIndex].value,
+              selectedLevel = levelSelect.options[levelSelect.selectedIndex].value;
+
+              switch(methodName) {
+
+                case "top-score-daily":
+                  return api.getHighScores('daily', selectedLevel)
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "top-score-weekly":
+                  return api.getHighScores('weekly', selectedLevel)
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "top-score-monthly":
+                  return api.getHighScores('monthly', selectedLevel)
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "top-score-alltime":
+                  return api.getHighScores('alltime', selectedLevel)
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "top-score-current":
+                  return api.getHighScores('alltime', selectedLevel, true)
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "datastore-current":
+                  return api.getUserDatastore()
+                    .then(function(data) {
+                      dataView.innerHTML = JSON.stringify(data);
+                    });
+                  break;
+
+                case "achievements-current":
+                  return api.getUserAchievements()
+                    .then(function(achievements) {
+                      dataView.innerHTML = JSON.stringify(achievements);
+                    });
+                  break;
+
+                default:
+                  dataView.innerHTML = "invalid method.";
+              };
+
       });
 
 //-------- SWAG API Listeners ---------------------------------------------
