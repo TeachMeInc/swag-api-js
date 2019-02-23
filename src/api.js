@@ -104,9 +104,9 @@ var methods = {
     return self._getAchievementCategories();
   },
 
-  postAchievement: function(achievement_key, value) {
+  postAchievement: function(achievement_key) {
     var self = this;
-    return self._postAchievement(achievement_key, value);
+    return self._postAchievement(achievement_key);
   },
 
   getUserAchievements: function() {
@@ -325,7 +325,7 @@ var methods = {
     return promise;
   },
 
-  _postAchievement: function(achievement_key, value) {
+  _postAchievement: function(achievement_key) {
     var self = this;
     var body = {
       game: self._options.api_key,
