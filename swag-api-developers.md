@@ -1,4 +1,4 @@
-### SWAG API DEVELOPERS GUIDE
+# SWAG API DEVELOPERS GUIDE
 
 Include the following files:
 
@@ -52,9 +52,11 @@ Using event listener:
   });
 ```
 
+<div class="page-break"></div>
+
 ## Using the API
 
-#####  API Methods:
+####  API Methods:
 
 All methods return promises
 
@@ -73,7 +75,9 @@ All methods return promises
 |displayAchievementDialog | - | Display the api achievement dialog *_not yet implelmented_
 |getServerDate | - | Used to get server time to decide which day it is in daily games *_not yet implelmented_
 
-#####  API Events:
+<div class="page-break"></div>
+
+###  API Events:
 
 | event        | description |
 | ------------- | ------------- |
@@ -81,3 +85,9 @@ All methods return promises
 | ERROR | An api error has occurred
 | HIGHSCORE_DIALOG_CLOSED | The high score dialog has closed
 | ACHIEVEMENT_DIALOG_CLOSED | The achievement dialog has closed
+
+### Demo
+
+There is a simple demo of the api at:
+
+http://swagapi.shockwave.com/demo.html (view source)
