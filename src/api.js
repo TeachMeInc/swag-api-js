@@ -7,7 +7,6 @@ var Emitter = require('component-emitter');
 var config = require('config');
 var preload = require('preload-js');
 var elementResizeEvent = require('element-resize-event');
-var jscookie = require('js-cookie');
 
 var templates = {
 };
