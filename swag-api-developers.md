@@ -3,7 +3,7 @@
 Include the following files:
 
 ```
-<script type-"text/javascript"src="https://swagapi.shockwave.com/dist/swag-api.js">
+<script type="text/javascript" src="https://swagapi.shockwave.com/dist/swag-api.js">
 <link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
 ```
 
