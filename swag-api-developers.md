@@ -91,3 +91,39 @@ All methods return promises
 There is a simple demo of the api at:
 
 http://swagapi.shockwave.com/demo.html (view source)
+
+
+## Developing and Using Locally
+
+For now you will need to edit your etc\hosts file.
+
+On Windows you can find at c:windows\system32\drivers\etc\host
+
+and add the following line
+
+```
+127.0.0.1			local.shockwave.com
+```
+
+Install http-server
+
+```
+npm install -g http-server
+```
+
+Launch a local web server where your index.html is
+
+```
+http-server -p 8888
+```
+
+You can either be logged into shockwave.com or as a guest when testing.
+
+To get an API key or anything else, please contact your support at Addicting Games.
+
+launch your game with
+
+```
+http://local.shockwave.com:8888
+```
+
