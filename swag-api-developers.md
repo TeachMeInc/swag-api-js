@@ -3,8 +3,8 @@
 Include the following files:
 
 ```
-<script type="text/javascript" src="http://swagapi.shockwave.com/dist/swag-api.js">
-<link rel="stylesheet" type="text/css" href="http://swagapi.shockwave.com/dist/swag-api.css">
+<script type="text/javascript" src="https://swagapi.shockwave.com/dist/swag-api.js">
+<link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
 ```
 
 ## Connecting to the API
