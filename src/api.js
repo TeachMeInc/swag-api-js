@@ -88,9 +88,9 @@ var methods = {
     return self._getHighscoreCategories();
   },
 
-  getHighScores: function(period, level_key, useEntity) {
+  getHighScores: function(options) {
     var self = this;
-    return self._getHighScores(period, level_key, useEntity);
+    return self._getHighScores(options);
   },
 
   postHighscore: function(level_key, value) {
@@ -252,18 +252,10 @@ var methods = {
     return promise;
   },
 
-  _getHighScores: function(period, level_key, useEntity) {
-
-    var self = this;
-    var params = {
-      game: self._options['api_key'],
-      level_key: level_key,
-      period: period
-    };
-
-    if(useEntity) {
-      params.useEntity = true;
-    }
+  _getHighScores: function(options) {
+    var self = this,
+        clean = _.pick(options, ['type', 'level_key', 'period', 'current_user', 'reverse', 'target_date']),
+        params = _.extend({game: self._options['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self._getAPIData({
