@@ -3,14 +3,8 @@
 Include the following files:
 
 ```
-<script type="text/javascript" src="https://swagapi.shockwave.com/dist/swag-api.js">
-<link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
-```
-
-The API is also available as an npm package _(not yet implemented)_
-
-```
-  npm install swag-api-js
+<script type="text/javascript" src="http://swagapi.shockwave.com/dist/swag-api.js">
+<link rel="stylesheet" type="text/css" href="http://swagapi.shockwave.com/dist/swag-api.css">
 ```
 
 ## Connecting to the API
@@ -64,7 +58,7 @@ All methods return promises
 | ------------- | ------------- | ----- |
 | startSession| - | Used start an api session.  The client must wait for the promise to resolve or the SESSION_READY event before using any other api calls.
 |getHighscoreCategories| - | Returns a json array of highscore categories associated with this game
-|getHighScores| period `(daily, weekly, monthly, alltime),` level_key, useEntity | Return a json array of global high scores for the specified `period` and `level_key`.  If `useEntity` is true, will retrieve score for only the current user.
+|getHighScores| see getHighScores options | Returns a json array of highscores based on the options objects
 |postHighscore| level_key, value | Post the score `value` for the `level_key` for the current user.
 |getAchievementCategories| - | Return a json array of achievements associated with this game
 |postAchievement| achievement_key | Post an achievement `achievement_key` for the current user
@@ -76,6 +70,32 @@ All methods return promises
 |getServerDate | - | Used to get server time to decide which day it is in daily games *_not yet implelmented_
 
 <div class="page-break"></div>
+
+### getHighScores options
+
+The following options are available:
+
+| options        | required           |  description |
+| ------------- | ------------- | ----- |
+|level_key|yes|The level to retrieve high scores for.
+|type|no|String, _default:_ `"standard"`, _values:_ `"standard", "weekly"`
+|period|no|String, _default:_ `"alltime"`, _values:_ `"daily", "weekly", "monthly", "alltime"`
+|current_user|no|boolean, _default:_ `false`.  Only get highscores for current user
+|target_date|no|number, epoch time.  Use this date as the base for date ranges eg. "daily", "weekly"
+
+Example (high scores this week on level1 for the current user):
+
+```
+return api.getHighScores({
+  type: 'weekly',
+  level_key: 'level1',
+  current_user: true
+})
+  .then(function(scores) {
+    //do something
+  });
+```
+
 
 ###  API Events:
 
@@ -126,4 +146,3 @@ launch your game with
 ```
 http://local.shockwave.com:8888
 ```
-
