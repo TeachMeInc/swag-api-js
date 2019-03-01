@@ -3,7 +3,7 @@
   !*** ./src/config.js ***!
   \***********************/
 /*! dynamic exports provided */
-/*! all exports used */function(t,e,n){"use strict";t.exports={version:"1.2.5",apiRoot:"http://swagapi.shockwave.com"}},
+/*! all exports used */function(t,e,n){"use strict";t.exports={version:"0.0.1",apiRoot:"https://swagapi.shockwave.com"}},
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
   \***********************************/
