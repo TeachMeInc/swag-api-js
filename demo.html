@@ -93,9 +93,10 @@
                     <option value="top-score-weekly">Top Weekly Scores</option>
                     <option value="top-score-monthly">Top Montly Scores</option>
                     <option value="top-score-alltime">Top All Time Scores</option>
-                    <option value="top-score-current">Top Scores - current user</option>
-                    <option value="achievements-current">Achievements for current user</option>
-                    <option value="datastore-current">Data Store for current user</option>
+                    <option value="top-score-currentuser">Top Scores - current user</option>
+                    <option value="top-score-weekly-currentuser">Weekly Scores - current user</option>
+                    <option value="achievements-currentuser">Achievements for current user</option>
+                    <option value="datastore-currentuser">Data Store for current user</option>
                   </select>
                   <select id="data-view-level" class="level-select"></select>
                   <input type="button" value="view data" id="data-view-submit">
@@ -185,48 +186,76 @@
               switch(methodName) {
 
                 case "top-score-daily":
-                  return api.getHighScores('daily', selectedLevel)
+                  return api.getHighScores({
+                    period: 'daily',
+                    level_key: selectedLevel
+                  })
                     .then(function(scores) {
                       dataView.innerHTML = JSON.stringify(scores);
                     });
                   break;
 
                 case "top-score-weekly":
-                  return api.getHighScores('weekly', selectedLevel)
+                  return api.getHighScores({
+                    period: 'weekly',
+                    level_key: selectedLevel
+                  })
                     .then(function(scores) {
                       dataView.innerHTML = JSON.stringify(scores);
                     });
                   break;
 
                 case "top-score-monthly":
-                  return api.getHighScores('monthly', selectedLevel)
+                  return api.getHighScores({
+                    period: 'monthly',
+                    level_key: selectedLevel
+                  })
                     .then(function(scores) {
                       dataView.innerHTML = JSON.stringify(scores);
                     });
                   break;
 
                 case "top-score-alltime":
-                  return api.getHighScores('alltime', selectedLevel)
+                  return api.getHighScores({
+                    period: 'alltime',
+                    level_key: selectedLevel
+                  })
                     .then(function(scores) {
                       dataView.innerHTML = JSON.stringify(scores);
                     });
                   break;
 
-                case "top-score-current":
-                  return api.getHighScores('alltime', selectedLevel, true)
+                case "top-score-currentuser":
+                  return api.getHighScores({
+                    period: 'alltime',
+                    level_key: selectedLevel,
+                    current_user: true
+                  })
                     .then(function(scores) {
                       dataView.innerHTML = JSON.stringify(scores);
                     });
                   break;
 
-                case "datastore-current":
+                case "top-score-weekly-currentuser":
+                  return api.getHighScores({
+                    type: 'weekly',
+                    level_key: selectedLevel,
+                    current_user: true,
+                    target_date: new Date().getTime()
+                  })
+                    .then(function(scores) {
+                      dataView.innerHTML = JSON.stringify(scores);
+                    });
+                  break;
+
+                case "datastore-currentuser":
                   return api.getUserDatastore()
                     .then(function(data) {
                       dataView.innerHTML = JSON.stringify(data);
                     });
                   break;
 
-                case "achievements-current":
+                case "achievements-currentuser":
                   return api.getUserAchievements()
                     .then(function(achievements) {
                       dataView.innerHTML = JSON.stringify(achievements);
