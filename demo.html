@@ -119,6 +119,7 @@
           <div class="demo-controls">
               <input type="button" id="show-highscore-dialog" value="Show Highscore Dialog">
               <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
+              <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
           </div>
           <div id="swag-api-wrapper" class="api-wrapper"></div>
       </div>
@@ -167,6 +168,10 @@
 
       document.getElementById('show-achievements-dialog').addEventListener('click', function() {
           api.showDialog('achievements');
+      });
+
+      document.getElementById('show-weeklyscores-dialog').addEventListener('click', function() {
+          api.showDialog('weeklyscores');
       });
 
       // Demo Game Events
