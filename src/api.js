@@ -11,7 +11,9 @@ var elementResizeEvent = require('element-resize-event');
 var templates = {
   dialog: require('templates/dialog.handlebars'),
   dialogHighscore: require('templates/dialog-highscores.handlebars'),
-  dataHighscore: require('templates/data-highscores.handlebars')
+  dataHighscore: require('templates/data-highscores.handlebars'),
+  dialogAchievements: require('templates/dialog-achievements.handlebars'),
+  dataAchievements: require('templates/data-achievements.handlebars')
 };
 
 var apiMethods = {
@@ -28,7 +30,7 @@ var apiMethods = {
 
 var dialogMethods = {
   'highscore': '_renderHighscoreDialog',
-  'achievement': '_renderAchievementDialog'
+  'achievements': '_renderAchievementsDialog'
 };
 
 var cleanSession = {
@@ -414,11 +416,11 @@ var methods = {
     return self.getHighscoreCategories()
       .then(function(categories) {
 
-        var progressDialog = templates['dialogHighscore']({
+        var highScoreDialog = templates['dialogHighscore']({
           levels: categories
         });
 
-        contentEl.innerHTML = progressDialog;
+        contentEl.innerHTML = highScoreDialog;
 
         var levelSelector = document.getElementById('swag-data-view-level');
         var periodSelector = document.getElementById('swag-data-view-period');
@@ -440,7 +442,7 @@ var methods = {
           .finally(function() {
             contentEl.classList.remove('loading');
           });
-        }
+        };
 
         levelSelector.addEventListener('change', function() {
           return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
@@ -460,6 +462,33 @@ var methods = {
   },
 
   _renderAchievementsDialog: function() {
+
+    var self = this;
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+
+    var achievementsDialog = templates['dialogAchievements']();
+    contentEl.innerHTML = achievementsDialog;
+
+    var dataTableCont = document.getElementById('swag-data');
+
+    var achievementsMethod = function() {
+      dataTableCont.innerHTML = '';
+      contentEl.classList.add('loading');
+      return self.getUserAchievements()
+      .then(function(achievements) {
+        var formatted = templates['dataAchievements']({
+          achievements: achievements
+        });
+        dataTableCont.innerHTML = formatted;
+      })
+      .finally(function() {
+        contentEl.classList.remove('loading');
+      });
+    };
+
+    return achievementsMethod();
+
   },
 
   // UI Rendering

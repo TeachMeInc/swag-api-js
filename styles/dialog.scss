@@ -102,13 +102,18 @@
             display: flex;
             flex-wrap: nowrap;
             flex: 0 0 auto;
-            background-color: #b8deff;
             color: #0164a0;
             font-weight: 700;
             border-bottom: 1px solid #0164a0;
             overflow: hidden;
+            border-radius: 10px 10px 0px 0px;
+
             > div {
               border: none;
+              &:nth-child(odd),
+              &:nth-child(even) {
+                background-color: #e3e7ea;
+              }
             }
           }
 
@@ -126,11 +131,52 @@
               flex-wrap: nowrap;
               padding: 0.5vw;
               border-bottom: 1px solid #EFEFEE;
+
+              &.data-achievement-row {
+                flex-wrap: wrap;
+                border: 1px solid #efefef;
+
+                > div {
+                  text-align: left;
+                  color: #afafaf;
+                }
+
+                &.achieved {
+                  border: 1px solid green;
+
+                  > div {
+                    color: black;
+                  }
+
+                  .data-achievement-name {
+                    color: green;
+                    &:after {
+                      padding: 0vw 1vw;
+                      content: "\2713";
+                      color: green;
+                      font-weight: 700;
+                      font-size: 1.6vw;
+                      background-color: #c1f5c5;
+                      margin-left: 1vw;
+                      border: 1px solid green;
+                    }
+                  }
+
+                  .data-achievement-description {
+                    color: #868585;
+                  }
+                }
+              }
+
+              &:nth-child(even) {
+                background-color: #f0f8ff;
+              }
             }
           }
 
           > div,
           .swag-data-header {
+
             .data-screen-name {
               flex: 0 0 40%;
               text-align: left;
@@ -145,6 +191,19 @@
               flex: 0 0 20%;
               text-align: left;
             }
+
+            .data-achievement-name {
+              flex: 1 1 100%;
+              font-size: 1.5vw;
+              font-weight: 700;
+            }
+
+            .data-achievement-description {
+              flex: 1 1 100%;
+              font-size: 1.2vw;
+              font-weight: 400;
+            }
+
           }
         }
     }
@@ -158,7 +217,7 @@
 
         div.selector-title {
             flex: 0 1 40%;
-            text-align: left;
+            text-align: center;
             font-size: 1.5vw;
         }
     }
