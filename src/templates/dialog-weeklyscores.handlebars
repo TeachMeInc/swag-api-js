@@ -1,0 +1,15 @@
+<div class="swag-data-selector">
+  <div class="selector-title">Your High Scores This Week</div>
+  <select id="swag-data-view-level" class="swag-select">
+    {{#each levels}}
+      <option value="{{level_key}}">{{name}}</option>
+    {{/each}}
+  </select>
+</div>
+<div class="swag-data-table">
+  <div class="swag-data-header">
+    <div class="data-day">Day</div>
+    <div class="data-score">Score</div>
+  </div>
+  <div id="swag-data"></div>
+</div>

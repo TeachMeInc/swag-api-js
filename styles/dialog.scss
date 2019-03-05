@@ -18,6 +18,7 @@
     .swag-select {
       font-size: 1.2vw;
       padding: 0.5vw;
+      margin: 0vw 0.5vw;
     }
 
     .swag-dialog-header {
@@ -141,6 +142,11 @@
                   color: #afafaf;
                 }
 
+                &:nth-child(odd),
+                &:nth-child(even) {
+                  background-color: #fff;
+                }
+
                 &.achieved {
                   border: 1px solid green;
 
@@ -182,6 +188,11 @@
               text-align: left;
             }
 
+            .data-day {
+              flex: 0 1 60%;
+              text-align: left;
+            }
+
             .data-score {
               flex: 0 0 40%;
               text-align: left;
@@ -213,10 +224,10 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        justify-content: space-around;
+        justify-content: center;
 
         div.selector-title {
-            flex: 0 1 40%;
+            padding-right: 2vw;
             text-align: center;
             font-size: 1.5vw;
         }

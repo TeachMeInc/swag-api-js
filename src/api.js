@@ -9,11 +9,13 @@ var preload = require('preload-js');
 var elementResizeEvent = require('element-resize-event');
 
 var templates = {
-  dialog: require('templates/dialog.handlebars'),
-  dialogHighscore: require('templates/dialog-highscores.handlebars'),
-  dataHighscore: require('templates/data-highscores.handlebars'),
-  dialogAchievements: require('templates/dialog-achievements.handlebars'),
-  dataAchievements: require('templates/data-achievements.handlebars')
+  'dialog': require('templates/dialog.handlebars'),
+  'dialogHighscore': require('templates/dialog-highscores.handlebars'),
+  'dataHighscore': require('templates/data-highscores.handlebars'),
+  'dialogAchievements': require('templates/dialog-achievements.handlebars'),
+  'dataAchievements': require('templates/data-achievements.handlebars'),
+  'dialogWeeklyScores': require('templates/dialog-weeklyscores.handlebars'),
+  'dataWeeklyScores': require('templates/data-weeklyscores.handlebars')
 };
 
 var apiMethods = {
@@ -30,7 +32,8 @@ var apiMethods = {
 
 var dialogMethods = {
   'highscore': '_renderHighscoreDialog',
-  'achievements': '_renderAchievementsDialog'
+  'achievements': '_renderAchievementsDialog',
+  'weeklyscores': '_renderWeeklyScoresDialog'
 };
 
 var cleanSession = {
@@ -489,6 +492,52 @@ var methods = {
 
     return achievementsMethod();
 
+  },
+
+  _renderWeeklyScoresDialog: function() {
+    var self = this;
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+
+    return self.getHighscoreCategories()
+      .then(function(categories) {
+
+        var highScoreDialog = templates['dialogWeeklyScores']({
+          levels: categories
+        });
+
+        contentEl.innerHTML = highScoreDialog;
+
+        var levelSelector = document.getElementById('swag-data-view-level');
+        var dataTableCont = document.getElementById('swag-data');
+
+        var highScoreMethod = function(level_key) {
+          dataTableCont.innerHTML = '';
+          contentEl.classList.add('loading');
+          return self.getHighScores({
+            type: 'weekly',
+            level_key: level_key
+          })
+          .then(function(scores) {
+            var formatted = templates['dataWeeklyScores']({
+              weeklyscores: scores
+            });
+            dataTableCont.innerHTML = formatted;
+          })
+          .finally(function() {
+            contentEl.classList.remove('loading');
+          });
+        };
+
+        levelSelector.addEventListener('change', function() {
+          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value);
+        }, true);
+
+        if(categories[0]) {
+          return highScoreMethod(levelSelector.options[0].value);
+        }
+
+      });
   },
 
   // UI Rendering
