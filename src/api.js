@@ -9,6 +9,9 @@ var preload = require('preload-js');
 var elementResizeEvent = require('element-resize-event');
 
 var templates = {
+  dialog: require('templates/dialog.handlebars'),
+  dialogHighscore: require('templates/dialog-highscores.handlebars'),
+  dataHighscore: require('templates/data-highscores.handlebars')
 };
 
 var apiMethods = {
@@ -21,6 +24,11 @@ var apiMethods = {
   'getUserAchievements': '/v1/achievement/user',
   'postDatastore': '/v1/datastore',
   'getUserDatastore': '/v1/datastore/user'
+};
+
+var dialogMethods = {
+  'highscore': '_renderHighscoreDialog',
+  'achievement': '_renderAchievementDialog'
 };
 
 var cleanSession = {
@@ -61,11 +69,12 @@ var methods = {
   options: {},
   _wrapper: null,
   _session: JSON.parse(JSON.stringify(cleanSession)),
+  _theme: '',
 
   // Events ------------------------------------------------------------------
 
     SESSION_READY: 'SESSION_READY',
-    PROGRESS_CLOSED: 'PROGRESS_CLOSED',
+    DIALOG_CLOSED: 'DIALOG_CLOSED',
     ERROR: 'ERROR',
 
   // Interface -----------------------------------------------------------------
@@ -137,12 +146,18 @@ var methods = {
     return this._session.entity;
   },
 
+  showDialog: function(type) {
+    return this._renderDialog(type);
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
     var self = this;
     this._wrapper = this._options.wrapper;
     this._wrapper.classList.add('swag-wrapper');
+    this._theme = this._options.theme || 'shockwave';
+
     elementResizeEvent(this._wrapper, function() {
       self._resize();
     });
@@ -361,8 +376,93 @@ var methods = {
     return promise;
   },
 
-  // UI Rendering
+  // Dialogs
 
+  _renderDialog: function(type) {
+    var self = this;
+    var dialogOptions = {
+        theme: self._theme,
+        header: {
+            backButton: true
+        }
+    };
+
+    var progressDialog = templates['dialog'](dialogOptions);
+    this._cleanStage();
+    this._wrapper.insertAdjacentHTML('afterbegin', progressDialog);
+    var dialogEl = document.getElementById('swag-dialog');
+    this._positionDialog(dialogEl);
+
+    var backBtn = this._wrapper.querySelectorAll('div[data-action="back"]');
+    _.each(backBtn, function(el) {
+        el.addEventListener('click', function(event) {
+            self._onCloseDialog(event);
+        }, true);
+    });
+
+    if(dialogMethods[type]) {
+      return self[dialogMethods[type]]();
+    }
+
+  },
+
+  _renderHighscoreDialog: function() {
+    var self = this;
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+
+    return self.getHighscoreCategories()
+      .then(function(categories) {
+
+        var progressDialog = templates['dialogHighscore']({
+          levels: categories
+        });
+
+        contentEl.innerHTML = progressDialog;
+
+        var levelSelector = document.getElementById('swag-data-view-level');
+        var periodSelector = document.getElementById('swag-data-view-period');
+        var dataTableCont = document.getElementById('swag-data');
+
+        var highScoreMethod = function(level_key, period) {
+          dataTableCont.innerHTML = '';
+          contentEl.classList.add('loading');
+          return self.getHighScores({
+            level_key: level_key,
+            period: period
+          })
+          .then(function(scores) {
+            var formatted = templates['dataHighscore']({
+              scores: scores
+            });
+            dataTableCont.innerHTML = formatted;
+          })
+          .finally(function() {
+            contentEl.classList.remove('loading');
+          });
+        }
+
+        levelSelector.addEventListener('change', function() {
+          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+            periodSelector.options[periodSelector.selectedIndex].value);
+        }, true);
+
+        periodSelector.addEventListener('change', function() {
+          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+            periodSelector.options[periodSelector.selectedIndex].value);
+        }, true);
+
+        if(categories[0]) {
+          return highScoreMethod(levelSelector.options[0].value, periodSelector.options[0].value);
+        }
+
+      });
+  },
+
+  _renderAchievementsDialog: function() {
+  },
+
+  // UI Rendering
   _resizeToContainer: function(element, container) {
     var max = 100;
     var attempts = 0;
@@ -392,10 +492,6 @@ var methods = {
     element.style.height = height + 'px';
     element.style.top = top + 'px';
     element.style.left = left + 'px';
-    _.each(contentContainers, function(container) {
-      var contentEl = container.firstElementChild;
-      self._resizeToContainer(contentEl, container);
-    });
   },
 
   _resize: function() {
@@ -449,6 +545,12 @@ var methods = {
             achievementSelect.appendChild(opt);
           });
       });
+  },
+
+  _onCloseDialog: function() {
+    event.preventDefault();
+    this._cleanStage();
+    this.emit(this.DIALOG_CLOSED);
   }
 
 };
