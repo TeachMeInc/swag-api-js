@@ -65,8 +65,7 @@ All methods return promises
 |getUserAchievements| - | Return a list of all achievements by the current user for this game
 |postDatastore| key, value | Post a `value` to `key`.  If 'key' exists for this user, it will be overwritten.
 |getUserDatastore| - | Returns a json array of all data store objects associated with this user
-|displayHighScoreDialog | - | Display the api highscore dialog *_not yet implelmented_
-|displayAchievementDialog | - | Display the api achievement dialog *_not yet implelmented_
+|showDialog | type | display a dialog of type `highscore`, `achievements` or `weeklyscores`
 |getServerDate | - | Used to get server time to decide which day it is in daily games *_not yet implelmented_
 
 <div class="page-break"></div>
