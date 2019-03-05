@@ -1,0 +1,22 @@
+<div class="swag-data-selector">
+  <div class="selector-title">Highscores</div>
+  <select id="swag-data-view-level" class="swag-select">
+    {{#each levels}}
+      <option value="{{level_key}}">{{name}}</option>
+    {{/each}}
+  </select>
+  <select id="swag-data-view-period" class="swag-select">
+    <option value="daily">Daily</option>
+    <option value="weekly">Weekly</option>
+    <option value="monthy">Monthly</option>
+    <option value="alltime">All Time</option>
+  </select>
+</div>
+<div class="swag-data-table">
+  <div class="swag-data-header">
+    <div class="data-screen-name">Name</div>
+    <div class="data-score">Score</div>
+    <div class="data-date">Date</div>
+  </div>
+  <div id="swag-data"></div>
+</div>
