@@ -39,6 +39,10 @@
         }
         input[type="button"] {
           background-color: #efefef;
+          font-size: 1vw;
+          font-weight: 700;
+          border-radius: 6px;
+          padding: 0.5vw;
         }
         .demo-stage > h2 {
           text-align: left;
@@ -55,55 +59,68 @@
         .data-view-select {
           justify-content: space-around;
         }
+        .api-wrapper {
+          margin-top: 1vw;
+          flex: 0 1 60%;
+          height : 40vw;
+          background-color: #efefef;
+        }
       </style>
   </head>
   <body>
-      <div id="swag-api-wrapper" class="api-wrapper">
-          <div id="demo-stage" class="demo-stage">
-            <h1>SWAG API Demo</h1>
-            <h2>Current User</h2>
-            <div class="demo-controls">
-                <div id="user-info"></div>
-            </div>
-            <h2>Post Methods</h2>
-            <div class="demo-controls">
-                <div>
-                  <div class="control-title">Submit Score</div>
-                  <select id="post-level" class="level-select"></select>
-                  <input type="text" id="post-level-value">
-                  <input type="button" value="post highscore" id="post-level-submit">
-                </div>
-                <div>
-                  <div class="control-title">Submit Achievement</div>
-                  <select id="post-achievement" class="achievement-select"></select>
-                  <input type="button" value="post achievement" id="post-achievement-submit">
-                </div>
-                <div>
-                  <div class="control-title">Submit To Datastore</div>
-                  Key: <input type="text" id="post-data-key">
-                  Value: <input type="text" id="post-data-value">
-                  <input type="button" value="post data" id="post-data-submit">
-                </div>
-            </div>
-            <h2>Data Views</h2>
-            <div class="demo-controls">
-                <div class="data-view-select">
-                  <select id="data-view-method" class="level-select">
-                    <option value="top-score-daily">Top Daily Scores</option>
-                    <option value="top-score-weekly">Top Weekly Scores</option>
-                    <option value="top-score-monthly">Top Montly Scores</option>
-                    <option value="top-score-alltime">Top All Time Scores</option>
-                    <option value="top-score-currentuser">Top Scores - current user</option>
-                    <option value="top-score-weekly-currentuser">Weekly Scores - current user</option>
-                    <option value="achievements-currentuser">Achievements for current user</option>
-                    <option value="datastore-currentuser">Data Store for current user</option>
-                  </select>
-                  <select id="data-view-level" class="level-select"></select>
-                  <input type="button" value="view data" id="data-view-submit">
-                </div>
-                <div id="data-view" class="data-view">
-                </div>
+      <div id="demo-stage" class="demo-stage">
+          <h1>SWAG API Demo</h1>
+          <h2>Current User</h2>
+          <div class="demo-controls">
+              <div id="user-info"></div>
           </div>
+          <h2>Post Methods</h2>
+          <div class="demo-controls">
+              <div>
+                <div class="control-title">Submit Score</div>
+                <select id="post-level" class="level-select"></select>
+                <input type="text" id="post-level-value">
+                <input type="button" value="post highscore" id="post-level-submit">
+              </div>
+              <div>
+                <div class="control-title">Submit Achievement</div>
+                <select id="post-achievement" class="achievement-select"></select>
+                <input type="button" value="post achievement" id="post-achievement-submit">
+              </div>
+              <div>
+                <div class="control-title">Submit To Datastore</div>
+                Key: <input type="text" id="post-data-key">
+                Value: <input type="text" id="post-data-value">
+                <input type="button" value="post data" id="post-data-submit">
+              </div>
+          </div>
+          <h2>Data Views</h2>
+          <div class="demo-controls">
+              <div class="data-view-select">
+                <select id="data-view-method" class="level-select">
+                  <option value="top-score-daily">Top Daily Scores</option>
+                  <option value="top-score-weekly">Top Weekly Scores</option>
+                  <option value="top-score-monthly">Top Montly Scores</option>
+                  <option value="top-score-alltime">Top All Time Scores</option>
+                  <option value="top-score-currentuser">Top Scores - current user</option>
+                  <option value="top-score-weekly-currentuser">Weekly Scores - current user</option>
+                  <option value="achievements-currentuser">Achievements for current user</option>
+                  <option value="datastore-currentuser">Data Store for current user</option>
+                </select>
+                <select id="data-view-level" class="level-select"></select>
+                <input type="button" value="view data" id="data-view-submit">
+              </div>
+              <div id="data-view" class="data-view">
+              </div>
+          </div>
+      </div>
+      <div id="demo-stage" class="demo-stage">
+          <h2>Dialogs</h2>
+          <div class="demo-controls">
+              <input type="button" id="show-highscore-dialog" value="Show Highscore Dialog">
+              <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
+          </div>
+          <div id="swag-api-wrapper" class="api-wrapper"></div>
       </div>
   </body>
 
@@ -132,13 +149,25 @@
         },
         start: function() {
           //show the ui and populate selects
-          document.getElementById('demo-stage').style.visibility = 'visible';
+          document.querySelectorAll('.demo-stage').forEach(function(stage) {
+            stage.style.visibility = 'visible';
+          });
           api.populateLevelSelect('post-level');
           api.populateLevelSelect('data-view-level');
           api.populateAchievementSelect('post-achievement');
           document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
+          api.showDialog('highscore');
         }
       };
+
+      //Dialogs
+      document.getElementById('show-highscore-dialog').addEventListener('click', function() {
+          api.showDialog('highscore');
+      });
+
+      document.getElementById('show-achievements-dialog').addEventListener('click', function() {
+          api.showDialog('achievements');
+      });
 
       // Demo Game Events
       document.getElementById('post-level-submit').addEventListener('click', function() {
@@ -278,8 +307,9 @@
       });
       */
 
-      // The high score dialog has closed
-      api.on('HIGHSCORE_CLOSED', function() {
+      // Active dialog has closed
+      api.on('DIALOG_CLOSED', function() {
+          console.log('DIALOG CLOSED');
       });
 
       // An API error has occurred
