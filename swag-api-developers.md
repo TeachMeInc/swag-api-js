@@ -80,6 +80,7 @@ The following options are available:
 |type|no|String, _default:_ `"standard"`, _values:_ `"standard", "weekly"`
 |period|no|String, _default:_ `"alltime"`, _values:_ `"daily", "weekly", "monthly", "alltime"`
 |current_user|no|boolean, _default:_ `false`.  If true, only get highscores for current user
+|reverse|no|boolean, _default:_ `false`.  If true, get lowest scores
 |target_date|no|number, epoch time.  Use this date as the base for date ranges eg. "daily", "weekly"
 
 Example (high scores this week on level1 for the current user):
