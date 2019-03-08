@@ -1,6 +1,6 @@
 {
   "name": "shockwave-api-js",
-  "version": "1.0.6",
+  "version": "0.0.4",
   "private": true,
   "main": "./dist/bundle.js",
   "scripts": {

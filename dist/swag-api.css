@@ -2536,9 +2536,6 @@
             .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(odd), .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(even) {
               background-color: #e3e7ea; }
         .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
           border: 1px solid #efefef;
           overflow-y: scroll;
           -webkit-box-flex: 1;
