@@ -20,6 +20,7 @@ var templates = {
 
 var apiMethods = {
   'getEntity': '/v1/user',
+  'getSubscriber': '/v1/subscriber',
   'getHighscoreCategories': '/v1/highscore/categories',
   'getHighScores': '/v1/highscores',
   'postHighscore': '/v1/highscore',
@@ -155,6 +156,10 @@ var methods = {
     return this._renderDialog(type);
   },
 
+  isSubscriber: function() {
+    return this._isSubscriber();
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
@@ -250,6 +255,24 @@ var methods = {
         .then(function(entity) {
           self._session.entity = entity;
           resolve(entity);
+        });
+      }
+    });
+    return promise;
+  },
+
+  _isSubscriber: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      if(self._session.options.uid) {
+        self._session.entity = self._session.options.uid;
+        resolve(self._session.options.uid);
+      } else {
+        self._getAPIData({
+          method: apiMethods['getSubscriber']
+        })
+        .then(function(result) {
+          resolve(!!result.subscriber);
         });
       }
     });
