@@ -66,7 +66,7 @@ All methods return promises
 |postDatastore| key, value | Post a `value` to `key`.  If 'key' exists for this user, it will be overwritten.
 |getUserDatastore| - | Returns a json array of all data store objects associated with this user
 |showDialog | type | display a dialog of type `highscore`, `achievements` or `weeklyscores`
-|getServerDate | - | Used to get server time to decide which day it is in daily games *_not yet implelmented_
+|isSubscriber| - | returns true if the current user is a subscriber
 
 <div class="page-break"></div>
 
