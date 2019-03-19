@@ -79,8 +79,10 @@ var methods = {
 
   // Events ------------------------------------------------------------------
 
+    API_COMMUNICATION_ERROR: 'API_COMMUNICATION_ERROR',
     SESSION_READY: 'SESSION_READY',
     DIALOG_CLOSED: 'DIALOG_CLOSED',
+    INVALID_DIALOG_TYPE: 'INVALID_DIALOG_TYPE',
     ERROR: 'ERROR',
 
   // Interface -----------------------------------------------------------------
@@ -89,13 +91,11 @@ var methods = {
     var self = this;
     self._debug('start session');
 
-    return Promise.all([
-      this._getEntity()
-    ])
-      .then(function() {
-        self._debug('session ready');
-        self.emit(self.SESSION_READY);
-      });
+      return this._getEntity()
+        .then(function() {
+          self._debug('session ready');
+          self.emit(self.SESSION_READY);
+        });
   },
 
   getScoreCategories: function() {
@@ -173,6 +173,10 @@ var methods = {
     });
   },
 
+  _emitError: function(errorType) {
+    this.emit(this.ERROR, errorType);
+  },
+
   _parseUrlOptions: function(prop) {
     var params = {};
     if(window.location.href.indexOf('?') === -1) {
@@ -213,8 +217,19 @@ var methods = {
         if(response && !response.error) {
           resolve(response);
         } else {
+          self._emitError(self.API_COMMUNICATION_ERROR);
           reject(response);
         }
+      };
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 0) {
+          self._emitError(self.API_COMMUNICATION_ERROR);
+          reject();
+        }
+      };
+      xhr.onError = function() {
+        self._emitError(self.API_COMMUNICATION_ERROR);
+        reject();
       };
       xhr.send();
     });
@@ -234,6 +249,7 @@ var methods = {
         if(response && !response.error) {
           resolve(response);
         } else {
+          self._emitError(self.API_COMMUNICATION_ERROR);
           reject(response);
         }
       };
@@ -430,6 +446,8 @@ var methods = {
 
     if(dialogMethods[type]) {
       return self[dialogMethods[type]]();
+    } else {
+      this._emitError(this.INVALID_DIALOG_TYPE);
     }
 
   },
