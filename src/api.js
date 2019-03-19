@@ -94,7 +94,7 @@ var methods = {
       return this._getEntity()
         .then(function() {
           self._debug('session ready');
-          self.emit(self.SESSION_READY);
+          self.emit(self.SESSION_READY, { session_ready: true });
         });
   },
 
@@ -174,7 +174,7 @@ var methods = {
   },
 
   _emitError: function(errorType) {
-    this.emit(this.ERROR, errorType);
+    this.emit(this.ERROR, { type: errorType });
   },
 
   _parseUrlOptions: function(prop) {
@@ -666,10 +666,10 @@ var methods = {
       });
   },
 
-  _onCloseDialog: function() {
+  _onCloseDialog: function(event) {
     event.preventDefault();
     this._cleanStage();
-    this.emit(this.DIALOG_CLOSED);
+    this.emit(this.DIALOG_CLOSED, event);
   }
 
 };
