@@ -10,8 +10,8 @@ var elementResizeEvent = require('element-resize-event');
 
 var templates = {
   'dialog': require('templates/dialog.handlebars'),
-  'dialogHighscore': require('templates/dialog-highscores.handlebars'),
-  'dataHighscore': require('templates/data-highscores.handlebars'),
+  'dialogScore': require('templates/dialog-scores.handlebars'),
+  'dataScore': require('templates/data-scores.handlebars'),
   'dialogAchievements': require('templates/dialog-achievements.handlebars'),
   'dataAchievements': require('templates/data-achievements.handlebars'),
   'dialogWeeklyScores': require('templates/dialog-weeklyscores.handlebars'),
@@ -21,9 +21,9 @@ var templates = {
 var apiMethods = {
   'getEntity': '/v1/user',
   'getSubscriber': '/v1/subscriber',
-  'getHighscoreCategories': '/v1/highscore/categories',
-  'getHighScores': '/v1/highscores',
-  'postHighscore': '/v1/highscore',
+  'getScoreCategories': '/v1/score/categories',
+  'getScores': '/v1/scores',
+  'postScore': '/v1/score',
   'getAchievementCategories': '/v1/achievement/categories',
   'postAchievement': '/v1/achievement',
   'getUserAchievements': '/v1/achievement/user',
@@ -32,7 +32,7 @@ var apiMethods = {
 };
 
 var dialogMethods = {
-  'highscore': '_renderHighscoreDialog',
+  'scores': '_renderScoresDialog',
   'achievements': '_renderAchievementsDialog',
   'weeklyscores': '_renderWeeklyScoresDialog'
 };
@@ -98,19 +98,19 @@ var methods = {
       });
   },
 
-  getHighscoreCategories: function() {
+  getScoreCategories: function() {
     var self = this;
-    return self._getHighscoreCategories();
+    return self._getScoreCategories();
   },
 
-  getHighScores: function(options) {
+  getScores: function(options) {
     var self = this;
-    return self._getHighScores(options);
+    return self._getScores(options);
   },
 
-  postHighscore: function(level_key, value) {
+  postScore: function(level_key, value) {
     var self = this;
-    return self._postHighscore(level_key, value);
+    return self._postScore(level_key, value);
   },
 
   getAchievementCategories: function() {
@@ -279,11 +279,11 @@ var methods = {
     return promise;
   },
 
-  _getHighscoreCategories: function() {
+  _getScoreCategories: function() {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       self._getAPIData({
-        method: apiMethods['getHighscoreCategories'],
+        method: apiMethods['getScoreCategories'],
         params: {
           game: self._options['api_key']
         }
@@ -295,14 +295,14 @@ var methods = {
     return promise;
   },
 
-  _getHighScores: function(options) {
+  _getScores: function(options) {
     var self = this,
         clean = _.pick(options, ['type', 'level_key', 'period', 'current_user', 'reverse', 'target_date']),
         params = _.extend({game: self._options['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self._getAPIData({
-        method: apiMethods['getHighScores'],
+        method: apiMethods['getScores'],
         params: params
       })
       .then(function(scores) {
@@ -312,7 +312,7 @@ var methods = {
     return promise;
   },
 
-  _postHighscore: function(level_key, value) {
+  _postScore: function(level_key, value) {
     var self = this;
     var body = {
       game: self._options.api_key,
@@ -321,7 +321,7 @@ var methods = {
     };
     var urlParamsString = self.buildUrlParamString(body);
     return this._postAPIData({
-      method: apiMethods['postHighscore'],
+      method: apiMethods['postScore'],
       body: body,
       params: urlParamsString
     });
@@ -434,33 +434,33 @@ var methods = {
 
   },
 
-  _renderHighscoreDialog: function() {
+  _renderScoresDialog: function() {
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
 
-    return self.getHighscoreCategories()
+    return self.getScoreCategories()
       .then(function(categories) {
 
-        var highScoreDialog = templates['dialogHighscore']({
+        var scoreDialog = templates['dialogScore']({
           levels: categories
         });
 
-        contentEl.innerHTML = highScoreDialog;
+        contentEl.innerHTML = scoreDialog;
 
         var levelSelector = document.getElementById('swag-data-view-level');
         var periodSelector = document.getElementById('swag-data-view-period');
         var dataTableCont = document.getElementById('swag-data');
 
-        var highScoreMethod = function(level_key, period) {
+        var scoreMethod = function(level_key, period) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
-          return self.getHighScores({
+          return self.getScores({
             level_key: level_key,
             period: period
           })
           .then(function(scores) {
-            var formatted = templates['dataHighscore']({
+            var formatted = templates['dataScore']({
               scores: scores
             });
             dataTableCont.innerHTML = formatted;
@@ -471,17 +471,17 @@ var methods = {
         };
 
         levelSelector.addEventListener('change', function() {
-          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
             periodSelector.options[periodSelector.selectedIndex].value);
         }, true);
 
         periodSelector.addEventListener('change', function() {
-          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
             periodSelector.options[periodSelector.selectedIndex].value);
         }, true);
 
         if(categories[0]) {
-          return highScoreMethod(levelSelector.options[0].value, periodSelector.options[0].value);
+          return scoreMethod(levelSelector.options[0].value, periodSelector.options[0].value);
         }
 
       });
@@ -522,22 +522,22 @@ var methods = {
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
 
-    return self.getHighscoreCategories()
+    return self.getScoreCategories()
       .then(function(categories) {
 
-        var highScoreDialog = templates['dialogWeeklyScores']({
+        var scoreDialog = templates['dialogWeeklyScores']({
           levels: categories
         });
 
-        contentEl.innerHTML = highScoreDialog;
+        contentEl.innerHTML = scoreDialog;
 
         var levelSelector = document.getElementById('swag-data-view-level');
         var dataTableCont = document.getElementById('swag-data');
 
-        var highScoreMethod = function(level_key) {
+        var scoreMethod = function(level_key) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
-          return self.getHighScores({
+          return self.getScores({
             type: 'weekly',
             level_key: level_key
           })
@@ -553,11 +553,11 @@ var methods = {
         };
 
         levelSelector.addEventListener('change', function() {
-          return highScoreMethod(levelSelector.options[levelSelector.selectedIndex].value);
+          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value);
         }, true);
 
         if(categories[0]) {
-          return highScoreMethod(levelSelector.options[0].value);
+          return scoreMethod(levelSelector.options[0].value);
         }
 
       });
@@ -622,7 +622,7 @@ var methods = {
 
   _populateLevelSelect: function(domId) {
     var self = this;
-    return self.getHighscoreCategories()
+    return self.getScoreCategories()
       .then(function(categories) {
         var levelSelect = document.getElementById(domId);
           categories.map(function(category) {
