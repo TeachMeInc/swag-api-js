@@ -103,8 +103,7 @@ return api.getHighScores({
 | ------------- | ------------- |
 | SESSION_READY | The api is ready to use
 | ERROR | An api error has occurred
-| HIGHSCORE_DIALOG_CLOSED | The high score dialog has closed
-| ACHIEVEMENT_DIALOG_CLOSED | The achievement dialog has closed
+| DIALOG_CLOSED | The active dialog has closed
 
 ### Demo
 
