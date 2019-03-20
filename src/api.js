@@ -243,6 +243,16 @@ var methods = {
           reject(response);
         }
       };
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 0) {
+          self._emitError(self.API_COMMUNICATION_ERROR);
+          reject();
+        }
+      };
+      xhr.onError = function() {
+        self._emitError(self.API_COMMUNICATION_ERROR);
+        reject();
+      };
       xhr.send(JSON.stringify(options.body));
     });
     return promise;
