@@ -150,6 +150,16 @@ var methods = {
     return this._isSubscriber();
   },
 
+  /* TODO: remove deprecated client method */
+  postHighScore: function(level_key, value) {
+    return this.postScore(level_key, value);
+  },
+
+  /* TODO: remove deprecated client method */
+  getHighScores: function(options) {
+    return this.getScores(options);
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
