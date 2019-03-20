@@ -99,53 +99,43 @@ var methods = {
   },
 
   getScoreCategories: function() {
-    var self = this;
-    return self._getScoreCategories();
+    return this._getScoreCategories();
   },
 
   getScores: function(options) {
-    var self = this;
-    return self._getScores(options);
+    return this._getScores(options);
   },
 
   postScore: function(level_key, value) {
-    var self = this;
-    return self._postScore(level_key, value);
+    return this._postScore(level_key, value);
   },
 
   getAchievementCategories: function() {
-    var self = this;
-    return self._getAchievementCategories();
+    return this._getAchievementCategories();
   },
 
   postAchievement: function(achievement_key) {
-    var self = this;
-    return self._postAchievement(achievement_key);
+    return this._postAchievement(achievement_key);
   },
 
   getUserAchievements: function() {
-    var self = this;
-    return self._getUserAchievements();
+    return this._getUserAchievements();
   },
 
   postDatastore: function(key, value) {
-    var self = this;
-    return self._postDatastore(key, value);
+    return this._postDatastore(key, value);
   },
 
   getUserDatastore: function() {
-    var self = this;
-    return self._getUserDatastore();
+    return this._getUserDatastore();
   },
 
   populateLevelSelect: function(domId) {
-    var self = this;
-    return self._populateLevelSelect(domId);
+    return this._populateLevelSelect(domId);
   },
 
   populateAchievementSelect: function(domId) {
-    var self = this;
-    return self._populateAchievementSelect(domId);
+    return this._populateAchievementSelect(domId);
   },
 
   getCurrentEntity: function() {
