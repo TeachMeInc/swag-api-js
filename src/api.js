@@ -673,12 +673,14 @@ var methods = {
     return self.getScoreCategories()
       .then(function(categories) {
         var levelSelect = document.getElementById(domId);
+        if(levelSelect) {
           categories.map(function(category) {
             var opt = document.createElement('option');
             opt.value= category.level_key;
             opt.innerHTML = category.name;
             levelSelect.appendChild(opt);
           });
+        }
       });
   },
 
