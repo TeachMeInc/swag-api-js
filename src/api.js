@@ -465,7 +465,12 @@ var methods = {
     });
 
     if(dialogMethods[type]) {
-      return self[dialogMethods[type]](dialogOptions);
+        return self[dialogMethods[type]](dialogOptions)
+            .then(function() {
+                document.getElementById('swag-dialog-wrapper').addEventListener('click', function(event) {
+                    event.stopPropagation();
+                });
+            });
     } else {
       this._emitError(this.INVALID_DIALOG_TYPE);
     }
