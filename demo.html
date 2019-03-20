@@ -1,7 +1,7 @@
 <html>
   <head>
       <title>SWAG JS API Demo</title>
-      <link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
+      <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
       <style>
         body {
           padding-bottom: 2em;
@@ -37,6 +37,10 @@
           font-weight: bold;
           background-color: #efefef;
         }
+        .control-title > p {
+          color: #2d2d2d;
+          font-size: 0.8vw;
+        }
         input[type="button"] {
           background-color: #efefef;
           font-size: 1vw;
@@ -65,6 +69,13 @@
           height : 40vw;
           background-color: #efefef;
         }
+        canvas {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
       </style>
   </head>
   <body>
@@ -74,14 +85,33 @@
           <div class="demo-controls">
               <div id="user-info"></div>
           </div>
+          <h2>Dialogs</h2>
+          <div class="demo-controls">
+              <input type="button" id="show-highscore-dialog" value="Show Score Dialog">
+              <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
+              <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
+          </div>
+          <div id="swag-api-wrapper" class="api-wrapper">
+            <canvas id="game-canvas"></canvas>
+          </div>
           <h2>Post Methods</h2>
           <div class="demo-controls">
               <div>
                 <div class="control-title">Submit Score</div>
-                <select id="post-level" class="level-select"></select>
-                <input type="text" id="post-level-value">
-                <input type="button" value="post highscore" id="post-level-submit">
+                <select id="post-score" class="level-select"></select>
+                <input type="text" id="post-score-value">
+                <input type="button" value="post score" id="post-score-submit">
+                <div class="control-tip"></div>
               </div>
+              <!--
+              TODO: uncomment once this feature is complete
+              <div>
+                <div class="control-title">Submit Daily Score</div>
+                <select id="post-dailyscore" class="level-select"></select>
+                <input type="text" id="post-dailyscore-value">
+                <input type="button" value="post daily score" id="post-dailyscore-submit">
+              </div>
+              -->
               <div>
                 <div class="control-title">Submit Achievement</div>
                 <select id="post-achievement" class="achievement-select"></select>
@@ -114,18 +144,9 @@
               </div>
           </div>
       </div>
-      <div id="demo-stage" class="demo-stage">
-          <h2>Dialogs</h2>
-          <div class="demo-controls">
-              <input type="button" id="show-highscore-dialog" value="Show Highscore Dialog">
-              <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
-              <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
-          </div>
-          <div id="swag-api-wrapper" class="api-wrapper"></div>
-      </div>
   </body>
 
-  <script src="https://swagapi.shockwave.com/dist/swag-api.js"></script>
+  <script src="./dist/swag-api.js"></script>
   <script>
 
     var wrapper =  document.getElementById('swag-api-wrapper');
@@ -149,21 +170,35 @@
           return api.startSession();
         },
         start: function() {
+
+          //write some text on the game canvas
+          var demoCanvas = document.getElementById("game-canvas");
+          demoCanvas.width = demoCanvas.getBoundingClientRect().width;
+          demoCanvas.height = demoCanvas.getBoundingClientRect().height;
+          var ctx = demoCanvas.getContext("2d");
+          ctx.font = "40px Comic Sans MS";
+          ctx.fillStyle = "#2d2d2d";
+          ctx.textAlign = "center";
+          ctx.fillText("Demo Canvas", demoCanvas.width/2, demoCanvas.height/2);
+
           //show the ui and populate selects
           document.querySelectorAll('.demo-stage').forEach(function(stage) {
             stage.style.visibility = 'visible';
           });
-          api.populateLevelSelect('post-level');
+          api.populateLevelSelect('post-score');
+          api.populateLevelSelect('post-dailyscore');
           api.populateLevelSelect('data-view-level');
           api.populateAchievementSelect('post-achievement');
           document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
-          api.showDialog('highscore');
+          api.showDialog('achievements');
         }
       };
 
       //Dialogs
       document.getElementById('show-highscore-dialog').addEventListener('click', function() {
-          api.showDialog('highscore');
+          api.showDialog('scores', {
+              title: 'Best Scores'
+          });
       });
 
       document.getElementById('show-achievements-dialog').addEventListener('click', function() {
@@ -171,16 +206,27 @@
       });
 
       document.getElementById('show-weeklyscores-dialog').addEventListener('click', function() {
-          api.showDialog('weeklyscores');
+          api.showDialog('weeklyscores', {
+              title: 'Your Best Scores This Week'
+          });
       });
 
       // Demo Game Events
-      document.getElementById('post-level-submit').addEventListener('click', function() {
-          var levelSelect = document.getElementById('post-level'),
+      document.getElementById('post-score-submit').addEventListener('click', function() {
+          var levelSelect = document.getElementById('post-score'),
               levelKey = levelSelect.options[levelSelect.selectedIndex].value,
-              scoreValue = document.getElementById('post-level-value').value;
-          return api.postHighscore(levelKey, scoreValue);
+              scoreValue = document.getElementById('post-score-value').value;
+          return api.postScore(levelKey, scoreValue);
       });
+
+      /* TODO: uncomment when feature is enabled
+      document.getElementById('post-dailyscore-submit').addEventListener('click', function() {
+          var levelSelect = document.getElementById('post-dailyscore'),
+              levelKey = levelSelect.options[levelSelect.selectedIndex].value,
+              scoreValue = document.getElementById('post-dailyscore-value').value;
+          return api.postDailyScore(levelKey, scoreValue);
+      });
+      */
 
       document.getElementById('post-achievement-submit').addEventListener('click', function() {
           var achievementSelect = document.getElementById('post-achievement'),
@@ -220,7 +266,7 @@
               switch(methodName) {
 
                 case "top-score-daily":
-                  return api.getHighScores({
+                  return api.getScores({
                     period: 'daily',
                     level_key: selectedLevel
                   })
@@ -230,7 +276,7 @@
                   break;
 
                 case "top-score-weekly":
-                  return api.getHighScores({
+                  return api.getScores({
                     period: 'weekly',
                     level_key: selectedLevel
                   })
@@ -240,7 +286,7 @@
                   break;
 
                 case "top-score-monthly":
-                  return api.getHighScores({
+                  return api.getScores({
                     period: 'monthly',
                     level_key: selectedLevel
                   })
@@ -250,7 +296,7 @@
                   break;
 
                 case "top-score-alltime":
-                  return api.getHighScores({
+                  return api.getScores({
                     period: 'alltime',
                     level_key: selectedLevel
                   })
@@ -260,7 +306,7 @@
                   break;
 
                 case "top-score-currentuser":
-                  return api.getHighScores({
+                  return api.getScores({
                     period: 'alltime',
                     level_key: selectedLevel,
                     current_user: true
@@ -271,7 +317,7 @@
                   break;
 
                 case "top-score-weekly-currentuser":
-                  return api.getHighScores({
+                  return api.getScores({
                     type: 'weekly',
                     level_key: selectedLevel,
                     current_user: true,
@@ -306,20 +352,21 @@
 
       // The session is ready
       // (optional event, used instead of using promise)
-      /*
-      api.on('SESSION_READY', function() {
-        console.log('the api is ready to use');
+      api.on('SESSION_READY', function(event) {
+        console.log('The api is ready to use');
+        console.log(event);
       });
-      */
 
       // Active dialog has closed
-      api.on('DIALOG_CLOSED', function() {
+      api.on('DIALOG_CLOSED', function(event) {
           console.log('DIALOG CLOSED');
+          console.log(event);
       });
 
       // An API error has occurred
-      api.on('ERROR', function(error) {
-          console.log('API ERROR: ' + error);
+      api.on('ERROR', function(event) {
+          console.log('SWAG API ERROR: ');
+          console.log(event);
       });
 
 //-------- Start the Game ------------------------------------------------------
