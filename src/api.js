@@ -142,8 +142,8 @@ var methods = {
     return this._session.entity;
   },
 
-  showDialog: function(type) {
-    return this._renderDialog(type);
+  showDialog: function(type, options) {
+    return this._renderDialog(type, options);
   },
 
   isSubscriber: function() {
@@ -422,7 +422,7 @@ var methods = {
 
   // Dialogs
 
-  _renderDialog: function(type) {
+  _renderDialog: function(type, options) {
     var self = this;
     var dialogOptions = {
         theme: self._theme,
@@ -430,6 +430,10 @@ var methods = {
             backButton: true
         }
     };
+
+    if(options && options.title) {
+        dialogOptions.title = options.title;
+    }
 
     var progressDialog = templates['dialog'](dialogOptions);
     this._cleanStage();
@@ -445,14 +449,14 @@ var methods = {
     });
 
     if(dialogMethods[type]) {
-      return self[dialogMethods[type]]();
+      return self[dialogMethods[type]](dialogOptions);
     } else {
       this._emitError(this.INVALID_DIALOG_TYPE);
     }
 
   },
 
-  _renderScoresDialog: function() {
+  _renderScoresDialog: function(options) {
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
@@ -461,6 +465,7 @@ var methods = {
       .then(function(categories) {
 
         var scoreDialog = templates['dialogScore']({
+          title: options.title,
           levels: categories
         });
 
@@ -509,13 +514,17 @@ var methods = {
       });
   },
 
-  _renderAchievementsDialog: function() {
+  _renderAchievementsDialog: function(options) {
 
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
 
-    var achievementsDialog = templates['dialogAchievements']();
+    var achievementsDialog = templates['dialogAchievements']({
+        title: (options && options.title)
+            ? options.title
+            : 'Your Achievements'
+    });
     contentEl.innerHTML = achievementsDialog;
 
     var dataTableCont = document.getElementById('swag-data');
@@ -539,7 +548,7 @@ var methods = {
 
   },
 
-  _renderWeeklyScoresDialog: function() {
+  _renderWeeklyScoresDialog: function(options) {
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
@@ -548,7 +557,8 @@ var methods = {
       .then(function(categories) {
 
         var scoreDialog = templates['dialogWeeklyScores']({
-          levels: categories
+          levels: categories,
+          title: options.title
         });
 
         contentEl.innerHTML = scoreDialog;
