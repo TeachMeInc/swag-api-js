@@ -473,7 +473,7 @@ var methods = {
 
         var levelSelector = document.getElementById('swag-data-view-level');
         var periodSelector = document.getElementById('swag-data-view-period');
-        var dataTableCont = document.getElementById('swag-data');
+        var dataTableCont = document.getElementById('swag-data-table');
 
         var scoreMethod = function(level_key, period) {
           dataTableCont.innerHTML = '';
@@ -637,7 +637,7 @@ var methods = {
   },
 
   _cleanStage: function() {
-    var elems = this._wrapper.getElementsByClassName('swag-dialog');
+    var elems = this._wrapper.getElementsByClassName('swag-dialog-wrapper');
     _.each(elems, function(elem) {
       elem.parentNode.removeChild(elem);
     });
