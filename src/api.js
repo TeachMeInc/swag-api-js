@@ -478,7 +478,11 @@ var methods = {
             period: period
           })
           .then(function(scores) {
+            var selectedCategory = _.find(categories, function(category) {
+              return level_key === category.level_key;
+            });
             var formatted = templates['dataScore']({
+              category: selectedCategory,
               scores: scores
             });
             dataTableCont.innerHTML = formatted;
