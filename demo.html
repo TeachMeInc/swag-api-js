@@ -1,7 +1,7 @@
 <html>
   <head>
       <title>SWAG JS API Demo</title>
-      <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
+      <link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
       <style>
         body {
           padding-bottom: 2em;
@@ -146,7 +146,7 @@
       </div>
   </body>
 
-  <script src="./dist/swag-api.js"></script>
+  <script src="https://swagapi.shockwave.com/dist/swag-api.js"></script>
   <script>
 
     var wrapper =  document.getElementById('swag-api-wrapper');
@@ -190,7 +190,9 @@
           api.populateLevelSelect('data-view-level');
           api.populateAchievementSelect('post-achievement');
           document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
-          api.showDialog('achievements');
+          api.showDialog('scores', {
+              title: 'Best Scores'
+          });
         }
       };
 
