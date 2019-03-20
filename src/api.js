@@ -151,13 +151,18 @@ var methods = {
   },
 
   /* TODO: remove deprecated client method */
-  postHighScore: function(level_key, value) {
+  postHighscore: function(level_key, value) {
     return this.postScore(level_key, value);
   },
 
   /* TODO: remove deprecated client method */
   getHighScores: function(options) {
     return this.getScores(options);
+  },
+
+  /* TODO: remove deprecated client method */
+  getHighscoreCategories: function() {
+    return this.getScoreCategories();
   },
 
   // ---------------------------------------------------------------------------
