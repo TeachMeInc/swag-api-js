@@ -33,6 +33,7 @@ var apiMethods = {
 
 var dialogMethods = {
   'scores': '_renderScoresDialog',
+  'highscore': '_renderScoresDialog',
   'achievements': '_renderAchievementsDialog',
   'weeklyscores': '_renderWeeklyScoresDialog'
 };
