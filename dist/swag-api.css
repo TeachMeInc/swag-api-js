@@ -2400,8 +2400,18 @@
       -webkit-transition: none !important;
       animation: unset !important;
       transition: none !important; } }
+  .swag-wrapper .swag-dialog-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation-duration: 0.50s;
+            animation-duration: 0.50s;
+    z-index: 10000; }
   .swag-wrapper .swag-dialog {
-    z-index: 999;
+    z-index: 15000;
     position: absolute;
     margin: auto;
     background-color: #fff;
@@ -2413,8 +2423,8 @@
     -webkit-box-shadow: 10px 10px 5px -5px rgba(0, 0, 0, 0.24);
             box-shadow: 10px 10px 5px -5px rgba(0, 0, 0, 0.24);
     font-size: 1vw;
-    -webkit-animation-duration: 0.75s;
-            animation-duration: 0.75s;
+    -webkit-animation-duration: 0.50s;
+            animation-duration: 0.50s;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -2423,10 +2433,6 @@
     -webkit-flex-direction: column;
             flex-direction: column;
     font-family: Arial, Helvetica, sans-serif; }
-    .swag-wrapper .swag-dialog .swag-select {
-      font-size: 1.2vw;
-      padding: 0.5vw;
-      margin: 0vw 0.5vw; }
     .swag-wrapper .swag-dialog .swag-dialog-header {
       color: #fff;
       -webkit-border-radius: 0.5vw 0.5vw 0vw 0vw;
@@ -2515,7 +2521,8 @@
                 flex: 1 1 100%;
         padding: 1vw;
         overflow: hidden;
-        font-size: 1.1vw; }
+        font-size: 1.1vw;
+        color: #272727; }
         .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header {
           display: -webkit-box;
           display: -webkit-flex;
@@ -2527,14 +2534,19 @@
                   flex: 0 0 auto;
           color: #0164a0;
           font-weight: 700;
-          border-bottom: 1px solid #0164a0;
+          border: 1px solid #d2d2d2;
           overflow: hidden;
           -webkit-border-radius: 10px 10px 0px 0px;
-                  border-radius: 10px 10px 0px 0px; }
+                  border-radius: 10px 10px 0px 0px;
+          padding: 0.5vw;
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box;
+          background-color: #e3e7ea; }
           .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div {
-            border: none; }
+            border: none;
+            padding: 0vw; }
             .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(odd), .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(even) {
-              background-color: #e3e7ea; }
+              background-color: initial; }
         .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div {
           border: 1px solid #efefef;
           overflow-y: scroll;
@@ -2543,7 +2555,9 @@
                   flex: 1 1 100%;
           width: 100%;
           -webkit-flex-wrap: wrap;
-                  flex-wrap: wrap; }
+                  flex-wrap: wrap;
+          -webkit-box-sizing: border-box;
+                  box-sizing: border-box; }
           .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div {
             display: -webkit-box;
             display: -webkit-flex;
@@ -2554,31 +2568,44 @@
             -webkit-flex-wrap: nowrap;
                     flex-wrap: nowrap;
             padding: 0.5vw;
-            border-bottom: 1px solid #EFEFEE; }
+            border-bottom: 1px solid #EFEFEE;
+            -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+                    align-items: center; }
             .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row {
               -webkit-flex-wrap: wrap;
                       flex-wrap: wrap;
-              border: 1px solid #efefef; }
+              border: 1px solid #efefef;
+              margin-bottom: 1vw; }
               .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row > div {
                 text-align: left;
+                padding-left: 1vw;
                 color: #afafaf; }
               .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:nth-child(odd), .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:nth-child(even) {
                 background-color: #fff; }
+              .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:before {
+                width: 2.6vw;
+                height: 2.6vw;
+                line-height: 2.8vw;
+                content: "\2713";
+                background-color: #fff;
+                color: #fff;
+                font-weight: 700;
+                font-size: 1.6vw;
+                -webkit-border-radius: 50%;
+                        border-radius: 50%;
+                border: 1px solid #efefef; }
               .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved {
                 border: 1px solid green; }
+                .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved:before {
+                  content: "\2713";
+                  background-color: green; }
                 .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved > div {
                   color: black; }
                 .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-name {
                   color: green; }
-                  .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-name:after {
-                    padding: 0vw 1vw;
-                    content: "\2713";
-                    color: green;
-                    font-weight: 700;
-                    font-size: 1.6vw;
-                    background-color: #c1f5c5;
-                    margin-left: 1vw;
-                    border: 1px solid green; }
                 .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-description {
                   color: #868585; }
             .swag-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div:nth-child(even) {
@@ -2633,7 +2660,8 @@
               align-items: center;
       -webkit-box-pack: center;
       -webkit-justify-content: center;
-              justify-content: center; }
+              justify-content: center;
+      color: #272727; }
       .swag-wrapper .swag-dialog .swag-data-selector div.selector-title {
         padding-right: 2vw;
         text-align: center;
@@ -2651,5 +2679,45 @@
     background-image: url(9193145315295cc05698d1660e427b68.gif); }
   .swag-wrapper .swag-dialog.shockwave .swag-data-selector {
     background-color: #f0f8ff; }
+  .swag-wrapper .swag-select {
+    display: block;
+    font-size: 1vw;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: #444;
+    line-height: 2vw;
+    padding: 0vw 2vw 0vw 0.8vw;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    margin: 0;
+    border: 1px solid #aaa;
+    -webkit-box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.04);
+    -webkit-border-radius: 6px;
+            border-radius: 6px;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e5e5e5));
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), -webkit-linear-gradient(top, #ffffff 0%, #e5e5e5 100%);
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"), linear-gradient(to bottom, #ffffff 0%, #e5e5e5 100%);
+    background-repeat: no-repeat, repeat;
+    background-position: right 0.7vw top 50%, 0 0;
+    background-size: 0.65vw auto, 100%;
+    margin: 0vw 0.5vw; }
+  .swag-wrapper .swag-select::-ms-expand {
+    display: none; }
+  .swag-wrapper .swag-select:hover {
+    border-color: #888; }
+  .swag-wrapper .swag-select:focus {
+    border-color: #aaa;
+    -webkit-box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+            box-shadow: 0 0 1px 3px rgba(59, 153, 252, 0.7);
+    box-shadow: 0 0 0 3px -moz-mac-focusring;
+    color: #222;
+    outline: none; }
+  .swag-wrapper .swag-select option {
+    font-weight: normal; }
 
 /*# sourceMappingURL=swag-api.css.map*/
