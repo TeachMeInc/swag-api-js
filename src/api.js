@@ -22,6 +22,7 @@ var apiMethods = {
   'getEntity': '/v1/user',
   'getSubscriber': '/v1/subscriber',
   'getScoreCategories': '/v1/score/categories',
+  'getDays': '/v1/days',
   'getScores': '/v1/scores',
   'postScore': '/v1/score',
   'getAchievementCategories': '/v1/achievement/categories',
@@ -103,6 +104,10 @@ var methods = {
     return this._getScoreCategories();
   },
 
+  getDays: function(limit) {
+    return this._getDays(limit);
+  },
+
   getScores: function(options) {
     return this._getScores(options);
   },
@@ -133,6 +138,10 @@ var methods = {
 
   populateLevelSelect: function(domId) {
     return this._populateLevelSelect(domId);
+  },
+
+  populateDaySelect: function(domId, limit) {
+    return this._populateDaySelect(domId, limit);
   },
 
   populateAchievementSelect: function(domId) {
@@ -322,6 +331,23 @@ var methods = {
       })
       .then(function(categories) {
         resolve(categories);
+      });
+    });
+    return promise;
+  },
+
+  _getDays: function(limit) {
+    var self = this;
+    var dayLimit = limit || 30;
+    var promise = new Promise(function(resolve, reject) {
+      self._getAPIData({
+        method: apiMethods['getDays'],
+        params: {
+          limit: dayLimit
+        }
+      })
+      .then(function(days) {
+        resolve(days);
       });
     });
     return promise;
@@ -696,6 +722,22 @@ var methods = {
             opt.value= category.level_key;
             opt.innerHTML = category.name;
             levelSelect.appendChild(opt);
+          });
+        }
+      });
+  },
+
+  _populateDaySelect: function(domId, limit) {
+    var self = this;
+    return self.getDays(limit)
+      .then(function(days) {
+        var daySelect = document.getElementById(domId);
+        if(daySelect) {
+          days.map(function(day) {
+            var opt = document.createElement('option');
+            opt.value= day;
+            opt.innerHTML = day;
+            daySelect.appendChild(opt);
           });
         }
       });
