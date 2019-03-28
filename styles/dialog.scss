@@ -135,6 +135,7 @@
             width: 100%;
             flex-wrap: wrap;
             box-sizing: border-box;
+            position: relative;
 
             > div {
               display: flex;
@@ -204,6 +205,17 @@
 
           > div,
           .swag-data-header {
+
+            .data-empty {
+              align-items: center;
+              justify-content: center;
+              position: absolute;
+              width: 100%;
+              padding: 0;
+              height: 100%;
+              font-size: 1.5vw;
+              color: #7e7e7e;
+            }
 
             .data-screen-name {
               flex: 0 0 40%;

@@ -4,11 +4,15 @@
   <div class="data-date">Date</div>
 </div>
 <div id="swag-data">
-  {{#each scores}}
-    <div>
-      <div class="data-screen-name">{{screen_name}}</div>
-      <div class="data-score">{{value}}</div>
-      <div class="data-date">{{date_created}}</div>
-    </div>
-  {{/each}}
+  {{#if scores.length }}
+    {{#each scores}}
+      <div>
+        <div class="data-screen-name">{{screen_name}}</div>
+        <div class="data-score">{{value}}</div>
+        <div class="data-date">{{date_created}}</div>
+      </div>
+    {{/each}}
+  {{else}}
+    <div class="data-empty">No scores for found for this period</data>
+  {{/if}}
 </div>
