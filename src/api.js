@@ -470,6 +470,18 @@ var methods = {
                 document.getElementById('swag-dialog-wrapper').addEventListener('click', function(event) {
                     event.stopPropagation();
                 });
+                document.getElementById('swag-dialog-wrapper').addEventListener('mouseup', function(event) {
+                    event.stopPropagation();
+                });
+                document.getElementById('swag-dialog-wrapper').addEventListener('mousedown', function(event) {
+                    event.stopPropagation();
+                });
+                document.getElementById('swag-dialog-wrapper').addEventListener('pointerdown', function(event) {
+                    event.stopPropagation();
+                });
+                document.getElementById('swag-dialog-wrapper').addEventListener('pointerup', function(event) {
+                    event.stopPropagation();
+                });
             });
     } else {
       this._emitError(this.INVALID_DIALOG_TYPE);
