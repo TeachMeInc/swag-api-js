@@ -25,6 +25,7 @@ var apiMethods = {
   'getDays': '/v1/days',
   'getScores': '/v1/scores',
   'postScore': '/v1/score',
+  'postDailyScore': '/v1/dailyscore',
   'getAchievementCategories': '/v1/achievement/categories',
   'postAchievement': '/v1/achievement',
   'getUserAchievements': '/v1/achievement/user',
@@ -114,6 +115,10 @@ var methods = {
 
   postScore: function(level_key, value) {
     return this._postScore(level_key, value);
+  },
+
+  postDailyScore: function(day, level_key, value) {
+    return this._postDailyScore(day, level_key, value);
   },
 
   getAchievementCategories: function() {
@@ -380,6 +385,22 @@ var methods = {
     var urlParamsString = self.buildUrlParamString(body);
     return this._postAPIData({
       method: apiMethods['postScore'],
+      body: body,
+      params: urlParamsString
+    });
+  },
+
+  _postDailyScore: function(day, level_key, value) {
+    var self = this;
+    var body = {
+      game: self._options.api_key,
+      day: day,
+      level_key: level_key,
+      value: value
+    };
+    var urlParamsString = self.buildUrlParamString(body);
+    return this._postAPIData({
+      method: apiMethods['postDailyScore'],
       body: body,
       params: urlParamsString
     });
