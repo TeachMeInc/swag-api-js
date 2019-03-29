@@ -5,7 +5,6 @@ require('es6-promise').polyfill();
 var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('config');
-var preload = require('preload-js');
 var elementResizeEvent = require('element-resize-event');
 
 var templates = {
