@@ -13,6 +13,7 @@ var session = require('session');
 var templates = {
   'dialog': require('templates/dialog.handlebars'),
   'dialogScore': require('templates/dialog-scores.handlebars'),
+  'dialogDailyScore': require('templates/dialog-daily-scores.handlebars'),
   'dataScore': require('templates/data-scores.handlebars'),
   'dialogAchievements': require('templates/dialog-achievements.handlebars'),
   'dataAchievements': require('templates/data-achievements.handlebars'),
@@ -21,10 +22,18 @@ var templates = {
 };
 
 var dialogMethods = {
+  'highscore': 'renderScoresDialog', // TODO: Remove this deprecated type
   'scores': 'renderScoresDialog',
-  'highscore': 'renderScoresDialog',
+  'dailyscores': 'renderDailyScoresDialog',
   'achievements': 'renderAchievementsDialog',
   'weeklyscores': 'renderWeeklyScoresDialog'
+};
+
+var defaultDialogTitles = {
+  'scores': 'Best Scores',
+  'dailyscores': 'Best Daily Scores',
+  'weeklyscores': 'Your Best Scores This Week',
+  'achievements': 'Your Achievements'
 };
 
 var events = {
@@ -39,7 +48,8 @@ var methods = {
         theme: session.theme,
         header: {
             backButton: true
-        }
+        },
+        title: options && options.title || defaultDialogTitles[type]
     }, options);
 
     var progressDialog = templates['dialog'](dialogOptions);
@@ -89,7 +99,6 @@ var methods = {
       .then(function(categories) {
 
         var scoreDialog = templates['dialogScore']({
-          title: options.title,
           levels: categories
         });
 
@@ -103,8 +112,9 @@ var methods = {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
           return data.getScores({
+            type: 'standard',
             level_key: level_key,
-            period: period
+            period: period,
           })
           .then(function(scores) {
             var selectedCategory = _.find(categories, function(category) {
@@ -138,17 +148,88 @@ var methods = {
       });
   },
 
+  renderDailyScoresDialog: function(options) {
+    var self = this;
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+
+    return Promise.all([data.getDays(), data.getScoreCategories()])
+      .then(function(values) {
+
+        var days = values[0];
+        var categories = values[1];
+
+        var scoreDialog = templates['dialogDailyScore']({
+          days: days,
+          levels: categories
+        });
+
+        contentEl.innerHTML = scoreDialog;
+
+        var levelSelector = document.getElementById('swag-data-view-level');
+        var daySelector = document.getElementById('swag-data-view-day');
+        var periodSelector = document.getElementById('swag-data-view-period');
+        var dataTableCont = document.getElementById('swag-data-table');
+
+        var scoreMethod = function(day, level_key, period) {
+          console.log(day);
+          dataTableCont.innerHTML = '';
+          contentEl.classList.add('loading');
+          return data.getScores({
+            type: 'daily',
+            level_key: level_key,
+            period: period,
+            day: day
+          })
+          .then(function(scores) {
+            var selectedCategory = _.find(categories, function(category) {
+              return level_key === category.level_key;
+            });
+            var formatted = templates['dataScore']({
+              category: selectedCategory,
+              scores: scores
+            });
+            dataTableCont.innerHTML = formatted;
+          })
+          .finally(function() {
+            contentEl.classList.remove('loading');
+          });
+        };
+
+        daySelector.addEventListener('change', function() {
+          return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
+            levelSelector.options[levelSelector.selectedIndex].value,
+            periodSelector.options[periodSelector.selectedIndex].value);
+        }, true);
+
+        levelSelector.addEventListener('change', function() {
+          return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
+            levelSelector.options[levelSelector.selectedIndex].value,
+            periodSelector.options[periodSelector.selectedIndex].value);
+        }, true);
+
+        periodSelector.addEventListener('change', function() {
+          return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
+            levelSelector.options[levelSelector.selectedIndex].value,
+            periodSelector.options[periodSelector.selectedIndex].value);
+        }, true);
+
+        console.log(daySelector.options[0].value);
+
+        if(categories[0]) {
+          return scoreMethod(daySelector.options[0].value, levelSelector.options[0].value, periodSelector.options[0].value);
+        }
+
+      });
+  },
+
   renderAchievementsDialog: function(options) {
 
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
 
-    var achievementsDialog = templates['dialogAchievements']({
-        title: (options && options.title)
-            ? options.title
-            : 'Your Achievements'
-    });
+    var achievementsDialog = templates['dialogAchievements']();
     contentEl.innerHTML = achievementsDialog;
 
     var dataTableCont = document.getElementById('swag-data');

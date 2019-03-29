@@ -29,20 +29,19 @@
     .swag-dialog-header {
         color: #fff;
         border-radius: 0.5vw 0.5vw 0vw 0vw;
-        padding: 1vw 0.5vw;
+        padding: 0.5vw;
         box-sizing: border-box;
         text-align: center;
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
         flex: 0 0 auto;
 
         .swag-logo {
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
-            flex: 1 1 100%;
-            font-size: 1.4vw;
-            height: 3.6vw;
+            width: 10vw;
+            height: 3vw;
         }
 
         .swag-header-link {
@@ -76,10 +75,14 @@
     }
 
     .swag-dialog-title {
-        padding: 0.3vw 0vw;
-        font-size: 2vw;
+        font-size: 1.5vw;
         text-align: center;
         color: #53b0e1;
+        flex: 0 0 auto;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        color: #fff;
     }
 
     .swag-dialog-content {

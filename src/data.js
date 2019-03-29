@@ -198,7 +198,7 @@ var methods = {
 
   getScores: function(options) {
     var self = this,
-        clean = _.pick(options, ['type', 'level_key', 'period', 'current_user', 'reverse', 'target_date']),
+        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'reverse', 'target_date']),
         params = _.extend({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
@@ -221,7 +221,7 @@ var methods = {
       value: value
     };
     var urlParamsString = self.buildUrlParamString(body);
-    return this._postAPIData({
+    return this.postAPIData({
       method: apiMethods['postScore'],
       body: body,
       params: urlParamsString
@@ -237,7 +237,7 @@ var methods = {
       value: value
     };
     var urlParamsString = self.buildUrlParamString(body);
-    return this._postAPIData({
+    return this.postAPIData({
       method: apiMethods['postDailyScore'],
       body: body,
       params: urlParamsString
@@ -283,7 +283,7 @@ var methods = {
       achievement_key: achievement_key
     };
     var urlParamsString = self.buildUrlParamString(body);
-    return this._postAPIData({
+    return this.postAPIData({
       method: apiMethods['postAchievement'],
       body: body,
       params: urlParamsString
@@ -298,7 +298,7 @@ var methods = {
       value: value
     };
     var urlParamsString = self.buildUrlParamString(body);
-    return this._postAPIData({
+    return this.postAPIData({
       method: apiMethods['postDatastore'],
       body: body,
       params: urlParamsString
