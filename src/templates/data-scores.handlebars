@@ -1,4 +1,5 @@
 <div class="swag-data-header">
+  <div class="data-position">#</div>
   <div class="data-screen-name">Name</div>
   <div class="data-score">{{category.value_name}}</div>
   <div class="data-date">Date</div>
@@ -7,6 +8,7 @@
   {{#if scores.length }}
     {{#each scores}}
       <div>
+        <div class="data-position">{{position}}</div>
         <div class="data-screen-name">{{screen_name}}</div>
         <div class="data-score">{{value}}</div>
         <div class="data-date">{{date_created}}</div>
