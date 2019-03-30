@@ -1,0 +1,7 @@
+{{#if context.totalDailyScores.value}}
+<div><b>Today's best score:</b> {{context.dailyBest.value}}</div>
+<div><b>Your Best Score Ever:</b> {{context.allTimeBest.value}}</div>
+<div>You placed {{context.scorePosition.value}} out of {{context.totalDailyScores.value}} in today's scores</div>
+{{else}}
+<div>No Scores Yet Today</div>
+{{/if}}

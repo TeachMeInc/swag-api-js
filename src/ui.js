@@ -15,6 +15,7 @@ var templates = {
   'dialogScore': require('templates/dialog-scores.handlebars'),
   'dialogDailyScore': require('templates/dialog-daily-scores.handlebars'),
   'dataScore': require('templates/data-scores.handlebars'),
+  'dataScoreContext': require('templates/data-score-context.handlebars'),
   'dialogAchievements': require('templates/dialog-achievements.handlebars'),
   'dataAchievements': require('templates/data-achievements.handlebars'),
   'dialogWeeklyScores': require('templates/dialog-weeklyscores.handlebars'),
@@ -107,24 +108,46 @@ var methods = {
         var levelSelector = document.getElementById('swag-data-view-level');
         var periodSelector = document.getElementById('swag-data-view-period');
         var dataTableCont = document.getElementById('swag-data-table');
+        var contextCont = document.getElementById('swag-score-context');
 
         var scoreMethod = function(level_key, period) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
-          return data.getScores({
-            type: 'standard',
+
+
+        return Promise.all([
+          data.getScoresContext({
             level_key: level_key,
-            period: period,
+            period: period
+          }),
+          data.getScores({
+              type: 'standard',
+              level_key: level_key,
+              period: period
           })
-          .then(function(scores) {
+        ])
+          .then(function(values) {
+
+            var scoresContext = values[0];
+            var scores = values[1];
+
             var selectedCategory = _.find(categories, function(category) {
               return level_key === category.level_key;
             });
+
             var formatted = templates['dataScore']({
               category: selectedCategory,
               scores: scores
             });
+
             dataTableCont.innerHTML = formatted;
+
+            var contextFormatted = templates['dataScoreContext']({
+              context: scoresContext
+            });
+
+            contextCont.innerHTML = contextFormatted;
+
           })
           .finally(function() {
             contentEl.classList.remove('loading');

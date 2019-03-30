@@ -14,6 +14,7 @@ var apiMethods = {
   'getScoreCategories': '/v1/score/categories',
   'getDays': '/v1/days',
   'getScores': '/v1/scores',
+  'getScoresContext': '/v1/scores/context',
   'postScore': '/v1/score',
   'postDailyScore': '/v1/dailyscore',
   'getAchievementCategories': '/v1/achievement/categories',
@@ -198,7 +199,7 @@ var methods = {
 
   getScores: function(options) {
     var self = this,
-        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'reverse', 'target_date']),
+        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date']),
         params = _.extend({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
@@ -208,6 +209,23 @@ var methods = {
       })
       .then(function(scores) {
         resolve(scores);
+      });
+    });
+    return promise;
+  },
+
+  getScoresContext: function(options) {
+    var self = this,
+        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'target_date']),
+        params = _.extend({game: session['api_key']}, clean);
+
+    var promise = new Promise(function(resolve, reject) {
+      self.getAPIData({
+        method: apiMethods['getScoresContext'],
+        params: params
+      })
+      .then(function(scoresContext) {
+        resolve(scoresContext);
       });
     });
     return promise;

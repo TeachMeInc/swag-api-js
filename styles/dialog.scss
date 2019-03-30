@@ -236,7 +236,7 @@
             }
 
             .data-date {
-              flex: 0 0 20%;
+              flex: 0 1 20%;
               text-align: left;
             }
 
@@ -263,6 +263,20 @@
         align-items: center;
         justify-content: center;
         color: #272727;
+        justify-content: space-around;
+
+        div.swag-score-context {
+          display: flex;
+          flex-wrap: wrap;
+          flex: 0 1 50%;
+          font-size: 1vw;
+          height: 3.6vw;
+          align-items: center;
+          > div {
+            flex: 1 1 100%;
+            text-align: left;
+          }
+        }
 
         div.selector-title {
             padding-right: 2vw;
