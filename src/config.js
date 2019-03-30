@@ -1,5 +1,5 @@
 module.exports = {
-    version: '0.0.4',
+    version: '0.0.7',
     apiRoot: 'https://swagapi.shockwave.com',
     //apiRoot: 'http://local.shockwave.com:8888',
     events: {
