@@ -1,7 +1,7 @@
 <html>
   <head>
       <title>SWAG JS API Demo</title>
-      <link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
+      <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
       <style>
         body {
           padding-bottom: 2em;
@@ -88,6 +88,7 @@
           <h2>Dialogs</h2>
           <div class="demo-controls">
               <input type="button" id="show-highscore-dialog" value="Show Score Dialog">
+              <input type="button" id="show-dailyscore-dialog" value="Show Daily Score Dialog">
               <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
               <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
           </div>
@@ -103,15 +104,13 @@
                 <input type="button" value="post score" id="post-score-submit">
                 <div class="control-tip"></div>
               </div>
-              <!--
-              TODO: uncomment once this feature is complete
               <div>
                 <div class="control-title">Submit Daily Score</div>
-                <select id="post-dailyscore" class="level-select"></select>
+                <select id="post-dailyscore-day" class="level-select"></select>
+                <select id="post-dailyscore-level" class="level-select"></select>
                 <input type="text" id="post-dailyscore-value">
                 <input type="button" value="post daily score" id="post-dailyscore-submit">
               </div>
-              -->
               <div>
                 <div class="control-title">Submit Achievement</div>
                 <select id="post-achievement" class="achievement-select"></select>
@@ -146,7 +145,7 @@
       </div>
   </body>
 
-  <script src="https://swagapi.shockwave.com/dist/swag-api.js"></script>
+  <script src="./dist/swag-api.js"></script>
   <script>
 
     var wrapper =  document.getElementById('swag-api-wrapper');
@@ -186,8 +185,9 @@
             stage.style.visibility = 'visible';
           });
           api.populateLevelSelect('post-score');
-          api.populateLevelSelect('post-dailyscore');
+          api.populateLevelSelect('post-dailyscore-level');
           api.populateLevelSelect('data-view-level');
+          api.populateDaySelect('post-dailyscore-day');
           api.populateAchievementSelect('post-achievement');
           document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
           api.showDialog('scores', {
@@ -203,14 +203,16 @@
           });
       });
 
+      document.getElementById('show-dailyscore-dialog').addEventListener('click', function() {
+          api.showDialog('dailyscores');
+      });
+
       document.getElementById('show-achievements-dialog').addEventListener('click', function() {
           api.showDialog('achievements');
       });
 
       document.getElementById('show-weeklyscores-dialog').addEventListener('click', function() {
-          api.showDialog('weeklyscores', {
-              title: 'Your Best Scores This Week'
-          });
+          api.showDialog('weeklyscores');
       });
 
       // Demo Game Events
@@ -221,14 +223,15 @@
           return api.postScore(levelKey, scoreValue);
       });
 
-      /* TODO: uncomment when feature is enabled
       document.getElementById('post-dailyscore-submit').addEventListener('click', function() {
-          var levelSelect = document.getElementById('post-dailyscore'),
+          var daySelect = document.getElementById('post-dailyscore-day'),
+              levelSelect = document.getElementById('post-dailyscore-level'),
+              day = daySelect.options[daySelect.selectedIndex].value,
               levelKey = levelSelect.options[levelSelect.selectedIndex].value,
               scoreValue = document.getElementById('post-dailyscore-value').value;
-          return api.postDailyScore(levelKey, scoreValue);
+          console.log(day);
+          return api.postDailyScore(day, levelKey, scoreValue);
       });
-      */
 
       document.getElementById('post-achievement-submit').addEventListener('click', function() {
           var achievementSelect = document.getElementById('post-achievement'),
