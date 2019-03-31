@@ -109,7 +109,7 @@ var methods = {
   },
 
   isSubscriber: function() {
-    return data._isSubscriber();
+    return data.isSubscriber();
   },
 
   /* TODO: remove deprecated client method */
