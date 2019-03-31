@@ -110,6 +110,14 @@ var methods = {
         var dataTableCont = document.getElementById('swag-data-table');
         var contextCont = document.getElementById('swag-score-context');
 
+        if(options.period) {
+          periodSelector.value = options.period;
+        }
+
+        if(options.level_key) {
+          levelSelector.value = options.level_key;
+        }
+
         var scoreMethod = function(level_key, period) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
@@ -164,9 +172,7 @@ var methods = {
             periodSelector.options[periodSelector.selectedIndex].value);
         }, true);
 
-        if(categories[0]) {
-          return scoreMethod(levelSelector.options[0].value, periodSelector.options[0].value);
-        }
+        return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[levelSelector.selectedIndex].value);
 
       });
   },
@@ -193,6 +199,18 @@ var methods = {
         var daySelector = document.getElementById('swag-data-view-day');
         var periodSelector = document.getElementById('swag-data-view-period');
         var dataTableCont = document.getElementById('swag-data-table');
+
+        if(options.day) {
+          daySelector.value = options.day;
+        }
+
+        if(options.period) {
+          periodSelector.value = options.period;
+        }
+
+        if(options.level_key) {
+          levelSelector.value = options.level_key;
+        }
 
         var scoreMethod = function(day, level_key, period) {
           console.log(day);
@@ -237,11 +255,7 @@ var methods = {
             periodSelector.options[periodSelector.selectedIndex].value);
         }, true);
 
-        console.log(daySelector.options[0].value);
-
-        if(categories[0]) {
-          return scoreMethod(daySelector.options[0].value, levelSelector.options[0].value, periodSelector.options[0].value);
-        }
+        return scoreMethod(daySelector.options[daySelector.selectedIndex].value, levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[levelSelector.selectedIndex].value);
 
       });
   },
