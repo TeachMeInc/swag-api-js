@@ -112,6 +112,10 @@ var methods = {
     return data.isSubscriber();
   },
 
+  hasDailyScore: function(level_key) {
+    return data.hasDailyScore(level_key);
+  },
+
   /* TODO: remove deprecated client method */
   postHighscore: function(level_key, value) {
     return data.postScore(level_key, value);

@@ -17,6 +17,7 @@ var apiMethods = {
   'getScoresContext': '/v1/scores/context',
   'postScore': '/v1/score',
   'postDailyScore': '/v1/dailyscore',
+  'hasDailyScore': '/v1/scores/hasDailyScore',
   'getAchievementCategories': '/v1/achievement/categories',
   'postAchievement': '/v1/achievement',
   'getUserAchievements': '/v1/achievement/user',
@@ -158,6 +159,28 @@ var methods = {
         })
         .then(function(result) {
           resolve(!!result.subscriber);
+        });
+      }
+    });
+    return promise;
+  },
+
+  hasDailyScore: function(level_key) {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      if(session.uid) {
+        session.entity = session.uid;
+        resolve(session.uid);
+      } else {
+        self.getAPIData({
+          method: apiMethods['hasDailyScore'],
+          params: {
+            game: session['api_key'],
+            level_key: level_key
+          }
+        })
+        .then(function(result) {
+          resolve(!!result.daily_score);
         });
       }
     });
