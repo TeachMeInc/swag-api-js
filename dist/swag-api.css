@@ -2433,6 +2433,11 @@
     -webkit-flex-direction: column;
             flex-direction: column;
     font-family: Arial, Helvetica, sans-serif; }
+    .swag-wrapper .swag-dialog * {
+      -webkit-user-select: auto;
+         -moz-user-select: auto;
+          -ms-user-select: auto;
+              user-select: auto; }
     .swag-wrapper .swag-dialog .swag-dialog-header {
       color: #fff;
       -webkit-border-radius: 0.5vw 0.5vw 0vw 0vw;
