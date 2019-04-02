@@ -1,5 +1,6 @@
 <div class="swag-data-selector">
-  <div class="score-context"></div>
+  <div id="swag-score-context" class="swag-score-context">
+  </div>
   <select id="swag-data-view-day" class="swag-select">
     {{#each days}}
       <option value="{{this}}">{{this}}</option>
@@ -9,12 +10,6 @@
     {{#each levels}}
       <option value="{{level_key}}">{{name}}</option>
     {{/each}}
-  </select>
-  <select id="swag-data-view-period" class="swag-select">
-    <option value="daily">Daily</option>
-    <option value="weekly">Weekly</option>
-    <option value="monthy">Monthly</option>
-    <option value="alltime">All Time</option>
   </select>
 </div>
 <div id="swag-data-table" class="swag-data-table"></div>

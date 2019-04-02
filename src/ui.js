@@ -16,6 +16,7 @@ var templates = {
   'dialogDailyScore': require('templates/dialog-daily-scores.handlebars'),
   'dataScore': require('templates/data-scores.handlebars'),
   'dataScoreContext': require('templates/data-score-context.handlebars'),
+  'dataDailyScoreContext': require('templates/data-daily-scores-context.handlebars'),
   'dialogAchievements': require('templates/dialog-achievements.handlebars'),
   'dataAchievements': require('templates/data-achievements.handlebars'),
   'dialogWeeklyScores': require('templates/dialog-weeklyscores.handlebars'),
@@ -199,40 +200,56 @@ var methods = {
 
         var levelSelector = document.getElementById('swag-data-view-level');
         var daySelector = document.getElementById('swag-data-view-day');
-        var periodSelector = document.getElementById('swag-data-view-period');
         var dataTableCont = document.getElementById('swag-data-table');
+        var contextCont = document.getElementById('swag-score-context');
 
         if(options.day) {
           daySelector.value = options.day;
-        }
-
-        if(options.period) {
-          periodSelector.value = options.period;
         }
 
         if(options.level_key) {
           levelSelector.value = options.level_key;
         }
 
-        var scoreMethod = function(day, level_key, period) {
+        var scoreMethod = function(day, level_key) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
-          return data.getScores({
-            type: 'daily',
-            level_key: level_key,
-            period: period,
-            day: day,
-            value_formatter: options.value_formatter
-          })
-          .then(function(scores) {
+          return Promise.all([
+            data.getScoresContext({
+              level_key: level_key,
+              period: 'alltime',
+              day: day,
+              value_formatter: options.value_formatter
+            }),
+            data.getScores({
+              type: 'daily',
+              level_key: level_key,
+              period: 'alltime', //daily scores are always displayed as all time
+              day: day,
+              value_formatter: options.value_formatter
+            })
+          ])
+          .then(function(values) {
+
+            var scoresContext = values[0];
+            var scores = values[1];
+
             var selectedCategory = _.find(categories, function(category) {
               return level_key === category.level_key;
             });
+
             var formatted = templates['dataScore']({
               category: selectedCategory,
               scores: scores
             });
+
             dataTableCont.innerHTML = formatted;
+
+            var contextFormatted = templates['dataDailyScoreContext']({
+              context: scoresContext
+            });
+
+            contextCont.innerHTML = contextFormatted;
           })
           .finally(function() {
             contentEl.classList.remove('loading');
@@ -241,23 +258,15 @@ var methods = {
 
         daySelector.addEventListener('change', function() {
           return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
-            levelSelector.options[levelSelector.selectedIndex].value,
-            periodSelector.options[periodSelector.selectedIndex].value);
+            levelSelector.options[levelSelector.selectedIndex].value);
         }, true);
 
         levelSelector.addEventListener('change', function() {
           return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
-            levelSelector.options[levelSelector.selectedIndex].value,
-            periodSelector.options[periodSelector.selectedIndex].value);
+            levelSelector.options[levelSelector.selectedIndex].value);
         }, true);
 
-        periodSelector.addEventListener('change', function() {
-          return scoreMethod(daySelector.options[daySelector.selectedIndex].value,
-            levelSelector.options[levelSelector.selectedIndex].value,
-            periodSelector.options[periodSelector.selectedIndex].value);
-        }, true);
-
-        return scoreMethod(daySelector.options[daySelector.selectedIndex].value, levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[levelSelector.selectedIndex].value);
+        return scoreMethod(daySelector.options[daySelector.selectedIndex].value, levelSelector.options[levelSelector.selectedIndex].value);
 
       });
   },
