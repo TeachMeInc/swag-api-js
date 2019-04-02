@@ -123,19 +123,25 @@ var methods = {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
 
+        var scoresContextOptions = {
+          level_key: level_key,
+          period: period
+        };
+
+        var scoresOptions = {
+          type: 'standard',
+          level_key: level_key,
+          period: period
+        };
+
+        if(options.value_formatter) {
+          scoresContextOptions.value_formatter = options.value_formatter;
+          scoresOptions.value_formatter = options.value_formatter;
+        }
 
         return Promise.all([
-          data.getScoresContext({
-            level_key: level_key,
-            period: period,
-            value_formatter: options.value_formatter
-          }),
-          data.getScores({
-              type: 'standard',
-              level_key: level_key,
-              period: period,
-              value_formatter: options.value_formatter
-          })
+          data.getScoresContext(scoresContextOptions),
+          data.getScores(scoresOptions)
         ])
           .then(function(values) {
 
@@ -211,23 +217,30 @@ var methods = {
           levelSelector.value = options.level_key;
         }
 
+        var scoresContextOptions = {
+          level_key: level_key,
+          period: 'alltime',
+          day: day
+        };
+
+        var scoresOptions = {
+          type: 'daily',
+          level_key: level_key,
+          period: 'alltime', //daily scores are always displayed as all time
+          day: day
+        };
+
+        if(options.value_formatter) {
+          scoresContextOptions.value_formatter = options.value_formatter;
+          scoresOptions.value_formatter = options.value_formatter;
+        }
+
         var scoreMethod = function(day, level_key) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
           return Promise.all([
-            data.getScoresContext({
-              level_key: level_key,
-              period: 'alltime',
-              day: day,
-              value_formatter: options.value_formatter
-            }),
-            data.getScores({
-              type: 'daily',
-              level_key: level_key,
-              period: 'alltime', //daily scores are always displayed as all time
-              day: day,
-              value_formatter: options.value_formatter
-            })
+            data.getScoresContext(scoresContextOptions),
+            data.getScores(scoresOptions)
           ])
           .then(function(values) {
 
@@ -322,11 +335,17 @@ var methods = {
         var scoreMethod = function(level_key) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
-          return data.getScores({
+
+          var scoresOptions = {
             type: 'weekly',
-            level_key: level_key,
-            value_formatter: options.value_formatter
-          })
+            level_key: level_key
+          };
+
+          if(options.value_formatter) {
+            scoresOptions.value_formatter = options.value_formatter;
+          }
+
+          return data.getScores(scoresOptions)
           .then(function(scores) {
             var formatted = templates['dataWeeklyScores']({
               weeklyscores: scores
