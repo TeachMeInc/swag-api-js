@@ -222,7 +222,8 @@ var methods = {
 
   getScores: function(options) {
     var self = this,
-        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date']),
+        clean = _.pick(options,
+          ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter']),
         params = _.extend({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
@@ -239,7 +240,8 @@ var methods = {
 
   getScoresContext: function(options) {
     var self = this,
-        clean = _.pick(options, ['day', 'type', 'level_key', 'period', 'target_date']),
+        clean = _.pick(options,
+          ['day', 'type', 'level_key', 'period', 'target_date', 'value_formatter']),
         params = _.extend({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {

@@ -126,12 +126,14 @@ var methods = {
         return Promise.all([
           data.getScoresContext({
             level_key: level_key,
-            period: period
+            period: period,
+            value_formatter: options.value_formatter
           }),
           data.getScores({
               type: 'standard',
               level_key: level_key,
-              period: period
+              period: period,
+              value_formatter: options.value_formatter
           })
         ])
           .then(function(values) {
@@ -213,14 +215,14 @@ var methods = {
         }
 
         var scoreMethod = function(day, level_key, period) {
-          console.log(day);
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
           return data.getScores({
             type: 'daily',
             level_key: level_key,
             period: period,
-            day: day
+            day: day,
+            value_formatter: options.value_formatter
           })
           .then(function(scores) {
             var selectedCategory = _.find(categories, function(category) {
@@ -313,7 +315,8 @@ var methods = {
           contentEl.classList.add('loading');
           return data.getScores({
             type: 'weekly',
-            level_key: level_key
+            level_key: level_key,
+            value_formatter: options.value_formatter
           })
           .then(function(scores) {
             var formatted = templates['dataWeeklyScores']({
