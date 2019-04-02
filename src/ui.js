@@ -217,27 +217,28 @@ var methods = {
           levelSelector.value = options.level_key;
         }
 
-        var scoresContextOptions = {
-          level_key: level_key,
-          period: 'alltime',
-          day: day
-        };
-
-        var scoresOptions = {
-          type: 'daily',
-          level_key: level_key,
-          period: 'alltime', //daily scores are always displayed as all time
-          day: day
-        };
-
-        if(options.value_formatter) {
-          scoresContextOptions.value_formatter = options.value_formatter;
-          scoresOptions.value_formatter = options.value_formatter;
-        }
-
         var scoreMethod = function(day, level_key) {
           dataTableCont.innerHTML = '';
           contentEl.classList.add('loading');
+
+          var scoresContextOptions = {
+            level_key: level_key,
+            period: 'alltime',
+            day: day
+          };
+
+          var scoresOptions = {
+            type: 'daily',
+            level_key: level_key,
+            period: 'alltime', //daily scores are always displayed as all time
+            day: day
+          };
+
+          if(options.value_formatter) {
+            scoresContextOptions.value_formatter = options.value_formatter;
+            scoresOptions.value_formatter = options.value_formatter;
+          }
+
           return Promise.all([
             data.getScoresContext(scoresContextOptions),
             data.getScores(scoresOptions)
