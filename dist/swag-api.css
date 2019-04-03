@@ -2690,8 +2690,8 @@
       display: -webkit-box;
       display: -webkit-flex;
       display: flex;
-      -webkit-flex-wrap: wrap;
-              flex-wrap: wrap;
+      -webkit-flex-wrap: nowrap;
+              flex-wrap: nowrap;
       -webkit-box-align: center;
       -webkit-align-items: center;
               align-items: center;
