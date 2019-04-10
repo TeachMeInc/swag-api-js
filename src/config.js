@@ -1,6 +1,6 @@
 module.exports = {
-    version: '1.0.1',
-    apiRoot: 'https://swagapi.shockwave.com',
+    version: '1.0.2',
+    apiRoot: 'https://swag-services.shockwave.com',
     //apiRoot: 'http://local.shockwave.com:8888',
     events: {
       API_COMMUNICATION_ERROR: 'API_COMMUNICATION_ERROR',
