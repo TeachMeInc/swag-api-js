@@ -181,7 +181,7 @@ var methods = {
             periodSelector.options[periodSelector.selectedIndex].value);
         }, true);
 
-        return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[levelSelector.selectedIndex].value);
+        return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
 
       });
   },
