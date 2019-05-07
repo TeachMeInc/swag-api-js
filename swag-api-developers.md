@@ -113,7 +113,6 @@ All methods return promises (except showDialog)
 |getScoreCategories| - | Returns a json array of highscore categories associated with this game
 |getScores| see getScores options | Returns a json array of scores based on the options objects
 |postScore| level_key, value | Post the score `value` for the `level_key` for the current user.
-|getDailyScores| level_key, value | Returns a json array of scores based on the options objects
 |postDailyScore| day, level_key, value | Post the score `value` for the `level_key` and `day` for the current user.
 |getAchievementCategories| - | Return a json array of achievements associated with this game
 |postAchievement| achievement_key | Post an achievement `achievement_key` for the current user
@@ -123,17 +122,6 @@ All methods return promises (except showDialog)
 |showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information)
 |isSubscriber| - | returns true if the current user is a subscriber
 |hasDailyScore|level_key| returns true if the current user has submitted a score today
-
-<div class="page-break"></div>
-
-Note: The following methods will be deprecated in an upcoming version
-
-| deprecated    | replace with
-| ------------- | -------------
-|getHighScoreCategories| getScoreCategories
-|getHighScores| getScores
-|postHighscore| postScore
-|showDialog("highscore")|showDialog("scores")
 
 <div class="page-break"></div>
 
@@ -170,7 +158,7 @@ The following options are available:
 |period|no|String, _default:_ `"alltime"`, _values:_ `"daily", "weekly", "monthly", "alltime"`
 |current_user|no|boolean, _default:_ `false`.  If true, only get scores for current user
 |target_date|no| epoch time or ISO Date string in format YYYY-MM-DD. Use this date as the base for date ranges eg. "daily", "weekly"
-|useDaily|no|boolean, use score 'day' instead of score post date
+|use_daily|no|boolean, use score 'day' instead of score post date
 |value_formatter|no|Format scores using specified formatter
 
 Example (scores this week on level1 for the current user):
