@@ -170,7 +170,7 @@ The following options are available:
 |period|no|String, _default:_ `"alltime"`, _values:_ `"daily", "weekly", "monthly", "alltime"`
 |current_user|no|boolean, _default:_ `false`.  If true, only get scores for current user
 |target_date|no| epoch time or ISO Date string in format YYYY-MM-DD. Use this date as the base for date ranges eg. "daily", "weekly"
-|useDaily|boolean|use score 'day' instead of score post date
+|useDaily|no|boolean, use score 'day' instead of score post date
 |value_formatter|no|Format scores using specified formatter
 
 Example (scores this week on level1 for the current user):
