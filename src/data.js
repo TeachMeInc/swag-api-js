@@ -223,7 +223,7 @@ var methods = {
   getScores: function(options) {
     var self = this,
         clean = _.pick(options,
-          ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter']),
+          ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
         params = _.extend({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
