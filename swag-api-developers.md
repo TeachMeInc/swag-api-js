@@ -36,6 +36,10 @@ Each type of score for your game can be configured individually. Expressed in JS
 |reverse|n|false|Boolean|if true, minimum scores value are used for api score calculations
 |mode|n|"default"|String| Scores with mode of `first` will only display the first score for a day in the leaderboards
 
+These configurations are loaded into our highscore system to facilitate the specific needs of each type of score for your game.
+
+<div class="page-break"></div>
+
 ## Formatters
 
 Define a value_formatter in score configuration or as a parameter in api methods to format values.
@@ -53,6 +57,8 @@ No special number formatters are currently available.  Let us know if there is a
 |longDuration|1 minute, 5.5 seconds
 |seconds|65.5s
 |ms|65500
+
+<div class="page-break"></div>
 
 ## Connecting to the API
 
@@ -118,6 +124,8 @@ All methods return promises (except showDialog)
 |isSubscriber| - | returns true if the current user is a subscriber
 |hasDailyScore|level_key| returns true if the current user has submitted a score today
 
+<div class="page-break"></div>
+
 Note: The following methods will be deprecated in an upcoming version
 
 | deprecated    | replace with
@@ -161,7 +169,8 @@ The following options are available:
 |type|no|String, _default:_ `"standard"`, _values:_ `"standard", "weekly"`
 |period|no|String, _default:_ `"alltime"`, _values:_ `"daily", "weekly", "monthly", "alltime"`
 |current_user|no|boolean, _default:_ `false`.  If true, only get scores for current user
-|target_date|no|number, epoch time.  Use this date as the base for date ranges eg. "daily", "weekly",
+|target_date|no| epoch time or ISO Date string in format YYYY-MM-DD. Use this date as the base for date ranges eg. "daily", "weekly"
+|useDaily|boolean|use score 'day' instead of score post date
 |value_formatter|no|Format scores using specified formatter
 
 Example (scores this week on level1 for the current user):
@@ -177,6 +186,7 @@ return api.getScores({
   });
 ```
 
+<div class="page-break"></div>
 
 ###  API Events:
 
