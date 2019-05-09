@@ -382,7 +382,7 @@ var methods = {
           padDateDigit(parseInt (urlParams.month, 10)),
           padDateDigit(parseInt (urlParams.day, 10))
         ];
-        return { day: dayParts.join("-") };
+        resolve({ day: dayParts.join("-") });
       } else {
         self.getAPIData({
           method: apiMethods['getCurrentDay'],
