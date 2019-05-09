@@ -378,9 +378,9 @@ var methods = {
       var urlParams = utils.parseUrlParams();
       if (urlParams.day && urlParams.month && urlParams.year) {
         var dayParts = [
-          padDateDigit(parseInt (urlParams.day, 10)),
+          (2000 + parseInt (urlParams.year, 10)),
           padDateDigit(parseInt (urlParams.month, 10)),
-          (2000 + parseInt (urlParams.year, 10))
+          padDateDigit(parseInt (urlParams.day, 10))
         ];
         return { day: dayParts.join("-") };
       } else {
