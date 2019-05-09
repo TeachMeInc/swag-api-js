@@ -22,7 +22,8 @@ var apiMethods = {
   'postAchievement': '/v1/achievement',
   'getUserAchievements': '/v1/achievement/user',
   'postDatastore': '/v1/datastore',
-  'getUserDatastore': '/v1/datastore/user'
+  'getUserDatastore': '/v1/datastore/user',
+  'getCurrentDay': '/v1/currentday'
 };
 
 var events = {
@@ -97,6 +98,7 @@ var methods = {
   },
 
   postAPIData: function(options) {
+    var self = this;
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.open('POST', encodeURI(config.apiRoot + options.method), true);
@@ -356,6 +358,20 @@ var methods = {
         params: {
           game: session['api_key']
         }
+      })
+      .then(function(data) {
+        resolve(data);
+      });
+    });
+    return promise;
+  },
+
+  getCurrentDay: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      self.getAPIData({
+        method: apiMethods['getCurrentDay'],
+        params: {}
       })
       .then(function(data) {
         resolve(data);

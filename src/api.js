@@ -129,6 +129,8 @@ var methods = {
   /* TODO: remove deprecated client method */
   getHighscoreCategories: function() {
     return data.getScoreCategories();
+  getCurrentDay: function() {
+    return data.getCurrentDay();
   },
 
   // ---------------------------------------------------------------------------
