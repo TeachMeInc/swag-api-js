@@ -31,6 +31,14 @@ function SWAGAPI(options) {
     self._emitError(event);
   });
 
+  data.on('DATA_EVENT', function(event) {
+    self.emit(event, {type: event});
+  });
+
+  data.on('DATA_ERROR', function(event) {
+    self._emitError(event);
+  });
+
 };
 
 var methods = {
