@@ -122,7 +122,7 @@ All methods return promises (except showDialog)
 |showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information)
 |isSubscriber| - | returns true if the current user is a subscriber
 |hasDailyScore|level_key| returns true if the current user has submitted a score today
-|getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ``` {"day":"2019-05-09","apidate":"2019-05-09T12:41:55-07:00"}  ```
+|getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ```{"day":"2019-05-09"}```.  If the url parameters `day`, `month`, and `year` are present, this method will return this date rather than the current date.  eg. `day=04&month=07&year=19`
 
 <div class="page-break"></div>
 
@@ -226,4 +226,4 @@ launch your game with
 http://local.shockwave.com:8888
 ```
 
-VERSION 1.0.4
+VERSION 1.0.5
