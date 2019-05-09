@@ -116,19 +116,6 @@ var methods = {
     return data.hasDailyScore(level_key);
   },
 
-  /* TODO: remove deprecated client method */
-  postHighscore: function(level_key, value) {
-    return data.postScore(level_key, value);
-  },
-
-  /* TODO: remove deprecated client method */
-  getHighScores: function(options) {
-    return data.getScores(options);
-  },
-
-  /* TODO: remove deprecated client method */
-  getHighscoreCategories: function() {
-    return data.getScoreCategories();
   getCurrentDay: function() {
     return data.getCurrentDay();
   },
