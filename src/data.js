@@ -368,15 +368,32 @@ var methods = {
 
   getCurrentDay: function() {
     var self = this;
+
+    var padDateDigit = function(number) {
+      if (number<=99) { number = ("000"+number).slice(-2); }
+      return number;
+    }
+
     var promise = new Promise(function(resolve, reject) {
-      self.getAPIData({
-        method: apiMethods['getCurrentDay'],
-        params: {}
-      })
-      .then(function(data) {
-        resolve(data);
-      });
+      var urlParams = utils.parseUrlParams();
+      if (urlParams.day && urlParams.month && urlParams.year) {
+        var dayParts = [
+          padDateDigit(parseInt (urlParams.day, 10)),
+          padDateDigit(parseInt (urlParams.month, 10)),
+          (2000 + parseInt (urlParams.year, 10))
+        ];
+        return { day: dayParts.join("-") };
+      } else {
+        self.getAPIData({
+          method: apiMethods['getCurrentDay'],
+          params: {}
+        })
+        .then(function(data) {
+          resolve(data);
+        });
+      }
     });
+
     return promise;
   }
 };
