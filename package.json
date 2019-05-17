@@ -4,8 +4,10 @@
   "private": true,
   "main": "./dist/bundle.js",
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch"
+    "api.build": "webpack --config webpack.api.config.js",
+    "api.watch": "webpack --watch --config webpack.api.config.js",
+    "web.build": "webpack --config webpack.web.config.js",
+    "web.watch": "webpack --watch --config webpack.web.config.js"
   },
   "browserslist": [
     "Safari >= 4",

@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('./config.js'),
+var config = require('../config.js'),
     SWAGAPI = require('./api');
 
 console.log('SWAG API ' + config.version);

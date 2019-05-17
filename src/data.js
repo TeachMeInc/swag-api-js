@@ -8,54 +8,32 @@ var config = require('config');
 var utils = utils = require('utils');
 var session = require('session');
 
-var apiMethods = {
-  'getEntity': '/v1/user',
-  'getSubscriber': '/v1/subscriber',
-  'getScoreCategories': '/v1/score/categories',
-  'getDays': '/v1/days',
-  'getScores': '/v1/scores',
-  'getScoresContext': '/v1/scores/context',
-  'postScore': '/v1/score',
-  'postDailyScore': '/v1/dailyscore',
-  'hasDailyScore': '/v1/scores/hasDailyScore',
-  'getAchievementCategories': '/v1/achievement/categories',
-  'postAchievement': '/v1/achievement',
-  'getUserAchievements': '/v1/achievement/user',
-  'postDatastore': '/v1/datastore',
-  'getUserDatastore': '/v1/datastore/user',
-  'getCurrentDay': '/v1/currentday'
-};
-
-var events = {
-  DATA_EVENT: 'DATA_EVENT',
-  DATA_ERROR: 'DATA_ERROR'
-};
-
-var formatParam = function(param) {
-  if(!Array.isArray(param)) {
-    return param;
-  }
-  var formatted = _.map(param, function(item) {
-    return '"' + item + '"';
-  }).join('');
-  return '[' + formatted + ']';
-};
-
-var toParam = function(source) {
-  if(source) {
-    return source.toLowerCase()
-      .replace(/[^a-z0-9-\s]/g, '')
-      .replace(/[\s-]+/g, '-');
-  } else {
-    return '';
-  }
-};
-
 var methods = {
+
+  events: {
+    DATA_EVENT: 'DATA_EVENT',
+    DATA_ERROR: 'DATA_ERROR'
+  },
+
+  apiMethods: {
+    'getEntity': '/v1/user',
+    'getSubscriber': '/v1/subscriber',
+    'getScoreCategories': '/v1/score/categories',
+    'getDays': '/v1/days',
+    'getScores': '/v1/scores',
+    'getScoresContext': '/v1/scores/context',
+    'hasDailyScore': '/v1/scores/hasDailyScore',
+    'getAchievementCategories': '/v1/achievement/categories',
+    'getUserAchievements': '/v1/achievement/user',
+    'getUserDatastore': '/v1/datastore/user',
+    'getCurrentDay': '/v1/currentday'
+  },
+
+
   // API
   buildUrlParamString: function(urlParams) {
     return '?' + _.map(_.keys(urlParams), function(key) {
-      return key + '=' + formatParam(urlParams[key]);
+      return key + '=' + utils.formatParam(urlParams[key]);
     }).join('&');
   },
 
@@ -66,7 +44,7 @@ var methods = {
       var apiRoot = session.apiRoot || config.apiRoot;
 
       var params = '?' + _.map(_.keys(options.params), function(key) {
-        return key + '=' + formatParam(options.params[key]);
+        return key + '=' + utils.formatParam(options.params[key]);
       }).join('&');
 
       xhr.open('GET', encodeURI(apiRoot + options.method + params));
@@ -78,54 +56,21 @@ var methods = {
         if(response && !response.error) {
           resolve(response);
         } else {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+          self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
           reject(response);
         }
       };
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 0) {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+          self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
           reject();
         }
       };
       xhr.onError = function() {
-        self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+        self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
         reject();
       };
       xhr.send();
-    });
-    return promise;
-  },
-
-  postAPIData: function(options) {
-    var self = this;
-    var promise = new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', encodeURI(config.apiRoot + options.method), true);
-      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      xhr.withCredentials = true;
-      xhr.onload = function() {
-        var response = xhr.status === 200
-          ? JSON.parse(xhr.response)
-          : null;
-        if(response && !response.error) {
-          resolve(response);
-        } else {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-          reject(response);
-        }
-      };
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 0) {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-          reject();
-        }
-      };
-      xhr.onError = function() {
-        self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-        reject();
-      };
-      xhr.send(JSON.stringify(options.body));
     });
     return promise;
   },
@@ -138,7 +83,7 @@ var methods = {
         resolve(session.uid);
       } else {
         self.getAPIData({
-          method: apiMethods['getEntity']
+          method: self.apiMethods['getEntity']
         })
         .then(function(entity) {
           session.entity = entity;
@@ -157,7 +102,7 @@ var methods = {
         resolve(session.uid);
       } else {
         self.getAPIData({
-          method: apiMethods['getSubscriber']
+          method: self.apiMethods['getSubscriber']
         })
         .then(function(result) {
           resolve(!!result.subscriber);
@@ -175,7 +120,7 @@ var methods = {
         resolve(session.uid);
       } else {
         self.getAPIData({
-          method: apiMethods['hasDailyScore'],
+          method: self.apiMethods['hasDailyScore'],
           params: {
             game: session['api_key'],
             level_key: level_key
@@ -193,7 +138,7 @@ var methods = {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getScoreCategories'],
+        method: self.apiMethods['getScoreCategories'],
         params: {
           game: session['api_key']
         }
@@ -210,7 +155,7 @@ var methods = {
     var dayLimit = limit || 30;
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getDays'],
+        method: self.apiMethods['getDays'],
         params: {
           limit: dayLimit
         }
@@ -230,7 +175,7 @@ var methods = {
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getScores'],
+        method: self.apiMethods['getScores'],
         params: params
       })
       .then(function(scores) {
@@ -248,7 +193,7 @@ var methods = {
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getScoresContext'],
+        method: self.apiMethods['getScoresContext'],
         params: params
       })
       .then(function(scoresContext) {
@@ -258,42 +203,11 @@ var methods = {
     return promise;
   },
 
-  postScore: function(level_key, value) {
-    var self = this;
-    var body = {
-      game: session.api_key,
-      level_key: level_key,
-      value: value
-    };
-    var urlParamsString = self.buildUrlParamString(body);
-    return this.postAPIData({
-      method: apiMethods['postScore'],
-      body: body,
-      params: urlParamsString
-    });
-  },
-
-  postDailyScore: function(day, level_key, value) {
-    var self = this;
-    var body = {
-      game: session.api_key,
-      day: day,
-      level_key: level_key,
-      value: value
-    };
-    var urlParamsString = self.buildUrlParamString(body);
-    return this.postAPIData({
-      method: apiMethods['postDailyScore'],
-      body: body,
-      params: urlParamsString
-    });
-  },
-
   getAchievementCategories: function() {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getAchievementCategories'],
+        method: self.apiMethods['getAchievementCategories'],
         params: {
           game: session['api_key']
         }
@@ -309,7 +223,7 @@ var methods = {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getUserAchievements'],
+        method: self.apiMethods['getUserAchievements'],
         params: {
           game: session['api_key']
         }
@@ -321,40 +235,11 @@ var methods = {
     return promise;
   },
 
-  postAchievement: function(achievement_key) {
-    var self = this;
-    var body = {
-      game: session.api_key,
-      achievement_key: achievement_key
-    };
-    var urlParamsString = self.buildUrlParamString(body);
-    return this.postAPIData({
-      method: apiMethods['postAchievement'],
-      body: body,
-      params: urlParamsString
-    });
-  },
-
-  postDatastore: function(key, value) {
-    var self = this;
-    var body = {
-      game: session.api_key,
-      key: key,
-      value: value
-    };
-    var urlParamsString = self.buildUrlParamString(body);
-    return this.postAPIData({
-      method: apiMethods['postDatastore'],
-      body: body,
-      params: urlParamsString
-    });
-  },
-
   getUserDatastore: function() {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
-        method: apiMethods['getUserDatastore'],
+        method: self.apiMethods['getUserDatastore'],
         params: {
           game: session['api_key']
         }
@@ -385,7 +270,7 @@ var methods = {
         resolve({ day: dayParts.join("-") });
       } else {
         self.getAPIData({
-          method: apiMethods['getCurrentDay'],
+          method: self.apiMethods['getCurrentDay'],
           params: {}
         })
         .then(function(data) {

@@ -10,7 +10,7 @@ module.exports = {
     devtool: 'source-map',
     entry: [
         './styles/main.scss',
-        './src/index.js'
+        './src/api/index.js'
     ],
     stats: {
       warnings: false
@@ -51,7 +51,7 @@ module.exports = {
         library: 'SWAGAPI',
         libraryTarget: 'umd',
         umdNamedDefine: true,
-        path: path.join(__dirname, '/dist'),
+        path: path.join(__dirname, './dist/'),
         filename: 'swag-api.js',
         pathinfo: true
     },
