@@ -97,6 +97,7 @@ var methods = {
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');
+    options = options || {};
 
     return data.getScoreCategories()
       .then(function(categories) {
@@ -112,11 +113,11 @@ var methods = {
         var dataTableCont = document.getElementById('swag-data-table');
         var contextCont = document.getElementById('swag-score-context');
 
-        if(options.period) {
+        if(options.period && periodSelector) {
           periodSelector.value = options.period;
         }
 
-        if(options.level_key) {
+        if(options.level_key && levelSelector) {
           levelSelector.value = options.level_key;
         }
 
