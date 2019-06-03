@@ -459,6 +459,17 @@ var methods = {
       });
   },
 
+  getBrandingLogo: function() {    
+    return new Promise(function(resolve, reject) {
+      var img = new Image();
+      img.onload = function() {
+        resolve(img);
+      };
+      //TODO: use appropriate logo for given context
+      img.src = config.resourceRoot + 'shockwave-logo.svg';
+    });
+  },
+
   onCloseDialog: function(event) {
     var self = this;
     event.preventDefault();

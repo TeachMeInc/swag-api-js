@@ -128,6 +128,10 @@ var methods = {
     return data.getCurrentDay();
   },
 
+  getBrandingLogo: function() {
+    return ui.getBrandingLogo();
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
