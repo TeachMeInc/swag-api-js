@@ -13,6 +13,11 @@ var session = require('../session.js');
 
 var methods = {
 
+  events: {
+    UI_EVENT: 'UI_EVENT',
+    UI_ERROR: 'UI_ERROR'
+  },
+
   templates: {
     'dialog': require('../templates/api/dialog.handlebars'),
     'dialogScore': require('../templates/api/dialog-scores.handlebars'),
