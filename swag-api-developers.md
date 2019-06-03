@@ -123,6 +123,7 @@ All methods return promises (except showDialog)
 |isSubscriber| - | returns true if the current user is a subscriber
 |hasDailyScore|level_key| returns true if the current user has submitted a score today
 |getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ```{"day":"2019-05-09"}```.  If the url parameters `day`, `month`, and `year` are present, this method will return this date rather than the current date.  eg. `day=04&month=07&year=19`
+|getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo
 
 <div class="page-break"></div>
 
@@ -189,7 +190,7 @@ return api.getScores({
 
 There is a simple demo of the api at:
 
-http://swagapi.shockwave.com/demo.html (view source)
+https://swagapi.shockwave.com/demo.html (view source)
 
 
 ## Developing and Using Locally
@@ -226,4 +227,4 @@ launch your game with
 http://local.shockwave.com:8888
 ```
 
-VERSION 1.0.5
+VERSION 1.0.7
