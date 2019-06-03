@@ -42,7 +42,17 @@ module.exports = {
                   use: ['css-loader', 'postcss-loader', 'sass-loader']
               })
             },
-            { test: /\.(png|woff|woff2|eot|ttf|svg|htc|gif)$/, use: 'file-loader' },
+            {
+              test: /\.(png|woff|woff2|eot|ttf|svg|htc|gif)$/,
+              use: [
+                {
+                  loader: 'file-loader',
+                  options: {
+                    name: '[name].[ext]',
+                  },
+                },
+              ]
+            },
             { test: /\.json$/, loader: 'json-loader' },
             { test: /\.handlebars$/, loader: "handlebars-loader" }
         ]
