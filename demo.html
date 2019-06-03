@@ -1,7 +1,7 @@
 <html>
   <head>
       <title>SWAG JS API Demo</title>
-      <link rel="stylesheet" type="text/css" href="./dist/swag-api.css">
+      <link rel="stylesheet" type="text/css" href="http://swagapi.shockwave.com/dist/swag-api.css">
       <style>
         body {
           padding-bottom: 2em;
@@ -145,7 +145,7 @@
       </div>
   </body>
 
-  <script src="./dist/swag-api.js"></script>
+  <script src="http://swagapi.shockwave.com/dist/swag-api.js"></script>
   <script>
 
     var wrapper =  document.getElementById('swag-api-wrapper');
@@ -190,9 +190,25 @@
           api.populateDaySelect('post-dailyscore-day');
           api.populateAchievementSelect('post-achievement');
           document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
+
+          api.getCurrentDay()
+            .then(function(apidate) {
+              console.log("The current day is: " + apidate.day);
+            });
+
           api.showDialog('scores', {
-              title: 'Best Scores'
+            title: 'Best Scores'
           });
+
+          api.getBrandingLogo()
+            .then(function(logo) {
+              var logoWidth = logo.width;
+              var logoHeight = logo.height;
+              var logoX = (demoCanvas.offsetWidth / 2) - (logoWidth / 2);
+              var logoY = (logoHeight / 2);
+              ctx.drawImage(logo, logoX, logoY, logoWidth, logoHeight);
+            });
+
         }
       };
 
@@ -220,7 +236,7 @@
           var levelSelect = document.getElementById('post-score'),
               levelKey = levelSelect.options[levelSelect.selectedIndex].value,
               scoreValue = document.getElementById('post-score-value').value;
-          return api.postScore(levelKey, scoreValue);
+          return api.postScore(levelKey, parseInt(scoreValue));
       });
 
       document.getElementById('post-dailyscore-submit').addEventListener('click', function() {
@@ -229,8 +245,7 @@
               day = daySelect.options[daySelect.selectedIndex].value,
               levelKey = levelSelect.options[levelSelect.selectedIndex].value,
               scoreValue = document.getElementById('post-dailyscore-value').value;
-          console.log(day);
-          return api.postDailyScore(day, levelKey, scoreValue);
+          return api.postDailyScore(day, levelKey, parseInt(scoreValue));
       });
 
       document.getElementById('post-achievement-submit').addEventListener('click', function() {
