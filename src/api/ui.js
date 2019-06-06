@@ -465,7 +465,25 @@ var methods = {
       });
   },
 
-  getBrandingLogo: function() {    
+  startGame: function() {
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
+  },
+
+  endGame: function() {
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
+  },
+
+  showAd: function() {
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
+  },
+
+  getBrandingLogo: function() {
     return new Promise(function(resolve, reject) {
       var img = new Image();
       img.onload = function() {

@@ -132,6 +132,18 @@ var methods = {
     return ui.getBrandingLogo();
   },
 
+  startGame: function() {
+    return ui.startGame();
+  },
+
+  endGame: function() {
+    return ui.endGame();
+  },
+
+  showAd: function() {
+    return ui.showAd();
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
