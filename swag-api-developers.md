@@ -3,8 +3,10 @@
 Include the following files:
 
 ```
-<script type="text/javascript" src="https://swagapi.shockwave.com/dist/swag-api.js">
-<link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-api.css">
+<script type="text/javascript"
+src="https://swagapi.shockwave.com/dist/swag-api.js">
+<link rel="stylesheet" type="text/css"
+href="https://swagapi.shockwave.com/dist/swag-api.css">
 ```
 
 ## Score Configuration
@@ -103,53 +105,47 @@ Using event listener:
 
 ## Using the API
 
-####  API Methods:
+###  Session Methods
 
-All methods return promises (except showDialog)
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+| startSession| - | Used start an api session.  The client must wait for the promise to resolve or the SESSION_READY event before using any other api calls.| Promise |
+|startGame|-| Call this method before the player starts a game "session"| Promise |
+|endGame|-| Call this method at the end of a player game "session"| Promise |
 
-| method        | parameters           |  description |
-| ------------- | ------------- | ----- |
-| startSession| - | Used start an api session.  The client must wait for the promise to resolve or the SESSION_READY event before using any other api calls.
-|getScoreCategories| - | Returns a json array of highscore categories associated with this game
-|getScores| see getScores options | Returns a json array of scores based on the options objects
-|postScore| level_key, value | Post the score `value` for the `level_key` for the current user.
-|postDailyScore| day, level_key, value | Post the score `value` for the `level_key` and `day` for the current user.
-|getAchievementCategories| - | Return a json array of achievements associated with this game
-|postAchievement| achievement_key | Post an achievement `achievement_key` for the current user
-|getUserAchievements| - | Return a list of all achievements by the current user for this game
-|postDatastore| key, value | Post a `value` to `key`.  If 'key' exists for this user, it will be overwritten.
-|getUserDatastore| - | Returns a json array of all data store objects associated with this user
-|showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information)
-|isSubscriber| - | returns true if the current user is a subscriber
-|hasDailyScore|level_key| returns true if the current user has submitted a score today
-|getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ```{"day":"2019-05-09"}```.  If the url parameters `day`, `month`, and `year` are present, this method will return this date rather than the current date.  eg. `day=04&month=07&year=19`
-|getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo
+#### startGame and endGame usage
+
+The startGame and endGame methods are intended to be used at the start and end of a game session.
+
+This will enable game developers to view game metrics like average session time and number of play sessions in the developer dashboard.
+
+The API may display UI elements when these methods are invoked such as interstitial ads or site promotions.  When the display of these UI elements has completed, the promise will resolve.
+
+Example use case of startGame:
+```
+- Player uses a start button
+- startGame() method is invoked and returns a promise
+- when the promise is resolved, game play starts
+```
+Example use case of endGame:
+```
+- Player is defeated in a game
+- endGame() method is invoked and returns a promise
+- when the promise is resolved, game displays a retry button
+```
 
 <div class="page-break"></div>
 
-### showDialog options
+###  Score Methods
 
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|getScoreCategories| - | Returns a json array of highscore categories associated with this game| Promise, resolves json |
+|getScores| see getScores options | Returns a json array of scores based on the options objects| Promise, resolves json |
+|postScore| level_key, value | Post the score `value` for the `level_key` for the current user.| Promise |
+|postDailyScore| day, level_key, value | Post the score `value` for the `level_key` and `day` for the current user.| Promise |
 
-example:
-```
-api.showDialog('scores', {
-    title: 'Best Scores',
-    level_key: 'level1',
-    period: 'alltime',
-    value_formatter: ''
-});
-```
-
-The following options are available:
-
-| option        | description |
-| ------------- | ------------|
-| title | Overrides the title in the dialog |
-| level_key | Sets the default level_key in the select |
-| period | Sets the default period in the select  |
-| value_formatter | Overrides the formatter used in the score config |
-
-### getScores options
+#### getScores options
 
 The following options are available:
 
@@ -175,6 +171,62 @@ return api.getScores({
     //do something
   });
 ```
+
+<div class="page-break"></div>
+
+###  UI Methods
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information) | - |
+|getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
+
+#### showDialog options
+
+
+example:
+```
+api.showDialog('scores', {
+    title: 'Best Scores',
+    level_key: 'level1',
+    period: 'alltime',
+    value_formatter: ''
+});
+```
+
+The following options are available:
+
+| option        | description |
+| ------------- | ------------|
+| title | Overrides the title in the dialog |
+| level_key | Sets the default level_key in the select |
+| period | Sets the default period in the select  |
+| value_formatter | Overrides the formatter used in the score config |
+
+<div class="page-break"></div>
+
+####  Achievement Methods
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|getAchievementCategories| - | Return a json array of achievements associated with this game| Promise, resolves json |
+|postAchievement| achievement_key | Post an achievement `achievement_key` for the current user| Promise |
+|getUserAchievements| - | Return a list of all achievements by the current user for this game| Promise, resolves json |
+
+####  Data store Methods
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|postDatastore| key, value | Post a `value` to `key`.  If 'key' exists for this user, it will be overwritten.| Promise |
+|getUserDatastore| - | Returns a json array of all data store objects associated with this user| Promise |
+
+####  Misc Methods
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|isSubscriber| - | returns true if the current user is a subscriber | Promise, resolves Boolean |
+|hasDailyScore|level_key| returns true if the current user has submitted a score today | Promise, resolves Boolean |
+|getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ```{"day":"2019-05-09"}```.  If the url parameters `day`, `month`, and `year` are present, this method will return this date rather than the current date.  eg. `day=04&month=07&year=19`| Promise, resolves json |
 
 <div class="page-break"></div>
 
@@ -217,14 +269,17 @@ Launch a local web server where your index.html is
 http-server -p 8888
 ```
 
-You can either be logged into shockwave.com or as a guest when testing.
-
-To get an API key or anything else, please contact your support at Addicting Games.
-
 launch your game with
 
 ```
 http://local.shockwave.com:8888
 ```
 
-VERSION 1.0.7
+## Notes:
+
+- You can either be logged into shockwave.com or as a guest when testing.
+
+- To get an API key or anything else, please contact your support at Addicting Games.
+
+
+VERSION 1.0.8
