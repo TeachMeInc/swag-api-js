@@ -111,7 +111,31 @@ Using event listener:
 | ------------- | ------------- | ----- | ------- |
 | startSession| - | Used start an api session.  The client must wait for the promise to resolve or the SESSION_READY event before using any other api calls.| Promise |
 |startGame|-| Call this method before the player starts a game "session"| Promise |
-|endGame|-| Call this method at the end of a player game "session"| Promise |
+|endGame|options| Call this method at the end of a player game "session"| Promise |
+
+#### End game options
+
+The endGame method accepts an options object which enables developers to submit custom metrics for a game session.
+
+Example use cases:
+
+Single level runner game (without win condition):
+
+```
+{ feet: 134 }
+```
+
+Puzzle with countdown timer:
+
+```
+{ success: true }
+```
+
+Monster shooter with multiple types, tracking which enemy killed the player:
+
+```
+{ werewolf: 4, gargoyle: 2, ghoul: 12, killedBy: "ghoul" }
+```
 
 #### startGame and endGame usage
 
@@ -180,6 +204,7 @@ return api.getScores({
 | ------------- | ------------- | ----- | ------- |
 |showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information) | - |
 |getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
+|showAd| - | Displays an ad| Promise|
 
 #### showDialog options
 
@@ -282,4 +307,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 1.0.8
+VERSION 1.0.9
