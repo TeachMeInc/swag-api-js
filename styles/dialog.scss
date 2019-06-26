@@ -12,6 +12,7 @@
 .swag-dialog {
 
     z-index: 15000;
+    font-size: 1em;
 
     * {
       user-select: auto;
@@ -24,7 +25,7 @@
     border-radius: 1em;
     box-sizing: border-box;
     box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.24);
-    font-size: 1vw;
+    font-size: 1em;
     animation-duration: 0.50s;
     display: flex;
     flex-direction: column;
@@ -32,8 +33,8 @@
 
     .swag-dialog-header {
         color: #fff;
-        border-radius: 0.5vw 0.5vw 0vw 0vw;
-        padding: 0.5vw;
+        border-radius: 0.5em 0.5em 0em 0em;
+        padding: 0.5em;
         box-sizing: border-box;
         text-align: center;
         display: flex;
@@ -44,18 +45,18 @@
             background-repeat: no-repeat;
             background-size: contain;
             background-position: center center;
-            width: 10vw;
-            height: 3vw;
+            width: 9em;
+            height: 3em;
         }
 
         .swag-header-link {
             position: absolute;
-            top: -0.5vw;
-            right: -0.5vw;
-            line-height: 2.6vw;
-            font-size: 1.8vw;
-            height: 2.6vw;
-            width: 2.6vw;
+            top: -0.3em;
+            right: -0.3em;
+            line-height: 1em;
+            font-size: 2.5em;
+            height: 1em;
+            width: 1em;
             overflow: hidden;
             cursor: pointer;
             border-radius: 50%;
@@ -79,7 +80,7 @@
     }
 
     .swag-dialog-title {
-        font-size: 1.5vw;
+        font-size: 1.5em;
         text-align: center;
         color: #53b0e1;
         flex: 0 0 auto;
@@ -107,12 +108,13 @@
           align-items: flex-start;
           justify-content: flex-start;
           flex: 1 1 100%;
-          padding: 1vw;
+          padding: 1em;
           overflow: hidden;
-          font-size: 1.1vw;
+          font-size: 1em;
           color: #272727;
 
           .swag-data-header {
+
             display: flex;
             flex-wrap: nowrap;
             flex: 0 0 auto;
@@ -121,7 +123,7 @@
             border: 1px solid #d2d2d2;
             overflow: hidden;
             border-radius: 10px 10px 0px 0px;
-            padding: 0.5vw;
+            padding: 0.5em;
             box-sizing: border-box;
             background-color: #e3e7ea;
 
@@ -131,7 +133,7 @@
               &:nth-child(even) {
                 background-color: initial;
               }
-              padding: 0vw;
+              padding: 0em;
             }
           }
 
@@ -148,7 +150,7 @@
               display: flex;
               flex: 1 1 100%;
               flex-wrap: nowrap;
-              padding: 0.5vw;
+              padding: 0.5em;
               border-bottom: 1px solid #EFEFEE;
               box-sizing: border-box;
               align-items: center;
@@ -156,11 +158,11 @@
               &.data-achievement-row {
                 flex-wrap: wrap;
                 border: 1px solid #efefef;
-                margin-bottom: 1vw;
+                margin-bottom: 1em;
 
                 > div {
                   text-align: left;
-                  padding-left: 1vw;
+                  padding-left: 1em;
                   color: #afafaf;
                 }
 
@@ -170,14 +172,14 @@
                 }
 
                 &:before {
-                  width: 2.6vw;
-                  height: 2.6vw;
-                  line-height: 2.8vw;
+                  width: 2.6em;
+                  height: 2.6em;
+                  line-height: 2.8em;
                   content: "\2713";
                   background-color: #fff;
                   color: #fff;
                   font-weight: 700;
-                  font-size: 1.6vw;
+                  font-size: 1.6em;
                   border-radius: 50%;
                   border: 1px solid #efefef;
                 }
@@ -220,12 +222,12 @@
               width: 100%;
               padding: 0;
               height: 100%;
-              font-size: 1.5vw;
+              font-size: 1.5em;
               color: #7e7e7e;
             }
 
             .data-position {
-              flex: 0 0 2vw;
+              flex: 0 0 2em;
               text-align: center;
               justify-content: center;
             }
@@ -233,6 +235,8 @@
             .data-screen-name {
               flex: 0 0 40%;
               text-align: left;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
 
             .data-day {
@@ -252,13 +256,13 @@
 
             .data-achievement-name {
               flex: 1 1 100%;
-              font-size: 1.5vw;
+              font-size: 1.5em;
               font-weight: 700;
             }
 
             .data-achievement-description {
               flex: 1 1 100%;
-              font-size: 1.2vw;
+              font-size: 1.2em;
               font-weight: 400;
             }
 
@@ -267,9 +271,9 @@
     }
 
     .swag-data-selector {
-        padding: 1vw;
+        padding: 1.5em;
         display: flex;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         align-items: center;
         justify-content: center;
         color: #272727;
@@ -279,28 +283,26 @@
           display: flex;
           flex-wrap: wrap;
           flex: 0 1 50%;
-          font-size: 1vw;
-          height: 3.6vw;
+          font-size: 1em;
+          line-height: 1.2em;
           align-items: center;
+          min-height: 3.6em;
+
           > div {
             flex: 1 1 100%;
             text-align: left;
           }
         }
 
-        div.selector-title {
-            padding-right: 2vw;
-            text-align: center;
-            font-size: 1.5vw;
+        div.swag-select-container {
+          display: flex;
+          justify-content: space-around;
         }
-    }
 
-    @media only screen and (max-width : 761px) {
-        .swag-dialog-header {
-            font-size: 0.7vw;
-        }
-        .swag-dialog-title {
-            font-size: 1.4vw;
+        div.selector-title {
+            padding-right: 2em;
+            text-align: center;
+            font-size: 1.5em;
         }
     }
 }
@@ -310,7 +312,9 @@
 .swag-dialog {
     &.shockwave {
         .swag-dialog-header {
+
           background-color: #0064a0;
+
           .swag-logo {
               background-image: url("images/shockwave-logo.png");
           }
