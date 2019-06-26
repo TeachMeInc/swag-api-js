@@ -1,0 +1,32 @@
+&[data-breakpoint="media-phone"] {
+
+  .swag-dialog {
+    font-size: 0.8em;
+
+    .swag-data-selector {
+      flex-wrap: wrap;
+      .swag-score-context {
+        > div {
+          text-align: center;
+        }
+      }
+    }
+
+    .swag-dialog-content {
+      .swag-data-table {
+        > div {
+          .data-screen-name {
+            flex: 0 0 30%;
+          }
+          .data-score {
+            flex: 1 1 30%;
+          }
+          .data-date {
+            flex: 0 0 25%;
+          }
+        }
+      }
+    }
+
+  }
+}

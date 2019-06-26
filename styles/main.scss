@@ -12,4 +12,8 @@
     @import "../node_modules/animate.css/animate.min";
     @import "dialog";
     @import "ui";
+    @import "breakpoints/phone.scss";
+    @import "breakpoints/phablet.scss";
+    @import "breakpoints/tablet.scss";
+    @import "breakpoints/desktop.scss";
 }
