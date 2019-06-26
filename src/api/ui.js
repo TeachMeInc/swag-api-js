@@ -387,8 +387,14 @@ var methods = {
   positionDialog: function(element) {
     var self = this;
     var contentContainers = element.getElementsByClassName('swag-dialog-content');
-    var width = session.wrapper.offsetWidth * 0.80;
-    var height = session.wrapper.offsetHeight * 0.80;
+    var breakpoint = utils.getBreakpoint();
+    var fullWidth = (breakpoint && _.includes(['phone','phablet'], breakpoint.name));
+    var fillSize = fullWidth ? 0.96 : 0.90;
+
+    utils.applyBreakpointClass();
+
+    var width = session.wrapper.offsetWidth * fillSize;
+    var height = session.wrapper.offsetHeight * fillSize;
     var top = (session.wrapper.offsetHeight - height) / 2;
     var left = (session.wrapper.offsetWidth - width) / 2;
 
