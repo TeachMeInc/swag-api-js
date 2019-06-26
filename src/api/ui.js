@@ -117,6 +117,10 @@ var methods = {
           periodSelector.value = options.period;
         }
 
+        if(categories.length <= 1) {
+          levelSelector.style.display = 'none';
+        }
+
         if(options.level_key && levelSelector) {
           levelSelector.value = options.level_key;
         }
@@ -213,6 +217,10 @@ var methods = {
 
         if(options.day) {
           daySelector.value = options.day;
+        }
+
+        if(categories.length <= 1) {
+          levelSelector.style.display = 'none';
         }
 
         if(options.level_key) {
