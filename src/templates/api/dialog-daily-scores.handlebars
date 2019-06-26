@@ -1,15 +1,17 @@
 <div class="swag-data-selector">
   <div id="swag-score-context" class="swag-score-context">
   </div>
-  <select id="swag-data-view-day" class="swag-select">
-    {{#each days}}
-      <option value="{{this}}">{{this}}</option>
-    {{/each}}
-  </select>
-  <select id="swag-data-view-level" class="swag-select">
-    {{#each levels}}
-      <option value="{{level_key}}">{{name}}</option>
-    {{/each}}
-  </select>
+  <div class="swag-select-container">
+    <select id="swag-data-view-day" class="swag-select">
+      {{#each days}}
+        <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+    <select id="swag-data-view-level" class="swag-select">
+      {{#each levels}}
+        <option value="{{level_key}}">{{name}}</option>
+      {{/each}}
+    </select>
+  </div>
 </div>
 <div id="swag-data-table" class="swag-data-table"></div>
