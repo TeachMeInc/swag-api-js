@@ -22,6 +22,7 @@ var methods = {
     'dialog': require('../templates/api/dialog.handlebars'),
     'dialogScore': require('../templates/api/dialog-scores.handlebars'),
     'dialogDailyScore': require('../templates/api/dialog-daily-scores.handlebars'),
+    'dialogScoreConfirmation': require('../templates/api/dialog-score-confirmation.handlebars'),
     'dataScore': require('../templates/api/data-scores.handlebars'),
     'dataScoreContext': require('../templates/api/data-score-context.handlebars'),
     'dataDailyScoreContext': require('../templates/api/data-daily-scores-context.handlebars'),
@@ -34,6 +35,7 @@ var methods = {
   dialogMethods: {
     'scores': 'renderScoresDialog',
     'dailyscores': 'renderDailyScoresDialog',
+    'scoreconfirmation': 'renderScoreConfirmationDialog',
     'achievements': 'renderAchievementsDialog',
     'weeklyscores': 'renderWeeklyScoresDialog'
   },
@@ -41,8 +43,16 @@ var methods = {
   defaultDialogTitles: {
     'scores': 'Best Scores',
     'dailyscores': 'Best Daily Scores',
+    'scoreconfirmation': 'Score Submitted',
     'weeklyscores': 'Your Best Scores This Week',
     'achievements': 'Your Achievements'
+  },
+
+  dialogRenderingOptions: {
+    'scoreconfirmation': {
+      default: {width: 0.60, height: 0.40},
+      mobileBreakpoint: {width: 0.90, height: 0.40}
+    }
   },
 
   renderDialog: function(type, options) {
@@ -59,14 +69,8 @@ var methods = {
     this.cleanStage();
     session.wrapper.insertAdjacentHTML('afterbegin', progressDialog);
     var dialogEl = document.getElementById('swag-dialog');
-    this.positionDialog(dialogEl);
-
-    var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
-    _.each(backBtn, function(el) {
-        el.addEventListener('click', function(event) {
-            self.onCloseDialog(event);
-        }, true);
-    });
+    dialogEl.dataset['dialog'] = type;
+    this.positionDialog(dialogEl, this.dialogRenderingOptions[type]);
 
     if(self.dialogMethods[type]) {
         return self[self.dialogMethods[type]](dialogOptions)
@@ -86,6 +90,14 @@ var methods = {
                 document.getElementById('swag-dialog-wrapper').addEventListener('pointerup', function(event) {
                     event.stopPropagation();
                 });
+
+                var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
+                _.each(backBtn, function(el) {
+                    el.addEventListener('click', function(event) {
+                        self.onCloseDialog(event);
+                    }, true);
+                });
+
             });
     } else {
       this.emit(self.events.UI_ERROR, config.events.INVALID_DIALOG_TYPE);
@@ -295,6 +307,18 @@ var methods = {
       });
   },
 
+  renderScoreConfirmationDialog: function(options) {
+    var self = this;
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+    var scoreConfirmationDialog = self.templates['dialogScoreConfirmation'](options);
+    contentEl.classList.remove('loading');
+    contentEl.innerHTML = scoreConfirmationDialog;
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
+  },
+
   renderAchievementsDialog: function(options) {
 
     var self = this;
@@ -392,17 +416,27 @@ var methods = {
     }
   },
 
-  positionDialog: function(element) {
+  positionDialog: function(element, options) {
     var self = this;
     var contentContainers = element.getElementsByClassName('swag-dialog-content');
     var breakpoint = utils.getBreakpoint();
-    var fullWidth = (breakpoint && _.includes(['phone','phablet'], breakpoint.name));
-    var fillSize = fullWidth ? 0.96 : 0.90;
+
+    var mobileBreakpoint = (breakpoint && _.includes(['phone','phablet'], breakpoint.name));
+    var fillSize = mobileBreakpoint
+      ? { width: 0.96, height: 0.96}
+      : { width: 0.96, height: 0.90};
+
+    if(options && (options.default.width && options.default.height)) {
+      fillSize = mobileBreakpoint
+        ? { width: options.mobileBreakpoint.width, height: options.mobileBreakpoint.height }
+        : { width: options.default.width, height: options.default.height };
+    }
 
     utils.applyBreakpointClass();
 
-    var width = session.wrapper.offsetWidth * fillSize;
-    var height = session.wrapper.offsetHeight * fillSize;
+    var width = session.wrapper.offsetWidth * fillSize.width;
+    var height = session.wrapper.offsetHeight * fillSize.height;
+
     var top = (session.wrapper.offsetHeight - height) / 2;
     var left = (session.wrapper.offsetWidth - width) / 2;
 
@@ -422,7 +456,8 @@ var methods = {
     utils.debug('resize');
     var elems = session.wrapper.getElementsByClassName('swag-dialog');
     _.each(elems, function(elem) {
-      self.positionDialog(elem);
+      var options = self.dialogRenderingOptions[elem.dataset.dialog] || {};
+      self.positionDialog(elem, options);
     });
   },
 

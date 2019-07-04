@@ -17,7 +17,7 @@ var methods = {
     'postDatastore': '/v1/datastore'
   }),
 
-  postScore: function(level_key, value) {
+  postScore: function(level_key, value, options) {
     var self = this;
     var body = {
       game: session.api_key,
@@ -32,7 +32,7 @@ var methods = {
     });
   },
 
-  postDailyScore: function(day, level_key, value) {
+  postDailyScore: function(day, level_key, value, options) {
     var self = this;
     var body = {
       game: session.api_key,
