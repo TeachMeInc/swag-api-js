@@ -9,7 +9,7 @@ src="https://swagapi.shockwave.com/dist/swag-api.js">
 href="https://swagapi.shockwave.com/dist/swag-api.css">
 ```
 
-## Score Configuration
+# Score Configuration
 
 Each type of score for your game can be configured individually. Expressed in JSON, a score configuration is in the following format:
 
@@ -42,15 +42,15 @@ These configurations are loaded into our highscore system to facilitate the spec
 
 <div class="page-break"></div>
 
-## Formatters
+# Formatters
 
 Define a value_formatter in score configuration or as a parameter in api methods to format values.
 
-### Number Formatters
+## Number Formatters
 
 No special number formatters are currently available.  Let us know if there is a format you'd like to see.
 
-### Time Formatters
+## Time Formatters
 
 | formatter     | example output|
 | ------------- | ------------- |
@@ -62,7 +62,7 @@ No special number formatters are currently available.  Let us know if there is a
 
 <div class="page-break"></div>
 
-## Connecting to the API
+# Connecting to the API
 
 SWAGPI will be accessible as a global
 
@@ -75,7 +75,7 @@ SWAGPI will be accessible as a global
   });
 ```
 
-##### API options:
+## API options:
 
 | option        | type           | description  |
 | ------------- | ------------- | ----- |
@@ -103,9 +103,9 @@ Using event listener:
 
 <div class="page-break"></div>
 
-## Using the API
+# Using the API
 
-###  Session Methods
+##  Session Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
@@ -113,7 +113,8 @@ Using event listener:
 |startGame|-| Call this method before the player starts a game "session"| Promise |
 |endGame|options| Call this method at the end of a player game "session"| Promise |
 
-#### End game options
+
+## End game options
 
 The endGame method accepts an options object which enables developers to submit custom metrics for a game session.
 
@@ -137,7 +138,9 @@ Monster shooter with multiple types, tracking which enemy killed the player:
 { werewolf: 4, gargoyle: 2, ghoul: 12, killedBy: "ghoul" }
 ```
 
-#### startGame and endGame usage
+<div class="page-break"></div>
+
+# Start and End Game Usage
 
 The startGame and endGame methods are intended to be used at the start and end of a game session.
 
@@ -160,16 +163,35 @@ Example use case of endGame:
 
 <div class="page-break"></div>
 
-###  Score Methods
+#  Score Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
 |getScoreCategories| - | Returns a json array of highscore categories associated with this game| Promise, resolves json |
 |getScores| see getScores options | Returns a json array of scores based on the options objects| Promise, resolves json |
-|postScore| level_key, value | Post the score `value` for the `level_key` for the current user.| Promise |
+|postScore| level_key, value, options | Post the score `value` for the `level_key` for the current user.| Promise |
 |postDailyScore| day, level_key, value | Post the score `value` for the `level_key` and `day` for the current user.| Promise |
 
-#### getScores options
+<div class="page-break"></div>
+
+#  Score Methods Options
+
+
+## postScore options
+
+The following options are available:
+
+| option        | type           |  description |
+| ------------- | ------------- | ----- |
+|confirmation|boolean|If this option is included, api will display a confirmation dialog after the score is posted
+
+example:
+
+```
+api.postScore('level_1', 400, { confirmation: true });
+```
+
+## getScores options
 
 The following options are available:
 
@@ -198,7 +220,7 @@ return api.getScores({
 
 <div class="page-break"></div>
 
-###  UI Methods
+# UI Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
@@ -206,7 +228,7 @@ return api.getScores({
 |getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
 |showAd| - | Displays an ad| Promise|
 
-#### showDialog options
+## showDialog options
 
 
 example:
@@ -230,7 +252,7 @@ The following options are available:
 
 <div class="page-break"></div>
 
-####  Achievement Methods
+#  Achievement Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
@@ -238,14 +260,14 @@ The following options are available:
 |postAchievement| achievement_key | Post an achievement `achievement_key` for the current user| Promise |
 |getUserAchievements| - | Return a list of all achievements by the current user for this game| Promise, resolves json |
 
-####  Data store Methods
+#  Data store Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
 |postDatastore| key, value | Post a `value` to `key`.  If 'key' exists for this user, it will be overwritten.| Promise |
 |getUserDatastore| - | Returns a json array of all data store objects associated with this user| Promise |
 
-####  Misc Methods
+#  Misc Methods
 
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
@@ -255,7 +277,7 @@ The following options are available:
 
 <div class="page-break"></div>
 
-###  API Events:
+#  API Events:
 
 | event        | description |
 | ------------- | ------------- |
@@ -263,14 +285,14 @@ The following options are available:
 | ERROR | An api error has occurred
 | DIALOG_CLOSED | The active dialog has closed
 
-### Demo
+# Demo
 
 There is a simple demo of the api at:
 
 https://swagapi.shockwave.com/demo.html (view source)
 
 
-## Developing and Using Locally
+# Developing and Using Locally
 
 For now you will need to edit your etc\hosts file.
 
@@ -300,11 +322,10 @@ launch your game with
 http://local.shockwave.com:8888
 ```
 
-## Notes:
+# Notes:
 
 - You can either be logged into shockwave.com or as a guest when testing.
-
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 1.1.1
+VERSION 1.1.2

@@ -1,5 +1,5 @@
 module.exports = {
-    version: '1.1.1',
+    version: '1.1.2',
     apiRoot: 'https://swag-services.shockwave.com',
     resourceRoot: 'https://swagapi.shockwave.com/dist/',
     events: {

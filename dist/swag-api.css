@@ -2735,6 +2735,17 @@
         padding-right: 2em;
         text-align: center;
         font-size: 1.5em; }
+    .swag-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-content {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: space-evenly;
+      -webkit-justify-content: space-evenly;
+              justify-content: space-evenly; }
+      .swag-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-content .score-confirmation-message {
+        font-size: 1.4em; }
+    .swag-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-header .swag-logo {
+      display: none; }
   .swag-wrapper .swag-dialog.shockwave .swag-dialog-header {
     background-color: #0064a0; }
     .swag-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
@@ -2787,6 +2798,16 @@
     background-image: url(shockwave-logo.svg); }
   .swag-wrapper .branding-logo-ag {
     background-image: url(addictinggames-logo.svg); }
+  .swag-wrapper .swag-button-confirmation {
+    background-color: #0163a0;
+    width: 4em;
+    padding: 1em 1em;
+    color: #fff;
+    -webkit-border-radius: 6px;
+            border-radius: 6px;
+    cursor: pointer; }
+    .swag-wrapper .swag-button-confirmation:hover {
+      background-color: #01446d; }
   .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog {
     font-size: 0.8em; }
     .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector {
