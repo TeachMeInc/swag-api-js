@@ -426,7 +426,7 @@ var methods = {
       ? { width: 0.96, height: 0.96}
       : { width: 0.96, height: 0.90};
 
-    if(options && (options.default.width && options.default.height)) {
+    if(options && options.default && options.default.width && options.default.height) {
       fillSize = mobileBreakpoint
         ? { width: options.mobileBreakpoint.width, height: options.mobileBreakpoint.height }
         : { width: options.default.width, height: options.default.height };
