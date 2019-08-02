@@ -26,7 +26,8 @@ var methods = {
     'getAchievementCategories': '/v1/achievement/categories',
     'getUserAchievements': '/v1/achievement/user',
     'getUserDatastore': '/v1/datastore/user',
-    'getCurrentDay': '/v1/currentday'
+    'getCurrentDay': '/v1/currentday',
+    'getTokenBalance': '/v1/tokenbalance'
   },
 
 
@@ -279,6 +280,24 @@ var methods = {
       }
     });
 
+    return promise;
+  },
+
+  getTokenBalance: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      if(session.uid) {
+        session.entity = session.uid;
+        resolve(session.uid);
+      } else {
+        self.getAPIData({
+          method: self.apiMethods['getTokenBalance']
+        })
+        .then(function(result) {
+          resolve(result);
+        });
+      }
+    });
     return promise;
   }
 };
