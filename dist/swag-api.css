@@ -2410,9 +2410,9 @@
     left: 0;
     -webkit-animation-duration: 0.50s;
             animation-duration: 0.50s;
-    z-index: 10000; }
+    z-index: 15000; }
   .swag-wrapper .swag-dialog {
-    z-index: 15000;
+    z-index: 20000;
     font-size: 1em;
     position: absolute;
     margin: auto;
