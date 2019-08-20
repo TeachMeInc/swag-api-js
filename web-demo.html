@@ -1,0 +1,134 @@
+<html>
+  <head>
+      <title>SWAG JS WEB Demo</title>
+      <link rel="stylesheet" type="text/css" href="https://swagapi.shockwave.com/dist/swag-web.css">
+      <style>
+        body {
+          padding-bottom: 2em;
+        }
+        .demo-stage {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .demo-stage > * {
+          justify-content: center;
+          flex: 0 1 60%;
+          text-align: center;
+          align-items: center;
+        }
+        .demo-controls {
+          flex: 0 1 60%;
+        }
+        .demo-controls > div {
+          display: flex;
+          padding: 1em 1em;
+          flex-wrap: no-wrap;
+          justify-content: space-between;
+          align-items: center;
+          border: 1px solid #efefef;
+        }
+        .control-title {
+          flex: 0 1 30%;
+          padding: 1em;
+          margin-right: 1em;
+          color: #2e2d33;
+          font-weight: bold;
+          background-color: #efefef;
+        }
+        .control-title > p {
+          color: #2d2d2d;
+          font-size: 0.8vw;
+        }
+        input[type="button"] {
+          background-color: #efefef;
+          font-size: 1vw;
+          font-weight: 700;
+          border-radius: 6px;
+          padding: 0.5vw;
+        }
+        .demo-stage > h2 {
+          text-align: left;
+          border-bottom: 1px solid #efefef;
+          padding-bottom: 0.5em;
+        }
+        .demo-controls > .data-view {
+          border: 1px solid #efefef;
+          height: 400px;
+          overflow-y: scroll;
+          align-items: flex-start;
+          justify-content: flex-start;
+        }
+        .data-view-select {
+          justify-content: space-around;
+        }
+        .api-wrapper {
+          margin-top: 1vw;
+          flex: 0 1 60%;
+          height : 40vw;
+          background-color: #efefef;
+        }
+      </style>
+  </head>
+  <body>
+      <div id="demo-stage" class="demo-stage">
+          <h1>SWAG WEB Demo</h1>
+
+          <h2>Current User</h2>
+          <div class="demo-controls">
+              <div id="user-info"></div>
+          </div>
+
+          <h2>Tokens</h2>
+          <div class="demo-controls">
+            <div id="token-balance-section">loading token balance...</div>
+          </div>
+
+          <h2>Friends</h2>
+          <div class="demo-controls">
+            <div id="friends-section">loading friends...</div>
+          </div>
+
+          <h2>High Scores</h2>
+          <div class="demo-controls">
+            <div id="high-scores-section">loading high scores...</div>
+          </div>
+  </body>
+
+  <script src="https://swagapi.shockwave.com/dist/swag-web.js"></script>
+  <script>
+
+    var wrapper =  document.getElementById('swag-api-wrapper');
+
+    document.addEventListener('DOMContentLoaded', function() {
+
+//-------- Create SWAG WEB Instance --------------------------------------------
+
+      var api = SWAGWEB.getInstance({
+        theme: 'shockwave'
+      });
+
+      return api.startSession()
+        .then(function() {
+
+          // show current user for demo purposes
+          document.getElementById('user-info').innerHTML = JSON.stringify(api.getCurrentEntity());
+
+          // display tokens
+          api.renderTokenBalance({ el: document.getElementById('token-balance-section') });
+
+          // display friend section
+          api.renderFriendsSection({ el: document.getElementById('friends-section') });
+
+          // display high scores
+          api.renderScoresSection({
+            el: document.getElementById('high-scores-section'),
+            keyword: 'shockwave-original-daily-pyramid-solitaire'
+          });
+
+        });
+
+  });
+
+  </script>
+</html>

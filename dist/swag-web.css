@@ -2749,9 +2749,9 @@
   .swag-wrapper .swag-dialog.shockwave .swag-dialog-header {
     background-color: #0064a0; }
     .swag-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
-      background-image: url(shockwave-logo.png); }
+      background-image: url(d8d21263ef6645fd9ac581ad3fec9e82.png); }
   .swag-wrapper .swag-dialog.shockwave .swag-dialog-content.loading {
-    background-image: url(shockwave-loader.gif); }
+    background-image: url(9193145315295cc05698d1660e427b68.gif); }
   .swag-wrapper .swag-dialog.shockwave .swag-data-selector {
     background-color: #f0f8ff; }
   .swag-wrapper .swag-select {
@@ -2795,9 +2795,9 @@
   .swag-wrapper .swag-select option {
     font-weight: normal; }
   .swag-wrapper .branding-logo-sw {
-    background-image: url(shockwave-logo.svg); }
+    background-image: url(2c012859d30c3092f62ec3e3a44b925a.svg); }
   .swag-wrapper .branding-logo-ag {
-    background-image: url(addictinggames-logo.svg); }
+    background-image: url(26c2a631b17d40b56e9fefc396e8fe79.svg); }
   .swag-wrapper .swag-button-confirmation {
     background-color: #0163a0;
     width: 4em;
@@ -2863,4 +2863,4 @@
   .swag-wrapper[data-breakpoint="media-desktop"] .swag-dialog {
     font-size: 1em; }
 
-/*# sourceMappingURL=swag-api.css.map*/
+/*# sourceMappingURL=swag-web.css.map*/

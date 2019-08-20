@@ -46,3 +46,17 @@
 .branding-logo-ag {
   background-image: url('./images/addictinggames-logo.svg');
 }
+
+.swag-button-confirmation {
+  background-color: #0163a0;
+  width: 4em;
+  padding: 1em 1em;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: darken( #0163a0, 10% );
+  }
+
+}

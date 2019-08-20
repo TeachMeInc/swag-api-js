@@ -68,8 +68,13 @@ var methods = {
     return data.getScores(options);
   },
 
-  postScore: function(level_key, value) {
-    return data.postScore(level_key, value);
+  postScore: function(level_key, value, options) {
+    return data.postScore(level_key, value, options)
+      .then(function() {
+        if(options && options.confirmation === true) {
+          ui.renderDialog('scoreconfirmation', { value: value });
+        }
+      });
   },
 
   postDailyScore: function(day, level_key, value) {
