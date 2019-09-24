@@ -2410,9 +2410,9 @@
     left: 0;
     -webkit-animation-duration: 0.50s;
             animation-duration: 0.50s;
-    z-index: 10000; }
+    z-index: 15000; }
   .swag-wrapper .swag-dialog {
-    z-index: 15000;
+    z-index: 20000;
     font-size: 1em;
     position: absolute;
     margin: auto;
@@ -2743,6 +2743,7 @@
       -webkit-justify-content: space-evenly;
               justify-content: space-evenly; }
       .swag-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-content .score-confirmation-message {
+        color: #0162a0;
         font-size: 1.4em; }
     .swag-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-header .swag-logo {
       display: none; }
@@ -2805,6 +2806,7 @@
     color: #fff;
     -webkit-border-radius: 6px;
             border-radius: 6px;
+    text-align: center;
     cursor: pointer; }
     .swag-wrapper .swag-button-confirmation:hover {
       background-color: #01446d; }

@@ -328,4 +328,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 1.1.3
+VERSION 1.1.5
