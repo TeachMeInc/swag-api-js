@@ -29,7 +29,8 @@ var methods = {
     'dialogAchievements': require('../templates/api/dialog-achievements.handlebars'),
     'dataAchievements': require('../templates/api/data-achievements.handlebars'),
     'dialogWeeklyScores': require('../templates/api/dialog-weeklyscores.handlebars'),
-    'dataWeeklyScores': require('../templates/api/data-weeklyscores.handlebars')
+    'dataWeeklyScores': require('../templates/api/data-weeklyscores.handlebars'),
+    'brandingAnimation': require('../templates/api/branding-animation.handlebars')
   },
 
   dialogMethods: {
@@ -540,6 +541,22 @@ var methods = {
       };
       //TODO: use appropriate logo for given context
       img.src = config.resourceRoot + 'shockwave-logo.svg';
+    });
+  },
+
+  showBrandingAnimation: function(targetElement, callback) {
+    var self = this;
+    var el = document.getElementById(targetElement);
+    return new Promise(function(resolve, reject) {
+      var animationMarkup = self.templates['brandingAnimation']();
+      el.insertAdjacentHTML('afterbegin', animationMarkup);
+      var wrapper = document.getElementById("swag-branding-animation-wrapper");
+      var videoEl = document.getElementById('swag-branding-animation');
+      videoEl.onended = function() {
+        el.removeChild(wrapper);
+        if(callback) callback();
+        resolve();
+      };
     });
   },
 

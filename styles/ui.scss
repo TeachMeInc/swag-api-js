@@ -47,6 +47,18 @@
   background-image: url('./images/addictinggames-logo.svg');
 }
 
+.swag-branding-animation-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+
+  video {
+    width: 100%;
+    height: auto;
+  }
+}
+
 .swag-button-confirmation {
   background-color: #0163a0;
   width: 4em;
