@@ -423,7 +423,7 @@ var methods = {
 
     var mobileBreakpoint = (breakpoint && _.includes(['phone','phablet'], breakpoint.name));
     var fillSize = mobileBreakpoint
-      ? { width: 0.96, height: 0.96}
+      ? { width: 0.90, height: 0.80}
       : { width: 0.96, height: 0.90};
 
     if(options && options.default && options.default.width && options.default.height) {
