@@ -1,0 +1,22 @@
+.swag-branding-active {
+  position: relative;
+}
+
+.swag-branding-animation-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 15000;
+
+  video {
+    width: 100%;
+    height: auto;
+  }
+}
