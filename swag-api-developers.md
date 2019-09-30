@@ -225,7 +225,6 @@ return api.getScores({
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
 |showDialog | type | display a dialog of type `scores`, `dailyscores` `achievements` or `weeklyscores` (see dialog options for more information) | - |
-|getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
 |showAd| - | Displays an ad| Promise|
 
 ## showDialog options
@@ -274,6 +273,35 @@ The following options are available:
 |isSubscriber| - | returns true if the current user is a subscriber | Promise, resolves Boolean |
 |hasDailyScore|level_key| returns true if the current user has submitted a score today | Promise, resolves Boolean |
 |getCurrentDay|-|returns the current "day" used by the api (PST timezone). format: ```{"day":"2019-05-09"}```.  If the url parameters `day`, `month`, and `year` are present, this method will return this date rather than the current date.  eg. `day=04&month=07&year=19`| Promise, resolves json |
+
+<div class="page-break"></div>
+
+# Branding Methods
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
+|SWAGAPI.showBrandingAnimation|elementid<String>, callback|displays a branding animation in the provided element id|Promise|
+
+The method `SWAGAPI.showBrandingAnimation` can be used to display the branding animation before a game.
+Note this is a static method so it can be used independently of the API instance.
+
+example:
+
+```
+SWAGAPI.showBrandingAnimation('game')
+  .then(function() {
+    //display the game
+  });
+```
+
+example (using callback):
+
+```
+SWAGAPI.showBrandingAnimation('game', function() {
+  //display the game
+});
+```
 
 <div class="page-break"></div>
 
@@ -328,4 +356,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 1.1.5
+VERSION 1.1.8

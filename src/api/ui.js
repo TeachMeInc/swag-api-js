@@ -550,12 +550,14 @@ var methods = {
     return new Promise(function(resolve, reject) {
       var animationMarkup = self.templates['brandingAnimation']();
       el.insertAdjacentHTML('afterbegin', animationMarkup);
-      var wrapper = document.getElementById("swag-branding-animation-wrapper");
-      var videoEl = document.getElementById('swag-branding-animation');
-      videoEl.onended = function() {
-        el.removeChild(wrapper);
-        if(callback) callback();
-        resolve();
+      var wrapper = document.getElementById('swag-branding-animation-wrapper');
+      var anim = document.getElementById('swag-branding-animation');
+      anim.onload = function() {
+        window.setTimeout(function() {
+            wrapper.parentNode.removeChild(wrapper);
+            if(callback) callback();
+            resolve();
+        }, 4500);
       };
     });
   },
