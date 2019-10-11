@@ -5,7 +5,7 @@ module.exports = {
         apiRoot: 'https://swag-services.shockwave.com'
       },
       'addictinggames': {
-        apiRoot: 'https://swag-services.shockwave.com'
+        apiRoot: 'https://swag-services.addictinggames.com'
       }
     },
     resourceRoot: 'https://swagapi.shockwave.com/dist/',
