@@ -84,7 +84,7 @@ var methods = {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-      xhr.open('POST', encodeURI(config.apiRoot + options.method), true);
+      xhr.open('POST', encodeURI(session.apiRoot + options.method), true);
       xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       xhr.withCredentials = true;
       xhr.onload = function() {

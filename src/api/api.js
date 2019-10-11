@@ -153,14 +153,24 @@ var methods = {
 
   _init: function() {
     var self = this;
+    var siteMode = this._getSiteMode();
+
     session.api_key = this._options.api_key;
     session.wrapper = this._options.wrapper;
     session.wrapper.classList.add('swag-wrapper');
-    session.theme = this._options.theme || 'shockwave';
+    session.theme = siteMode;
+    session.apiRoot = config.themes[siteMode].apiRoot;
 
     elementResizeEvent(session.wrapper, function() {
       ui.resize();
     });
+  },
+
+  _getSiteMode: function() {
+    var reqTheme = window.SWAGTHEME;
+    return config.themes[reqTheme]
+      ? reqTheme
+      : 'shockwave';
   },
 
   _emitError: function(errorType) {

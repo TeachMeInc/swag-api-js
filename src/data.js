@@ -42,13 +42,12 @@ var methods = {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-      var apiRoot = session.apiRoot || config.apiRoot;
 
       var params = '?' + _.map(_.keys(options.params), function(key) {
         return key + '=' + utils.formatParam(options.params[key]);
       }).join('&');
 
-      xhr.open('GET', encodeURI(apiRoot + options.method + params));
+      xhr.open('GET', encodeURI(session.apiRoot + options.method + params));
       xhr.withCredentials = true;
       xhr.onload = function() {
         var response = xhr.status === 200

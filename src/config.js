@@ -1,6 +1,13 @@
 module.exports = {
-    version: '1.1.5',
-    apiRoot: 'https://swag-services.shockwave.com',
+    version: '1.1.9',
+    themes: {
+      'shockwave': {
+        apiRoot: 'https://swag-services.shockwave.com'
+      },
+      'addictinggames': {
+        apiRoot: 'https://swag-services.shockwave.com'
+      }
+    },
     resourceRoot: 'https://swagapi.shockwave.com/dist/',
     events: {
       API_COMMUNICATION_ERROR: 'API_COMMUNICATION_ERROR',
