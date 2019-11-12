@@ -517,12 +517,14 @@ var methods = {
 
   startGame: function() {
     return new Promise(function(resolve,reject) {
+      console.log('::: start game method invoked :::');
       resolve({});
     });
   },
 
   endGame: function() {
     return new Promise(function(resolve,reject) {
+      console.log('::: end game method invoked :::');
       resolve({});
     });
   },
