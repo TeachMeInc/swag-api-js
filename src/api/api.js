@@ -137,6 +137,10 @@ var methods = {
     return ui.getBrandingLogo();
   },
 
+  getBrandingLogoUrl: function() {
+    return ui.getBrandingLogoUrl();
+  },
+
   startGame: function() {
     return ui.startGame();
   },

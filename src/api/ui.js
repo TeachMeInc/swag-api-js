@@ -546,6 +546,12 @@ var methods = {
     });
   },
 
+  getBrandingLogoUrl: function() {
+    return new Promise(function(resolve, reject) {
+      resolve(config.resourceRoot + 'shockwave-logo.svg');
+    });
+  },
+
   showBrandingAnimation: function(targetElement, callback) {
     var self = this;
     var el = document.getElementById(targetElement);
