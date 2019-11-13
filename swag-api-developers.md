@@ -281,6 +281,7 @@ The following options are available:
 | method        | parameters           |  description | method result |
 | ------------- | ------------- | ----- | ------- |
 |getBrandingLogo| - |returns an HTMLImageElement of the appropriate site logo | Promise, resolves HTMLImageElement |
+|getBrandingLogoUrl| - |returns the url of the appropriate site logo | Promise, resolves a string |
 |SWAGAPI.showBrandingAnimation|elementid<String>, callback|displays a branding animation in the provided element id|Promise|
 
 The method `SWAGAPI.showBrandingAnimation` can be used to display the branding animation before a game.
@@ -356,4 +357,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 2.0.1
+VERSION 2.0.2
