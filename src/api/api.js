@@ -153,6 +153,10 @@ var methods = {
     return ui.showAd();
   },
 
+  postExternalMessage: function(message) {
+    return data.postExternalMessage(message);
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {

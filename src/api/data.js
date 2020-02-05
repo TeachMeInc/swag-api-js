@@ -111,6 +111,18 @@ var methods = {
       xhr.send(JSON.stringify(options.body));
     });
     return promise;
+  },
+
+  postExternalMessage: function(message) {
+    if(message && message.type && message.data) {
+      if(window && window.top) {
+        window.top.postMessage(_.pick(message,['type','data']), '*');
+      }
+    } else {
+      self.emit(events.DATA_ERROR, config.events.INVALID_MESSAGE);
+      return;
+    }
+
   }
 
 };
