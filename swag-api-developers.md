@@ -306,6 +306,60 @@ SWAGAPI.showBrandingAnimation('game', function() {
 
 <div class="page-break"></div>
 
+# External Component Integration
+
+| method        | parameters           |  description | method result |
+| ------------- | ------------- | ----- | ------- |
+|postExternalMessage | message | send a message to an external component | - |
+
+example:
+```
+api.postExternalMessage({
+    type: 'lobby',
+    data: [
+      { username: 'user1'},
+      { username: 'user2'},
+      ...
+    ]
+});
+```
+
+## message types:
+
+### Leaderboard
+
+```
+{
+  type: 'leaderboard',
+  data: [
+    { username: 'user1', points: 300},
+    { username: 'user1', points: 300},
+    ...
+  ]
+}
+```
+
+### Lobby
+
+```
+{
+    type: 'lobby',
+    data: [
+      { username: 'user1'},
+      { username: 'user2'},
+      ...
+    ]
+}
+```
+
+### Waiting
+
+```
+{
+    type: 'waiting'
+}
+```
+
 #  API Events:
 
 | event        | description |
@@ -357,4 +411,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 2.0.3
+VERSION 2.0.4
