@@ -352,11 +352,11 @@ api.postExternalMessage({
 }
 ```
 
-### Waiting
+### Default
 
 ```
 {
-    type: 'waiting'
+    type: 'default'
 }
 ```
 
@@ -411,4 +411,4 @@ http://local.shockwave.com:8888
 - To get an API key or anything else, please contact your support at Addicting Games.
 
 
-VERSION 2.0.4
+VERSION 2.0.5
