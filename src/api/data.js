@@ -114,7 +114,7 @@ var methods = {
   },
 
   postExternalMessage: function(message) {
-    if(message && message.type && message.data) {
+    if(message && message.type) {
       if(window && window.top) {
         window.top.postMessage(_.pick(message,['type','data']), '*');
       }
