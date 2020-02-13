@@ -57,15 +57,17 @@ var methods = {
   dialogRenderingOptions: {
     'scoreconfirmation': {
       default: {width: 0.60, height: 0.40},
-      mobileBreakpoint: {width: 0.90, height: 0.40}
+      mobileBreakpoint: {width: 0.90, height: 0.40},
     },
     'userlogin': {
-      default: {width: 0.40, height: 0.60},
-      mobileBreakpoint: {width: 0.80, height: 0.60}
+      default: {width: 0.40, height: 0.50},
+      mobileBreakpoint: {width: 0.90, height: 0.60},
+      tabletBreakpoint: {width: 0.90, height: 0.70}
     },
     'usercreate': {
       default: {width: 0.40, height: 0.60},
-      mobileBreakpoint: {width: 0.80, height: 0.60}
+      mobileBreakpoint: {width: 0.90, height: 0.60},
+      tabletBreakpoint: {width: 0.90, height: 0.70}
     }
   },
 
@@ -578,14 +580,18 @@ var methods = {
     var contentContainers = element.getElementsByClassName('swag-dialog-content');
     var breakpoint = utils.getBreakpoint();
 
-    var mobileBreakpoint = (breakpoint && _.includes(['phone','phablet'], breakpoint.name));
+    var mobileBreakpoint = (breakpoint && _.includes(['phone'], breakpoint.name));
+    var tabletBreakpoint = (breakpoint && _.includes(['phablet', 'tablet'], breakpoint.name));
+
+    var breakpointOps = tabletBreakpoint ? options.tabletBreakpoint : options.mobileBreakpoint;
+
     var fillSize = mobileBreakpoint
       ? { width: 0.90, height: 0.80}
       : { width: 0.96, height: 0.90};
 
     if(options && options.default && options.default.width && options.default.height) {
-      fillSize = mobileBreakpoint
-        ? { width: options.mobileBreakpoint.width, height: options.mobileBreakpoint.height }
+      fillSize = (mobileBreakpoint || tabletBreakpoint)
+        ? { width: breakpointOps.width, height: breakpointOps.height }
         : { width: options.default.width, height: options.default.height };
     }
 

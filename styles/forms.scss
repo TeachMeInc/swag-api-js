@@ -9,41 +9,41 @@
   font-size: 1.5vw;
 
   .swag-form-container {
-    width: 80%;
     display: flex;
     flex-wrap: wrap;
+    width: 100%;
+    padding: 1vw;
+    box-sizing: border-box;
 
     input[type=text],
     input[type=password] {
       flex: 1 1 100%;
-      font-size: 1.5vw;
-      line-height: 2vw;
+      font-size: 2vw;
+      line-height: 2.5vw;
       margin-bottom: 0.5vw;
       border: 1px solid #efefef;
       position: relative;
-      padding-left: 2vw;
 
-      &[type=password] {
-        background-image: url("images/input-lock.png");
+      &[type=password],
+      &[placeholder="username"],
+      &[placeholder="email"] {
         background-position: 0.5vw center;
         background-size: 1vw auto;
         background-repeat: no-repeat;
+        padding-left: 2vw;
+      }
+
+      &[type=password] {
+        background-image: url("images/input-lock.png");
       }
 
       &[placeholder="username"] {
         background-image: url("images/input-user.png");
-        background-position: 0.5vw center;
-        background-size: 1vw auto;
-        background-repeat: no-repeat;
       }
 
       &[placeholder="email"] {
         background-image: url("images/input-envelope.png");
-        background-position: 0.5vw center;
-        background-size: 1vw auto;
-        background-repeat: no-repeat;
       }
-
 
       &::-webkit-input-placeholder {
         color: #d4d4d4;

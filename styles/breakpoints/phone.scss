@@ -32,5 +32,49 @@
       }
     }
 
+    .swag-form {
+
+      font-size: 6vw;
+
+      .swag-form-container {
+
+        input[type=text],
+        input[type=password] {
+          font-size: 6vw;
+          line-height: 6vw;
+          margin-bottom: 2vw;
+          padding-left: 8vw;
+
+          &[type=password],
+          &[placeholder="username"],
+          &[placeholder="email"] {
+            background-position: 1vw center;
+            background-size: 4vw auto;
+          }
+        }
+
+        p {
+          font-size: 5vw;
+          line-height: 6vw;
+        }
+
+        input[type=button] {
+          font-size: 6vw;
+          padding: 2vw;
+          &.loading {
+            background-size: 6vw 6vw;
+          }
+        }
+
+        .swag-form-message {
+          height: 6vw;
+          padding-top: 2vw;
+          p {
+            font-size: 4vw;
+          }
+        }
+      }
+    }
+
   }
 }
