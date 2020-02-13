@@ -1,7 +1,7 @@
 <html>
   <head>
       <title>SWAG JS API Demo</title>
-      <link rel="stylesheet" type="text/css" href="http://swagapi.shockwave.com/dist/swag-api.css">
+      <link rel="stylesheet" type="text/css" href="/dist/swag-api.css">
       <style>
         body {
           padding-bottom: 2em;
@@ -92,6 +92,13 @@
               <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
               <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
           </div>
+          <h2>User Methods</h2>
+          <div class="demo-controls">
+            <input type="button" id="get-current-user" value="Get Current User">
+            <input type="button" id="show-login-dialog" value="Show Login">
+            <input type="button" id="show-create-dialog" value="Show Create">
+            <input type="button" id="do-logout" value="Logout">
+          </div>
           <div id="swag-api-wrapper" class="api-wrapper">
             <canvas id="game-canvas"></canvas>
           </div>
@@ -145,7 +152,7 @@
       </div>
   </body>
 
-  <script src="http://swagapi.shockwave.com/dist/swag-api.js"></script>
+  <script src="/dist/swag-api.js"></script>
   <script>
 
     var wrapper =  document.getElementById('swag-api-wrapper');
@@ -196,9 +203,7 @@
               console.log("The current day is: " + apidate.day);
             });
 
-          api.showDialog('scores', {
-            title: 'Best Scores'
-          });
+          api.showDialog('userlogin',{});
 
           api.getBrandingLogo()
             .then(function(logo) {
@@ -229,6 +234,26 @@
 
       document.getElementById('show-weeklyscores-dialog').addEventListener('click', function() {
           api.showDialog('weeklyscores');
+      });
+
+      //User methods
+      document.getElementById('get-current-user').addEventListener('click', function() {
+          api.getCurrentUser()
+            .then(function(user) {
+              console.log(user);
+            });
+      });
+
+      document.getElementById('show-login-dialog').addEventListener('click', function() {
+          api.showDialog('userlogin',{});
+      });
+
+      document.getElementById('show-create-dialog').addEventListener('click', function() {
+          api.showDialog('usercreate',{});
+      });
+
+      document.getElementById('do-logout').addEventListener('click', function() {
+          api.userLogout();
       });
 
       // Demo Game Events
@@ -387,6 +412,11 @@
       api.on('ERROR', function(event) {
           console.log('SWAG API ERROR: ');
           console.log(event);
+      });
+
+      api.on('DATA_EVENT', function(event) {
+        console.log("DATA_EVENT");
+        console.log(event);
       });
 
 //-------- Start the Game ------------------------------------------------------

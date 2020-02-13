@@ -32,7 +32,7 @@ function SWAGAPI(options) {
   });
 
   data.on('DATA_EVENT', function(event) {
-    self.emit(event, {type: event});
+    self.emit('DATA_EVENT', {type: event});
   });
 
   data.on('DATA_ERROR', function(event) {
@@ -155,6 +155,14 @@ var methods = {
 
   postExternalMessage: function(message) {
     return data.postExternalMessage(message);
+  },
+
+  getCurrentUser: function() {
+    return data.getCurrentUser();
+  },
+
+  userLogout:  function() {
+    return data.userLogout();
   },
 
   // ---------------------------------------------------------------------------

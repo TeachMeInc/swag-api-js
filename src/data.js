@@ -8,11 +8,15 @@ var config = require('config');
 var utils = utils = require('utils');
 var session = require('session');
 
+var provider = config.providers[session.provider] || config.providers['default'];
+
 var methods = {
 
   events: {
     DATA_EVENT: 'DATA_EVENT',
-    DATA_ERROR: 'DATA_ERROR'
+    DATA_ERROR: 'DATA_ERROR',
+    USER_LOGIN: 'USER_LOGIN',
+    USER_LOGOUT: 'USER_LOGOUT'
   },
 
   apiMethods: {
@@ -27,7 +31,11 @@ var methods = {
     'getUserAchievements': '/v1/achievement/user',
     'getUserDatastore': '/v1/datastore/user',
     'getCurrentDay': '/v1/currentday',
-    'getTokenBalance': '/v1/tokenbalance'
+    'getTokenBalance': '/v1/tokenbalance',
+    'getCurrentUser': provider.current,
+    'userLogin': provider.login,
+    'userLogout': provider.logout,
+    'userCreate': provider.create
   },
 
 
@@ -43,11 +51,13 @@ var methods = {
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
 
+      var rootUrl = options.apiRoot || session.apiRoot;
+
       var params = '?' + _.map(_.keys(options.params), function(key) {
         return key + '=' + utils.formatParam(options.params[key]);
       }).join('&');
 
-      xhr.open('GET', encodeURI(session.apiRoot + options.method + params));
+      xhr.open('GET', encodeURI(rootUrl + options.method + params));
       xhr.withCredentials = true;
       xhr.onload = function() {
         var response = xhr.status === 200
@@ -71,6 +81,41 @@ var methods = {
         reject();
       };
       xhr.send();
+    });
+    return promise;
+  },
+
+  postAPIData: function(options) {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      var rootUrl = options.apiRoot || session.apiRoot;
+      var contentType = options.contentType || 'application/json;charset=UTF-8';
+      xhr.open('POST', encodeURI(rootUrl + options.method), true);
+      xhr.setRequestHeader('Content-Type', contentType);
+      xhr.withCredentials = true;
+      xhr.onload = function() {
+        var response = xhr.status === 200
+          ? JSON.parse(xhr.response)
+          : null;
+        if(response && !response.error) {
+          resolve(response);
+        } else {
+          self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+          reject(response);
+        }
+      };
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 0) {
+          self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+          reject();
+        }
+      };
+      xhr.onError = function() {
+        self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+        reject();
+      };
+      xhr.send(JSON.stringify(options.body));
     });
     return promise;
   },
@@ -298,6 +343,84 @@ var methods = {
       }
     });
     return promise;
+  },
+
+  getCurrentUser: function() {
+    var self = this;
+    var promise = new Promise(function(resolve, reject) {
+        self.getAPIData({
+          apiRoot: provider.root,
+          method: provider.current
+        })
+        .then(function(result) {
+          if(result && !result.error) {
+            resolve(result);
+          } else {
+            reject();
+          }
+        });
+    });
+    return promise;
+  },
+
+  userLogin: function(options) {
+    var self = this;
+    var body = _.pick(options, ['username', 'password']);
+    return self.postAPIData({
+      apiRoot: provider.root,
+      method: provider.login,
+      body: body
+    })
+    .then(function(result) {
+      if(result && !result.error) {
+        self.emit(self.events.DATA_EVENT, self.events.USER_LOGIN);
+        return result;
+      } else {
+        self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+      }
+    })
+    .catch(function(result) {
+      return result;
+    });
+  },
+
+  userCreate: function(options) {
+    var self = this;
+    var body = _.pick(options, ['username', 'mail', 'password']);
+    return self.postAPIData({
+      apiRoot: provider.root,
+      method: provider.create,
+      body: body
+    })
+    .then(function(result) {
+      if(result && !result.error) {
+        self.emit(self.events.DATA_EVENT, self.events.USER_LOGIN);
+        return result;
+      } else {
+        self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+      }
+    })
+    .catch(function(result) {
+      return result;
+    });
+  },
+
+  userLogout: function() {
+    var self = this;
+    return self.getAPIData({
+      apiRoot: provider.root,
+      method: provider.logout
+    })
+    .then(function(result) {
+      if(result && !result.error) {
+        self.emit(self.events.DATA_EVENT, self.events.USER_LOGOUT);
+      } else {
+        self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+      }
+    })
+    .catch(function(error) {
+      self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
+    });
   }
 };
 

@@ -1,0 +1,117 @@
+.swag-form {
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100%;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 1.5vw;
+
+  .swag-form-container {
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+
+    input[type=text],
+    input[type=password] {
+      flex: 1 1 100%;
+      font-size: 1.5vw;
+      line-height: 2vw;
+      margin-bottom: 0.5vw;
+      border: 1px solid #efefef;
+      position: relative;
+      padding-left: 2vw;
+
+      &[type=password] {
+        background-image: url("images/input-lock.png");
+        background-position: 0.5vw center;
+        background-size: 1vw auto;
+        background-repeat: no-repeat;
+      }
+
+      &[placeholder="username"] {
+        background-image: url("images/input-user.png");
+        background-position: 0.5vw center;
+        background-size: 1vw auto;
+        background-repeat: no-repeat;
+      }
+
+      &[placeholder="email"] {
+        background-image: url("images/input-envelope.png");
+        background-position: 0.5vw center;
+        background-size: 1vw auto;
+        background-repeat: no-repeat;
+      }
+
+
+      &::-webkit-input-placeholder {
+        color: #d4d4d4;
+        font-weight: 200;
+      }
+      &::-moz-placeholder {
+        color: #d4d4d4;
+        font-weight: 200;
+      }
+      &:-ms-input-placeholder {
+        color: #d4d4d4;
+        font-weight: 200;
+      }
+      &:-moz-placeholder {
+        color: #d4d4d4;
+        font-weight: 200;
+      }
+    }
+
+    p {
+      width: 100%;
+      font-size: 1vw;
+      text-align: center;
+      line-height: 1.5vw;
+      margin: 0;
+    }
+
+    input[type=button] {
+      width: 100%;
+      font-size: 1.5vw;
+      background-color: #2495f4;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 200;
+
+      &.loading {
+        background-image: url("images/button-loader.gif");
+        background-size: 1.5vw 1.5vw;
+        background-position: center center;
+        background-repeat: no-repeat;
+        text-indent: -2000em;
+      }
+
+      &:hover {
+        background-color: #1f76bf;
+      }
+
+      &.swag-create-account {
+        background-color: #039403;
+        &:hover {
+          background-color: #037b03;
+        }
+      }
+
+    }
+
+    .swag-form-message {
+      display: flex;
+      width: 100%;
+      color: red;
+      height: 1vw;
+      padding: 0;
+      margin: 0;
+      padding-top: 0.5vw;
+
+      p {
+        font-size: 0.8vw;
+      }
+    }
+  }
+}

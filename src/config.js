@@ -8,6 +8,15 @@ module.exports = {
         apiRoot: 'https://swag-services.addictinggames.com'
       }
     },
+    providers: {
+      'default': {
+        root: 'https://www.addictinggames.com',
+        current: '/ag-auth/current',
+        login: '/ag-auth/login',
+        logout: '/ag-auth/logout',
+        create: '/ag-auth/create'
+      }
+    },
     resourceRoot: 'https://swagapi.shockwave.com/dist/',
     events: {
       API_COMMUNICATION_ERROR: 'API_COMMUNICATION_ERROR',

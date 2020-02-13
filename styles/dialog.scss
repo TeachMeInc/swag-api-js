@@ -7,6 +7,8 @@
     left: 0;
     animation-duration: 0.50s;
     z-index: 15000;
+
+    textarea, select, input, button { outline: none; }
 }
 
 .swag-dialog {
@@ -321,6 +323,7 @@
         }
       }
     }
+
 }
 
 /* Themes */
@@ -346,6 +349,9 @@
         }
         .swag-data-selector {
             background-color: #f0f8ff;
+        }
+        .swag-form {
+          color: #0064a0;
         }
     }
 

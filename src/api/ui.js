@@ -30,7 +30,9 @@ var methods = {
     'dataAchievements': require('../templates/api/data-achievements.handlebars'),
     'dialogWeeklyScores': require('../templates/api/dialog-weeklyscores.handlebars'),
     'dataWeeklyScores': require('../templates/api/data-weeklyscores.handlebars'),
-    'brandingAnimation': require('../templates/api/branding-animation.handlebars')
+    'brandingAnimation': require('../templates/api/branding-animation.handlebars'),
+    'dialogUserLogin': require('../templates/api/dialog-user-login.handlebars'),
+    'dialogUserCreate': require('../templates/api/dialog-user-create.handlebars')
   },
 
   dialogMethods: {
@@ -38,7 +40,9 @@ var methods = {
     'dailyscores': 'renderDailyScoresDialog',
     'scoreconfirmation': 'renderScoreConfirmationDialog',
     'achievements': 'renderAchievementsDialog',
-    'weeklyscores': 'renderWeeklyScoresDialog'
+    'weeklyscores': 'renderWeeklyScoresDialog',
+    'userlogin': 'renderUserLoginDialog',
+    'usercreate': 'renderUserCreateDialog'
   },
 
   defaultDialogTitles: {
@@ -46,13 +50,22 @@ var methods = {
     'dailyscores': 'Best Daily Scores',
     'scoreconfirmation': 'Score Submitted',
     'weeklyscores': 'Your Best Scores This Week',
-    'achievements': 'Your Achievements'
+    'achievements': 'Your Achievements',
+    'userlogin': 'Sign In'
   },
 
   dialogRenderingOptions: {
     'scoreconfirmation': {
       default: {width: 0.60, height: 0.40},
       mobileBreakpoint: {width: 0.90, height: 0.40}
+    },
+    'userlogin': {
+      default: {width: 0.40, height: 0.60},
+      mobileBreakpoint: {width: 0.80, height: 0.60}
+    },
+    'usercreate': {
+      default: {width: 0.40, height: 0.60},
+      mobileBreakpoint: {width: 0.80, height: 0.60}
     }
   },
 
@@ -62,9 +75,14 @@ var methods = {
         theme: session.theme,
         header: {
             backButton: true
-        },
-        title: options && options.title || self.defaultDialogTitles[type]
+        }
     }, options);
+
+    var title = options && options.title || self.defaultDialogTitles[type];
+
+    if(title) {
+      dialogOptions.title = title;
+    }
 
     var progressDialog = self.templates['dialog'](dialogOptions);
     this.cleanStage();
@@ -402,6 +420,144 @@ var methods = {
         }
 
       });
+  },
+
+  renderUserLoginDialog: function(options) {
+    var self = this;
+
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+    var scoreConfirmationDialog = self.templates['dialogUserLogin'](options);
+    contentEl.classList.remove('loading');
+    contentEl.innerHTML = scoreConfirmationDialog;
+    var usernameInput = document.getElementById('swag-login-username');
+    var passwordInput = document.getElementById('swag-login-password');
+    var formSubmit = document.getElementById('swag-login-submit');
+    var createButton = document.getElementById('swag-login-create');
+    var messageCont = document.getElementById('swag-login-message');
+
+    usernameInput.focus();
+
+    var enterKeyListener = function(event) {
+      if (event.keyCode === 13) {
+        submitForm();
+      }
+    };
+
+    var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
+    _.each(backBtn, function(el) {
+        el.addEventListener('click', function(event) {
+            window.removeEventListener('keypress', enterKeyListener, true);
+        }, true);
+    });
+
+    var submitForm = function(event) {
+      window.removeEventListener('keypress', enterKeyListener, true);
+      formSubmit.classList.add('loading');
+      formSubmit.disabled = true;
+      messageCont.innerHTML = '';
+      data.userLogin({
+        username: usernameInput.value,
+        password: passwordInput.value
+      })
+        .then(function(result) {
+          formSubmit.classList.remove('loading');
+          formSubmit.disabled = false;
+          if(result && !result.error) {
+            self.cleanStage();
+            window.removeEventListener('keypress', enterKeyListener, true);
+            self.emit(self.events.USER_LOGIN, { auth: true });
+          } else {
+            if(result && result.error) {
+              messageCont.innerHTML = '<p class="animated fadeIn">' + result.error + '</p>';
+              window.addEventListener('keypress', enterKeyListener, true);
+            }
+          }
+        });
+    };
+
+    formSubmit.addEventListener('click', function(event) {
+      event.preventDefault();
+      submitForm(event);
+    }, true);
+
+    createButton.addEventListener('click', function(event) {
+      event.preventDefault();
+      self.cleanStage();
+      self.renderDialog('usercreate',{});
+    }, true);
+
+    window.addEventListener('keypress', enterKeyListener, true);
+
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
+  },
+
+  renderUserCreateDialog: function(options) {
+    var self = this;
+
+    var dialogEl = document.getElementById('swag-dialog');
+    var contentEl = document.getElementById('swag-dialog-content');
+    var scoreConfirmationDialog = self.templates['dialogUserCreate'](options);
+    contentEl.classList.remove('loading');
+    contentEl.innerHTML = scoreConfirmationDialog;
+    var usernameInput = document.getElementById('swag-logincreate-username');
+    var emailInput = document.getElementById('swag-logincreate-mail');
+    var passwordInput = document.getElementById('swag-logincreate-password');
+    var formSubmit = document.getElementById('swag-logincreate-submit');
+    var messageCont = document.getElementById('swag-logincreate-message');
+
+    usernameInput.focus();
+
+    var enterKeyListener = function(event) {
+      if (event.keyCode === 13) {
+        submitForm();
+      }
+    };
+
+    var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
+    _.each(backBtn, function(el) {
+        el.addEventListener('click', function(event) {
+            window.removeEventListener('keypress', enterKeyListener, true);
+        }, true);
+    });
+
+    var submitForm = function(event) {
+      window.removeEventListener('keypress', enterKeyListener, true);
+      formSubmit.classList.add('loading');
+      formSubmit.disabled = true;
+      messageCont.innerHTML = '';
+      data.userCreate({
+        username: usernameInput.value,
+        mail: emailInput.value,
+        password: passwordInput.value
+      })
+        .then(function(result) {
+          formSubmit.classList.remove('loading');
+          formSubmit.disabled = false;
+          if(result && !result.error) {
+            self.cleanStage();
+            window.removeEventListener('keypress', enterKeyListener, true);
+          } else {
+            if(result && result.error) {
+              messageCont.innerHTML = '<p class="animated fadeIn">' + result.error + '</p>';
+              window.addEventListener('keypress', enterKeyListener, true);
+            }
+          }
+        });
+    };
+
+    formSubmit.addEventListener('click', function(event) {
+      event.preventDefault();
+      submitForm(event);
+    }, true);
+
+    window.addEventListener('keypress', enterKeyListener, true);
+
+    return new Promise(function(resolve,reject) {
+      resolve({});
+    });
   },
 
   // UI Rendering

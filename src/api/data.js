@@ -80,39 +80,6 @@ var methods = {
     });
   },
 
-  postAPIData: function(options) {
-    var self = this;
-    var promise = new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', encodeURI(session.apiRoot + options.method), true);
-      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-      xhr.withCredentials = true;
-      xhr.onload = function() {
-        var response = xhr.status === 200
-          ? JSON.parse(xhr.response)
-          : null;
-        if(response && !response.error) {
-          resolve(response);
-        } else {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-          reject(response);
-        }
-      };
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 0) {
-          self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-          reject();
-        }
-      };
-      xhr.onError = function() {
-        self.emit(events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
-        reject();
-      };
-      xhr.send(JSON.stringify(options.body));
-    });
-    return promise;
-  },
-
   postExternalMessage: function(message) {
     if(message && message.type) {
       if(window && window.top) {
