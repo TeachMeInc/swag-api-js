@@ -3,17 +3,21 @@ var _ = require('lodash').noConflict();
 
 var mediaBreakpoints = [
   {name: 'phone', value: 400, class:'media-phone'},
-  {name: 'phablet', value: 560, class:'media-phablet'},
-  {name: 'tablet', value: 768, class:'media-tablet'},
-  {name: 'desktop', value: 1248, class:'media-desktop'}
+  {name: 'phablet', value: 800, class:'media-phablet'},
+  {name: 'tablet', value: 1200, class:'media-tablet'},
+  {name: 'desktop', value: 1400, class:'media-desktop', default: true}
 ];
 
 var methods = {
 
   getBreakpoint: function() {
-    return _.find(mediaBreakpoints, function(breakpoint) {
+    var defaultBreakpoint = _.find(mediaBreakpoints, function(breakpoint) {
+      return breakpoint.default;
+    });
+    var mmatch = _.find(mediaBreakpoints, function(breakpoint) {
       return session.wrapper.clientWidth <= breakpoint.value;
     });
+    return mmatch || defaultBreakpoint;
   },
 
   applyBreakpointClass: function() {
