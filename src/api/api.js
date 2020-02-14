@@ -11,6 +11,7 @@ var data = require('./data');
 var ui = require('./ui');
 var utils = require('../utils');
 
+var _isRendering = false;
 // -----------------------------------------------------------------------------
 
 function SWAGAPI(options) {
@@ -178,7 +179,9 @@ var methods = {
     session.apiRoot = config.themes[siteMode].apiRoot;
 
     elementResizeEvent(session.wrapper, function() {
-      ui.resize();
+      _isRendering = setTimeout(function() {
+        ui.resize();
+      }, 400);
     });
   },
 

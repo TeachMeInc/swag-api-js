@@ -54,23 +54,6 @@ var methods = {
     'userlogin': 'Sign In'
   },
 
-  dialogRenderingOptions: {
-    'scoreconfirmation': {
-      default: {width: 0.60, height: 0.40},
-      mobileBreakpoint: {width: 0.90, height: 0.40},
-    },
-    'userlogin': {
-      default: {width: 0.40, height: 0.50},
-      mobileBreakpoint: {width: 0.90, height: 0.60},
-      tabletBreakpoint: {width: 0.90, height: 0.70}
-    },
-    'usercreate': {
-      default: {width: 0.40, height: 0.60},
-      mobileBreakpoint: {width: 0.90, height: 0.60},
-      tabletBreakpoint: {width: 0.90, height: 0.70}
-    }
-  },
-
   renderDialog: function(type, options) {
     var self = this;
     var dialogOptions = _.extend({
@@ -91,8 +74,7 @@ var methods = {
     session.wrapper.insertAdjacentHTML('afterbegin', progressDialog);
     var dialogEl = document.getElementById('swag-dialog');
     dialogEl.dataset['dialog'] = type;
-    this.positionDialog(dialogEl, this.dialogRenderingOptions[type]);
-
+    utils.applyBreakpointClass();
     if(self.dialogMethods[type]) {
         return self[self.dialogMethods[type]](dialogOptions)
             .then(function() {
@@ -563,67 +545,6 @@ var methods = {
   },
 
   // UI Rendering
-  resizeToContainer: function(element, container) {
-    var max = 100;
-    var attempts = 0;
-    element.style.fontSize = null;
-    var size = parseInt(window.getComputedStyle(element).fontSize);
-    while(element.offsetHeight > container.offsetHeight && attempts < max && size > 0) {
-      attempts++;
-      size = Math.floor(size * 0.98);
-      element.style.fontSize = size + 'px';
-    }
-  },
-
-  positionDialog: function(element, options) {
-    var self = this;
-    var contentContainers = element.getElementsByClassName('swag-dialog-content');
-    var breakpoint = utils.getBreakpoint();
-
-    var mobileBreakpoint = (breakpoint && _.includes(['phone'], breakpoint.name));
-    var tabletBreakpoint = (breakpoint && _.includes(['phablet', 'tablet'], breakpoint.name));
-
-    var breakpointOps = tabletBreakpoint ? options.tabletBreakpoint : options.mobileBreakpoint;
-
-    var fillSize = mobileBreakpoint
-      ? { width: 0.90, height: 0.80}
-      : { width: 0.96, height: 0.90};
-
-    if(options && options.default && options.default.width && options.default.height) {
-      fillSize = (mobileBreakpoint || tabletBreakpoint)
-        ? { width: breakpointOps.width, height: breakpointOps.height }
-        : { width: options.default.width, height: options.default.height };
-    }
-
-    utils.applyBreakpointClass();
-
-    var width = session.wrapper.offsetWidth * fillSize.width;
-    var height = session.wrapper.offsetHeight * fillSize.height;
-
-    var top = (session.wrapper.offsetHeight - height) / 2;
-    var left = (session.wrapper.offsetWidth - width) / 2;
-
-    utils.debug('positionDialog');
-    utils.debug('positionDialog :::: wrapper', session.wrapper);
-    utils.debug('positionDialog :::: wrapper - width', session.wrapper.offsetWidth);
-    utils.debug('positionDialog :::: wrapper - height', session.wrapper.offsetHeight);
-
-    element.style.width = width + 'px';
-    element.style.height = height + 'px';
-    element.style.top = top + 'px';
-    element.style.left = left + 'px';
-  },
-
-  resize: function() {
-    var self = this;
-    utils.debug('resize');
-    var elems = session.wrapper.getElementsByClassName('swag-dialog');
-    _.each(elems, function(elem) {
-      var options = self.dialogRenderingOptions[elem.dataset.dialog] || {};
-      self.positionDialog(elem, options);
-    });
-  },
-
   cleanStage: function() {
     var elems = session.wrapper.getElementsByClassName('swag-dialog-wrapper');
     _.each(elems, function(elem) {
@@ -661,6 +582,11 @@ var methods = {
           });
         }
       });
+  },
+
+  resize: function() {
+    utils.debug('resize');
+    utils.applyBreakpointClass();
   },
 
   populateAchievementSelect: function(domId) {

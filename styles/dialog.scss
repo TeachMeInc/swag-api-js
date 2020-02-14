@@ -1,17 +1,22 @@
 .swag-dialog-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
-    height: 100%;
+    flex: 1 1 100%;
     background-color: rgba(0, 0, 0, 0.75);
-    position: absolute;
-    top: 0;
-    left: 0;
     animation-duration: 0.50s;
     z-index: 15000;
+    margin: 0;
 
     textarea, select, input, button { outline: none; }
 }
 
 .swag-dialog {
+
+    width: 60%;
+    height: 80%;
 
     z-index: 20000;
     font-size: 1em;
@@ -322,6 +327,11 @@
           display: none;
         }
       }
+    }
+
+    &[data-dialog="userlogin"] {
+      width: 40%;
+      height: 70%;
     }
 
 }

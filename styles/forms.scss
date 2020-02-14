@@ -6,31 +6,31 @@
   height: 100%;
   justify-content: space-around;
   align-items: center;
-  font-size: 1.5vw;
+  padding: 1em;
+  font-size: 2em;
 
   .swag-form-container {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    padding: 1vw;
     box-sizing: border-box;
 
     input[type=text],
     input[type=password] {
       flex: 1 1 100%;
-      font-size: 2vw;
-      line-height: 2.5vw;
-      margin-bottom: 0.5vw;
+      line-height: 2em;
+      font-size: 1em;
+      margin-bottom: 0.5em;
       border: 1px solid #efefef;
       position: relative;
 
       &[type=password],
       &[placeholder="username"],
       &[placeholder="email"] {
-        background-position: 0.5vw center;
-        background-size: 1vw auto;
+        background-position: 0.3em center;
+        background-size: 0.6em auto;
         background-repeat: no-repeat;
-        padding-left: 2vw;
+        padding-left: 1.4em;
       }
 
       &[type=password] {
@@ -65,15 +65,15 @@
 
     p {
       width: 100%;
-      font-size: 1vw;
+      font-size: 0.6em;
       text-align: center;
-      line-height: 1.5vw;
+      line-height: 1.2em;
       margin: 0;
     }
 
     input[type=button] {
       width: 100%;
-      font-size: 1.5vw;
+      font-size: 1em;
       background-color: #2495f4;
       color: #fff;
       cursor: pointer;
@@ -81,7 +81,7 @@
 
       &.loading {
         background-image: url("images/button-loader.gif");
-        background-size: 1.5vw 1.5vw;
+        background-size: 1em 1em;
         background-position: center center;
         background-repeat: no-repeat;
         text-indent: -2000em;
@@ -104,13 +104,13 @@
       display: flex;
       width: 100%;
       color: red;
-      height: 1vw;
+      height: 1em;
       padding: 0;
       margin: 0;
-      padding-top: 0.5vw;
+      padding-top: 0.4em;
 
       p {
-        font-size: 0.8vw;
+        font-size: 0.6em;
       }
     }
   }
