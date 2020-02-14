@@ -4,11 +4,14 @@
     align-items: center;
     flex-direction: column;
     width: 100%;
-    flex: 1 1 100%;
     background-color: rgba(0, 0, 0, 0.75);
     animation-duration: 0.50s;
     z-index: 15000;
     margin: 0;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 
     textarea, select, input, button { outline: none; }
 }
