@@ -13,394 +13,409 @@
     top: 0;
     left: 0;
 
+    pointer-events: none;
+    touch-action: none;
+
     textarea, select, input, button { outline: none; }
-}
 
-.swag-dialog {
 
-    width: 60%;
-    height: 80%;
+    .swag-dialog {
 
-    z-index: 20000;
-    font-size: 1em;
+        width: 60%;
+        height: 80%;
 
-    * {
-      user-select: auto;
-    }
+        z-index: 20000;
+        font-size: 1em;
 
-    position: absolute;
-    margin: auto;
-    background-color: #fff;
-    border: 2px solid #0263a0;
-    border-radius: 1em;
-    box-sizing: border-box;
-    box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.24);
-    font-size: 1em;
-    animation-duration: 0.50s;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, Helvetica, sans-serif;
+        * {
+          user-select: auto;
+        }
 
-    .swag-dialog-header {
-        color: #fff;
-        border-radius: 0.5em 0.5em 0em 0em;
-        padding: 0.5em;
+        position: absolute;
+        margin: auto;
+        background-color: #fff;
+        border: 2px solid #0263a0;
+        border-radius: 1em;
         box-sizing: border-box;
-        text-align: center;
-        display: flex;
-        justify-content: space-around;
-        flex: 0 0 auto;
-
-        .swag-logo {
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: center center;
-            width: 9em;
-            height: 3em;
-        }
-
-        .swag-header-link {
-            position: absolute;
-            top: -0.3em;
-            right: -0.3em;
-            line-height: 1em;
-            font-size: 2.5em;
-            height: 1em;
-            width: 1em;
-            overflow: hidden;
-            cursor: pointer;
-            border-radius: 50%;
-            background-color: #b60909;
-            border: 2px solid #820c0c;
-            box-shadow: -3px 3px 3px 0px rgba(0,0,0,0.34);
-
-            &[data-action="back"] {
-
-                &:before {
-                    display: inline-block;
-                    content: "\00D7";
-                    color: #fff;
-                }
-
-                &:hover {
-                    background-color: #980707;
-                }
-            }
-        }
-    }
-
-    .swag-dialog-title {
-        font-size: 1.5em;
-        text-align: center;
-        color: #53b0e1;
-        flex: 0 0 auto;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        color: #fff;
-    }
-
-    .swag-dialog-content {
+        box-shadow: 10px 10px 5px -5px rgba(0,0,0,0.24);
+        font-size: 1em;
+        animation-duration: 0.50s;
         display: flex;
         flex-direction: column;
-        overflow-y: hidden;
-        flex: 1 1 100%;
+        font-family: Arial, Helvetica, sans-serif;
 
-        &.loading {
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-size: 20%;
-        }
-
-        .swag-data-table {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          justify-content: flex-start;
-          flex: 1 1 100%;
-          padding: 1em;
-          overflow: hidden;
-          font-size: 1em;
-          color: #272727;
-
-          .swag-data-header {
-
-            display: flex;
-            flex-wrap: nowrap;
-            flex: 0 0 auto;
-            color: #0164a0;
-            font-weight: 700;
-            border: 1px solid #d2d2d2;
-            overflow: hidden;
-            border-radius: 10px 10px 0px 0px;
+        .swag-dialog-header {
+            color: #fff;
+            border-radius: 0.5em 0.5em 0em 0em;
             padding: 0.5em;
             box-sizing: border-box;
-            background-color: #e3e7ea;
+            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex: 0 0 auto;
 
-            > div {
-              border: none;
-              &:nth-child(odd),
-              &:nth-child(even) {
-                background-color: initial;
-              }
-              padding: 0em;
+            .swag-logo {
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: center center;
+                width: 9em;
+                height: 3em;
             }
-          }
 
-          > div {
-            border: 1px solid #efefef;
-            overflow-y: scroll;
+            .swag-header-link {
+                position: absolute;
+                top: -0.3em;
+                right: -0.3em;
+                line-height: 1em;
+                font-size: 2.5em;
+                height: 1em;
+                width: 1em;
+                overflow: hidden;
+                cursor: pointer;
+                border-radius: 50%;
+                background-color: #b60909;
+                border: 2px solid #820c0c;
+                box-shadow: -3px 3px 3px 0px rgba(0,0,0,0.34);
+
+                pointer-events: auto;
+
+                &[data-action="back"] {
+
+                    &:before {
+                        display: inline-block;
+                        content: "\00D7";
+                        color: #fff;
+                    }
+
+                    &:hover {
+                        background-color: #980707;
+                    }
+                }
+            }
+        }
+
+        .swag-dialog-title {
+            font-size: 1.5em;
+            text-align: center;
+            color: #53b0e1;
+            flex: 0 0 auto;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            color: #fff;
+        }
+
+        .swag-dialog-content {
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
             flex: 1 1 100%;
-            width: 100%;
-            flex-wrap: wrap;
-            box-sizing: border-box;
-            position: relative;
 
-            > div {
+            &.loading {
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: 20%;
+            }
+
+            .swag-data-table {
               display: flex;
+              flex-direction: column;
+              align-items: flex-start;
+              justify-content: flex-start;
               flex: 1 1 100%;
-              flex-wrap: nowrap;
-              padding: 0.5em;
-              border-bottom: 1px solid #EFEFEE;
-              box-sizing: border-box;
-              align-items: center;
+              padding: 1em;
+              overflow: hidden;
+              font-size: 1em;
+              color: #272727;
 
-              &.data-achievement-row {
-                flex-wrap: wrap;
-                border: 1px solid #efefef;
-                margin-bottom: 1em;
+              .swag-data-header {
+
+                display: flex;
+                flex-wrap: nowrap;
+                flex: 0 0 auto;
+                color: #0164a0;
+                font-weight: 700;
+                border: 1px solid #d2d2d2;
+                overflow: hidden;
+                border-radius: 10px 10px 0px 0px;
+                padding: 0.5em;
+                box-sizing: border-box;
+                background-color: #e3e7ea;
 
                 > div {
+                  border: none;
+                  &:nth-child(odd),
+                  &:nth-child(even) {
+                    background-color: initial;
+                  }
+                  padding: 0em;
+                }
+              }
+
+              > div {
+                border: 1px solid #efefef;
+                overflow-y: scroll;
+                flex: 1 1 100%;
+                width: 100%;
+                flex-wrap: wrap;
+                box-sizing: border-box;
+                position: relative;
+
+                pointer-events: auto;
+                touch-action: auto;
+
+                > div {
+                  display: flex;
+                  flex: 1 1 100%;
+                  flex-wrap: nowrap;
+                  padding: 0.5em;
+                  border-bottom: 1px solid #EFEFEE;
+                  box-sizing: border-box;
+                  align-items: center;
+
+                  pointer-events: auto;
+                  touch-action: auto;
+
+                  &.data-achievement-row {
+                    flex-wrap: wrap;
+                    border: 1px solid #efefef;
+                    margin-bottom: 1em;
+
+                    > div {
+                      text-align: left;
+                      padding-left: 1em;
+                      color: #afafaf;
+                    }
+
+                    &:nth-child(odd),
+                    &:nth-child(even) {
+                      background-color: #fff;
+                    }
+
+                    &:before {
+                      width: 2.6em;
+                      height: 2.6em;
+                      line-height: 2.8em;
+                      content: "\2713";
+                      background-color: #fff;
+                      color: #fff;
+                      font-weight: 700;
+                      font-size: 1.6em;
+                      border-radius: 50%;
+                      border: 1px solid #efefef;
+                    }
+
+                    &.achieved {
+                      border: 1px solid green;
+
+                      &:before {
+                        content: "\2713";
+                        background-color: green;
+                      }
+
+                      > div {
+                        color: black;
+                      }
+
+                      .data-achievement-name {
+                        color: green;
+                      }
+
+                      .data-achievement-description {
+                        color: #868585;
+                      }
+                    }
+                  }
+
+                  &:nth-child(even) {
+                    background-color: #f0f8ff;
+                  }
+                }
+              }
+
+              > div,
+              .swag-data-header {
+
+                .data-empty {
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  width: 100%;
+                  padding: 0;
+                  height: 100%;
+                  font-size: 1.5em;
+                  color: #7e7e7e;
+                }
+
+                .data-position {
+                  flex: 0 0 2em;
+                  text-align: center;
+                  justify-content: center;
+                }
+
+                .data-screen-name {
+                  flex: 0 0 40%;
                   text-align: left;
-                  padding-left: 1em;
-                  color: #afafaf;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
                 }
 
-                &:nth-child(odd),
-                &:nth-child(even) {
-                  background-color: #fff;
+                .data-day {
+                  flex: 0 1 60%;
+                  text-align: left;
                 }
 
-                &:before {
-                  width: 2.6em;
-                  height: 2.6em;
-                  line-height: 2.8em;
-                  content: "\2713";
-                  background-color: #fff;
-                  color: #fff;
+                .data-score {
+                  flex: 0 0 40%;
+                  text-align: left;
+                }
+
+                .data-date {
+                  flex: 0 1 20%;
+                  text-align: left;
+                }
+
+                .data-achievement-name {
+                  flex: 1 1 100%;
+                  font-size: 1.5em;
                   font-weight: 700;
-                  font-size: 1.6em;
-                  border-radius: 50%;
-                  border: 1px solid #efefef;
                 }
 
-                &.achieved {
-                  border: 1px solid green;
-
-                  &:before {
-                    content: "\2713";
-                    background-color: green;
-                  }
-
-                  > div {
-                    color: black;
-                  }
-
-                  .data-achievement-name {
-                    color: green;
-                  }
-
-                  .data-achievement-description {
-                    color: #868585;
-                  }
+                .data-achievement-description {
+                  flex: 1 1 100%;
+                  font-size: 1.2em;
+                  font-weight: 400;
                 }
-              }
 
-              &:nth-child(even) {
-                background-color: #f0f8ff;
               }
             }
-          }
+        }
 
-          > div,
-          .swag-data-header {
+        .swag-data-selector {
+            padding: 1.5em;
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: center;
+            color: #272727;
+            justify-content: space-around;
 
-            .data-empty {
+            pointer-events: auto;
+            touch-action: auto;
+
+            div.swag-score-context {
+              display: flex;
+              flex-wrap: wrap;
+              flex: 0 1 50%;
+              font-size: 1em;
+              line-height: 1.2em;
               align-items: center;
-              justify-content: center;
-              position: absolute;
-              width: 100%;
-              padding: 0;
-              height: 100%;
-              font-size: 1.5em;
-              color: #7e7e7e;
+              min-height: 3.6em;
+
+              > div {
+                flex: 1 1 100%;
+                text-align: left;
+              }
             }
 
-            .data-position {
-              flex: 0 0 2em;
-              text-align: center;
-              justify-content: center;
+            div.swag-select-container {
+              display: flex;
+              justify-content: space-around;
             }
 
-            .data-screen-name {
-              flex: 0 0 40%;
-              text-align: left;
-              overflow: hidden;
-              text-overflow: ellipsis;
+            div.selector-title {
+                padding-right: 2em;
+                text-align: center;
+                font-size: 1.5em;
             }
-
-            .data-day {
-              flex: 0 1 60%;
-              text-align: left;
-            }
-
-            .data-score {
-              flex: 0 0 40%;
-              text-align: left;
-            }
-
-            .data-date {
-              flex: 0 1 20%;
-              text-align: left;
-            }
-
-            .data-achievement-name {
-              flex: 1 1 100%;
-              font-size: 1.5em;
-              font-weight: 700;
-            }
-
-            .data-achievement-description {
-              flex: 1 1 100%;
-              font-size: 1.2em;
-              font-weight: 400;
-            }
-
-          }
         }
-    }
 
-    .swag-data-selector {
-        padding: 1.5em;
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: center;
-        justify-content: center;
-        color: #272727;
-        justify-content: space-around;
-
-        div.swag-score-context {
-          display: flex;
-          flex-wrap: wrap;
-          flex: 0 1 50%;
-          font-size: 1em;
-          line-height: 1.2em;
-          align-items: center;
-          min-height: 3.6em;
-
-          > div {
-            flex: 1 1 100%;
-            text-align: left;
+        &[data-dialog='scoreconfirmation'] {
+          .swag-dialog-content {
+            align-items: center;
+            justify-content: space-evenly;
+            .score-confirmation-message {
+              color: #0162a0;
+              font-size: 1.4em;
+            }
+          }
+          .swag-dialog-header {
+            .swag-logo {
+              display: none;
+            }
           }
         }
 
-        div.swag-select-container {
-          display: flex;
-          justify-content: space-around;
+        &[data-dialog="userlogin"] {
+          width: 40%;
+          height: 70%;
         }
 
-        div.selector-title {
-            padding-right: 2em;
-            text-align: center;
-            font-size: 1.5em;
-        }
     }
 
-    &[data-dialog='scoreconfirmation'] {
-      .swag-dialog-content {
-        align-items: center;
-        justify-content: space-evenly;
-        .score-confirmation-message {
-          color: #0162a0;
-          font-size: 1.4em;
-        }
-      }
-      .swag-dialog-header {
-        .swag-logo {
-          display: none;
-        }
-      }
-    }
+    /* Themes */
 
-    &[data-dialog="userlogin"] {
-      width: 40%;
-      height: 70%;
-    }
+    .swag-dialog {
 
-}
+        &.shockwave {
 
-/* Themes */
+            border: 2px solid #0263a0;
 
-.swag-dialog {
+            .swag-dialog-header {
 
-    &.shockwave {
+              background-color: #0064a0;
 
-        border: 2px solid #0263a0;
-
-        .swag-dialog-header {
-
-          background-color: #0064a0;
-
-          .swag-logo {
-              background-image: url("images/shockwave-logo.png");
-          }
-        }
-        .swag-dialog-content {
-          &.loading {
-              background-image: url("images/shockwave-loader.gif");
-          }
-        }
-        .swag-data-selector {
-            background-color: #f0f8ff;
-        }
-        .swag-form {
-          color: #0064a0;
-        }
-    }
-
-    &.addictinggames {
-
-        border: 2px solid #E43D30;
-
-        .swag-data-header {
-          color: #E43D30;
+              .swag-logo {
+                  background-image: url("images/shockwave-logo.png");
+              }
+            }
+            .swag-dialog-content {
+              &.loading {
+                  background-image: url("images/shockwave-loader.gif");
+              }
+            }
+            .swag-data-selector {
+                background-color: #f0f8ff;
+            }
+            .swag-form {
+              color: #0064a0;
+            }
         }
 
-        .swag-dialog-header {
+        &.addictinggames {
 
-          background-color: #E43D30;
+            border: 2px solid #E43D30;
 
-          .swag-logo {
-              background-image: url("images/addictinggames-logo.svg");
-          }
-
-        }
-
-        .swag-dialog-content {
-          .swag-data-table {
             .swag-data-header {
-                color: #E43D30;
+              color: #E43D30;
             }
-          }
-          &.loading {
-              background-image: url("images/addictinggames-loader.gif");
-              background-size: 64px 64px;
-          }
-        }
 
-        .swag-data-selector {
-            background-color: #f0f8ff;
-        }
+            .swag-dialog-header {
 
+              background-color: #E43D30;
+
+              .swag-logo {
+                  background-image: url("images/addictinggames-logo.svg");
+              }
+
+            }
+
+            .swag-dialog-content {
+              .swag-data-table {
+                .swag-data-header {
+                    color: #E43D30;
+                }
+              }
+              &.loading {
+                  background-image: url("images/addictinggames-loader.gif");
+                  background-size: 64px 64px;
+              }
+            }
+
+            .swag-data-selector {
+                background-color: #f0f8ff;
+            }
+
+        }
     }
 }

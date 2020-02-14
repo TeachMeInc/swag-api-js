@@ -6,6 +6,7 @@ var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('../config');
 var elementResizeEvent = require('element-resize-event');
+var bodyScrollLock = require('body-scroll-lock');
 var utils = utils = require('../utils');
 var ui = require('../ui.js');
 var data = require('../data.js');
@@ -75,25 +76,13 @@ var methods = {
     var dialogEl = document.getElementById('swag-dialog');
     dialogEl.dataset['dialog'] = type;
     utils.applyBreakpointClass();
+
+    bodyScrollLock.disableBodyScroll(session.wrapper);
+    document.body.classList.add('swag-dialog-open');
+
     if(self.dialogMethods[type]) {
         return self[self.dialogMethods[type]](dialogOptions)
             .then(function() {
-                document.getElementById('swag-dialog-wrapper').addEventListener('click', function(event) {
-                    event.stopPropagation();
-                });
-                document.getElementById('swag-dialog-wrapper').addEventListener('mouseup', function(event) {
-                    event.stopPropagation();
-                });
-                document.getElementById('swag-dialog-wrapper').addEventListener('mousedown', function(event) {
-                    event.stopPropagation();
-                });
-                document.getElementById('swag-dialog-wrapper').addEventListener('pointerdown', function(event) {
-                    event.stopPropagation();
-                });
-                document.getElementById('swag-dialog-wrapper').addEventListener('pointerup', function(event) {
-                    event.stopPropagation();
-                });
-
                 var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
                 _.each(backBtn, function(el) {
                     el.addEventListener('click', function(event) {
@@ -546,6 +535,8 @@ var methods = {
 
   // UI Rendering
   cleanStage: function() {
+    bodyScrollLock.clearAllBodyScrollLocks()
+    document.body.classList.remove('swag-dialog-open');
     var elems = session.wrapper.getElementsByClassName('swag-dialog-wrapper');
     _.each(elems, function(elem) {
       elem.parentNode.removeChild(elem);

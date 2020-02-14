@@ -1,3 +1,8 @@
+body.swag-dialog-open {
+  pointer-events: none;
+  touch-action: none;
+}
+
 .swag-branding-active {
   position: relative;
   transform: none;
@@ -5,6 +10,9 @@
   right: initial;
   bottom: initial;
   left: initial;
+
+  pointer-events: none;
+  touch-action: none;
 }
 
 .swag-branding-animation-wrapper {
@@ -19,6 +27,9 @@
   align-items: center;
   overflow: hidden;
   z-index: 15000;
+
+  pointer-events: none;
+  touch-action: none;
 
   video {
     width: 100%;
