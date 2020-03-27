@@ -1,6 +1,6 @@
 {
   "name": "shockwave-api-js",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "private": true,
   "main": "./dist/bundle.js",
   "scripts": {
@@ -18,9 +18,11 @@
   ],
   "devDependencies": {
     "animate.css": "^3.5.2",
+    "axios": "^0.19.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-preset-env": "^1.7.0",
+    "body-scroll-lock": "^2.6.4",
     "component-emitter": "^1.2.1",
     "css-loader": "^0.26.1",
     "es6-promise": "^4.2.6",
