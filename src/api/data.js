@@ -25,7 +25,7 @@ var methods = {
       value: value
     };
 
-    if(options.meta) {
+    if(options && options.meta) {
       body.meta = options.meta;
     }
 
