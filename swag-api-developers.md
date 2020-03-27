@@ -52,6 +52,8 @@ No special number formatters are currently available.  Let us know if there is a
 
 ## Time Formatters
 
+If using the time formatter you should submit your scores in milliseconds.
+
 | formatter     | example output|
 | ------------- | ------------- |
 |default|00:01:05.5
@@ -184,6 +186,7 @@ The following options are available:
 | option        | type           |  description |
 | ------------- | ------------- | ----- |
 |confirmation|boolean|If this option is included, api will display a confirmation dialog after the score is posted
+|meta|String|If this option is enabled for your score configuration, this meta data will be included with the score
 
 example:
 
