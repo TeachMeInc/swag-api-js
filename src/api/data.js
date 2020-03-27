@@ -24,6 +24,11 @@ var methods = {
       level_key: level_key,
       value: value
     };
+
+    if(options.meta) {
+      body.meta = options.meta;
+    }
+
     var urlParamsString = self.buildUrlParamString(body);
     return this.postAPIData({
       method: self.apiMethods['postScore'],
