@@ -1,15 +1,21 @@
-<div class="swag-data-header">
+<div class="swag-data-header {{#if category.metaValue}}col5{{/if}}">
   <div class="data-position">#</div>
   <div class="data-screen-name">Name</div>
+  {{#if category.metaValue}}
+    <div class="data-meta">{{category.metaName}}</div>
+  {{/if}}
   <div class="data-score">{{category.value_name}}</div>
   <div class="data-date">Date</div>
 </div>
-<div id="swag-data">
+<div id="swag-data" {{#if category.metaValue}}class="col5"{{/if}}>
   {{#if scores.length }}
     {{#each scores}}
       <div>
         <div class="data-position">{{position}}</div>
         <div class="data-screen-name">{{screen_name}}</div>
+        {{#if ../category.metaValue}}
+          <div class="data-meta">{{meta}}</div>
+        {{/if}}
         <div class="data-score">{{value}}</div>
         <div class="data-date">{{date_created}}</div>
       </div>

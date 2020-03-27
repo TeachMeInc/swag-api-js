@@ -288,7 +288,34 @@
                 }
 
               }
+
+              > div.col5,
+              .swag-data-header.col5 {
+
+                .data-screen-name {
+                  flex: 0 0 30%;
+                  text-align: left;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+
+                .data-meta {
+                  flex: 0 0 30%;
+                  text-align: left;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+
+                .data-score {
+                  flex: 0 0 20%;
+                  text-align: left;
+                }
+
+                .data-date {
+                  flex: 0 1 20%;
+              }
             }
+          }
         }
 
         .swag-data-selector {
