@@ -202,6 +202,7 @@ var methods = {
       self.getAPIData({
         method: self.apiMethods['getDays'],
         params: {
+          game: session['api_key'],
           limit: dayLimit
         }
       })
