@@ -2820,7 +2820,9 @@
         display: none; }
       .swag-wrapper .swag-dialog-wrapper .swag-dialog[data-dialog="userlogin"] {
         width: 40%;
-        height: 70%; }
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 70%;
+                flex: 1 1 70%; }
     .swag-wrapper .swag-dialog-wrapper .swag-dialog.shockwave {
       border: 2px solid #0263a0; }
       .swag-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header {
@@ -3016,6 +3018,11 @@
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 80%;
             flex: 1 1 80%; }
+    .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog[data-dialog="userlogin"] {
+      width: 90%;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 70%;
+              flex: 1 1 70%; }
     .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector {
       -webkit-flex-wrap: wrap;
               flex-wrap: wrap; }
@@ -3045,6 +3052,11 @@
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 80%;
             flex: 1 1 80%; }
+    .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog[data-dialog="userlogin"] {
+      width: 90%;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 70%;
+              flex: 1 1 70%; }
     .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-data-selector {
       -webkit-flex-wrap: wrap;
               flex-wrap: wrap; }
@@ -3074,6 +3086,11 @@
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 90%;
             flex: 1 1 90%; }
+    .swag-wrapper[data-breakpoint="media-tablet"] .swag-dialog[data-dialog="userlogin"] {
+      width: 60%;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 60%;
+              flex: 1 1 60%; }
   .swag-wrapper[data-breakpoint="media-desktop"] .swag-dialog {
     font-size: 1em;
     width: 90%;
