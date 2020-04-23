@@ -7,6 +7,11 @@
     width: 96%;
     flex: 1 1 80%;
 
+    &[data-dialog="userlogin"] {
+      width: 90%;
+      flex: 1 1 70%;
+    }
+
     .swag-data-selector {
       flex-wrap: wrap;
       .swag-score-context {

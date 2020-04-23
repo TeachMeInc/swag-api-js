@@ -4,5 +4,10 @@
 
     width: 60%;
     flex: 1 1 90%;
+
+    &[data-dialog="userlogin"] {
+      width: 60%;
+      flex: 1 1 60%;
+    }
   }
 }
