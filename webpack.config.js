@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const _ = require('lodash');
+const CopyPlugin = require('copy-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -31,26 +31,17 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ['@babel/env']
                     }
                 }
             },
             {
               test:/\.(s*)css$/,
-              use: ExtractTextPlugin.extract({
-                  fallback: 'style-loader',
-                  use: ['css-loader', 'postcss-loader', 'sass-loader']
-              })
-            },
-            {
-              test: /\.(png|woff|woff2|eot|ttf|svg|htc|gif)$/,
               use: [
-                {
-                  loader: 'file-loader',
-                  options: {
-                    name: '[name].[ext]',
-                  },
-                },
+                MiniCssExtractPlugin.loader,
+                { loader: 'css-loader', options: { url: false, sourceMap: true } },
+                { loader: 'postcss-loader', options: { sourceMap: true } },
+                { loader: 'sass-loader', options: { sourceMap: true } }
               ]
             },
             { test: /\.json$/, loader: 'json-loader' },
@@ -67,6 +58,13 @@ module.exports = {
     },
     plugins: [
         new UglifyJsPlugin({uglifyOptions: { compress: true, mangle: true} }),
-        new ExtractTextPlugin('swag-api.css')
+        new MiniCssExtractPlugin({
+          filename: 'swag-api.css'
+        }),
+        new CopyPlugin({
+          patterns: [
+            { from: path.join(__dirname, 'styles/images/'), to: path.join(__dirname, './dist/images') }
+          ]
+        })
     ]
 };
