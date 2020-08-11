@@ -1,8 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('config');
 var elementResizeEvent = require('element-resize-event');

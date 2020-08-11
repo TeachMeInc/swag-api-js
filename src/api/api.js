@@ -1,8 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('../config');
 var elementResizeEvent = require('element-resize-event');
@@ -16,7 +13,8 @@ var _isRendering = false;
 
 function SWAGAPI(options) {
   var self = this;
-  this._options = _.pick(options, ['wrapper','api_key']);
+  const { wrapper, api_key } = options;
+  this._options = { wrapper, api_key };
   this._init();
   Emitter(this);
 
@@ -212,6 +210,6 @@ var methods = {
 
 };
 
-_.extend(SWAGAPI.prototype, methods);
+Object.assign(SWAGAPI.prototype, methods);
 
 module.exports = SWAGAPI;

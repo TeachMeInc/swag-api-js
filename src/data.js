@@ -1,8 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('config');
 var utils = utils = require('utils');
@@ -40,23 +37,20 @@ var methods = {
 
 
   // API
-  buildUrlParamString: function(urlParams) {
-    return '?' + _.map(_.keys(urlParams), function(key) {
-      return key + '=' + utils.formatParam(urlParams[key]);
-    }).join('&');
+  buildUrlParamString: function(params) {
+    return params && params instanceof Object
+      ? '?' + Object.keys(params).map(function(key) {
+          return key + '=' + utils.formatParam(params[key]);
+        }).join('&')
+      : '';
   },
 
   getAPIData: function(options) {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-
       var rootUrl = options.apiRoot || session.apiRoot;
-
-      var params = '?' + _.map(_.keys(options.params), function(key) {
-        return key + '=' + utils.formatParam(options.params[key]);
-      }).join('&');
-
+      var params = methods.buildUrlParamString(options.params);
       xhr.open('GET', encodeURI(rootUrl + options.method + params));
       xhr.withCredentials = true;
       xhr.onload = function() {
@@ -214,10 +208,10 @@ var methods = {
   },
 
   getScores: function(options) {
+    const { day, type, level_key, period, current_user, target_date, value_formatter, use_daily} = options;
     var self = this,
-        clean = _.pick(options,
-          ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
-        params = _.extend({game: session['api_key']}, clean);
+        clean = { day, type, level_key, period, current_user, target_date, value_formatter, use_daily},
+        params = Object.assign({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
@@ -232,10 +226,10 @@ var methods = {
   },
 
   getScoresContext: function(options) {
+    const { day, type, level_key, period, target_date, value_formatter} = options;
     var self = this,
-        clean = _.pick(options,
-          ['day', 'type', 'level_key', 'period', 'target_date', 'value_formatter']),
-        params = _.extend({game: session['api_key']}, clean);
+        clean = { day, type, level_key, period, target_date, value_formatter},
+        params = Object.assign({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
@@ -366,7 +360,8 @@ var methods = {
 
   userLogin: function(options) {
     var self = this;
-    var body = _.pick(options, ['username', 'password']);
+    const {username, password} = options;
+    var body = { username, password };
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.login,
@@ -387,7 +382,8 @@ var methods = {
 
   userCreate: function(options) {
     var self = this;
-    var body = _.pick(options, ['username', 'mail', 'password']);
+    const { username, mail, password } = options;
+    var body = { username, mail, password };
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.create,

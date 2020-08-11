@@ -1,5 +1,4 @@
 var session = require('session');
-var _ = require('lodash').noConflict();
 
 var mediaBreakpoints = [
   {name: 'phone', value: 400, class:'media-phone'},
@@ -11,10 +10,10 @@ var mediaBreakpoints = [
 var methods = {
 
   getBreakpoint: function() {
-    var defaultBreakpoint = _.find(mediaBreakpoints, function(breakpoint) {
+    var defaultBreakpoint = mediaBreakpoints.find(function(breakpoint) {
       return breakpoint.default;
     });
-    var mmatch = _.find(mediaBreakpoints, function(breakpoint) {
+    var mmatch = mediaBreakpoints.find(function(breakpoint) {
       return session.wrapper.clientWidth <= breakpoint.value;
     });
     return mmatch || defaultBreakpoint;
