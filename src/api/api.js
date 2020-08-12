@@ -1,7 +1,7 @@
 'use strict';
 
 var Emitter = require('component-emitter');
-var config = require('../config');
+var config = require('config');
 var elementResizeEvent = require('element-resize-event');
 var session = require('../session');
 var data = require('./data');

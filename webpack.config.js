@@ -5,6 +5,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 
+var env = isProduction ? 'production' : 'development';
+console.log('using config: ' + path.join(__dirname, 'src', 'config.' + env));
+
 module.exports = {
     context: __dirname,
     devtool: 'source-map',
@@ -16,6 +19,9 @@ module.exports = {
       warnings: false
     },
     resolve: {
+        alias: {
+            config: path.join(__dirname, 'src', 'config.' + env)
+        },
         modules: [
             path.join(__dirname, "src"),
             "node_modules"

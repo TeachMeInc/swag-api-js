@@ -1,6 +1,6 @@
 'use strict';
 
-var config = require('../config');
+var config = require('config');
 var utils = utils = require('../utils');
 var session = require('../session');
 var data = require('../data');
