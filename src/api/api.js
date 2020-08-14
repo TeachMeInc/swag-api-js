@@ -13,7 +13,7 @@ var _isRendering = false;
 
 function SWAGAPI(options) {
   var self = this;
-  this._options = utils.pick(options, ['wrapper', 'api_key']);
+  this._options = utils.pick(options, ['wrapper', 'api_key', 'keyword']);
   this._init();
   Emitter(this);
 
@@ -47,10 +47,17 @@ var methods = {
     var self = this;
     utils.debug('start session');
 
-      return data.getEntity()
-        .then(function() {
-          utils.debug('session ready');
-          self.emit(config.events.SESSION_READY, { session_ready: true });
+      return data.getAPIKey()
+        .then(function (key) {
+          session.api_key = key.game;
+          return data.getEntity()
+            .then(function() {
+              utils.debug('session ready');
+              self.emit(config.events.SESSION_READY, { session_ready: true });
+            });
+        })
+        .catch(function() {
+          self.emit(config.events.ERROR, { message: 'Could not find game.  Please check api key'});
         });
   },
 
@@ -170,16 +177,23 @@ var methods = {
     var siteMode = this._getSiteMode();
 
     session.api_key = this._options.api_key;
-    session.wrapper = this._options.wrapper;
-    session.wrapper.classList.add('swag-wrapper');
+    session.keyword = this._options.keyword;
     session.theme = siteMode;
+    session.keywordtype = siteMode;
     session.apiRoot = config.themes[siteMode].apiRoot;
 
-    elementResizeEvent(session.wrapper, function() {
-      _isRendering = setTimeout(function() {
-        ui.resize();
-      }, 400);
-    });
+    //wrapper
+    if(this._options.wrapper) {
+      session.wrapper = this._options.wrapper;
+      session.wrapper.classList.add('swag-wrapper');
+
+      elementResizeEvent(session.wrapper, function() {
+        _isRendering = setTimeout(function() {
+          ui.resize();
+        }, 400);
+      });
+    }
+
   },
 
   _getSiteMode: function() {
