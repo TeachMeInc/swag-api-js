@@ -208,10 +208,9 @@ var methods = {
   },
 
   getScores: function(options) {
-    const { day, type, level_key, period, current_user, target_date, value_formatter, use_daily} = options;
     var self = this,
-        clean = { day, type, level_key, period, current_user, target_date, value_formatter, use_daily},
-        params = Object.assign({game: session['api_key']}, clean);
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
+        params = Object.assign({ game: session['api_key'] }, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
@@ -226,9 +225,8 @@ var methods = {
   },
 
   getScoresContext: function(options) {
-    const { day, type, level_key, period, target_date, value_formatter} = options;
     var self = this,
-        clean = { day, type, level_key, period, target_date, value_formatter},
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'target_date', 'value_formatter']),
         params = Object.assign({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
@@ -360,8 +358,7 @@ var methods = {
 
   userLogin: function(options) {
     var self = this;
-    const {username, password} = options;
-    var body = { username, password };
+    var body = utils.pick(options, ['username', 'password']);
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.login,
@@ -382,8 +379,7 @@ var methods = {
 
   userCreate: function(options) {
     var self = this;
-    const { username, mail, password } = options;
-    var body = { username, mail, password };
+    var body = utils.pick(options, ['username', 'password', 'mail']);
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.create,

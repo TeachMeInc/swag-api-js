@@ -61,6 +61,10 @@ var methods = {
     return vars;
   },
 
+  pick: function(o, ...props) {
+    return Object.assign({}, ...props.map(prop => ({[prop]: o[prop]})));
+  },
+
   debug: function(message, data) {
     if(session.debug) {
       console.log('SWAG API :::: ' + message);

@@ -13,8 +13,7 @@ var _isRendering = false;
 
 function SWAGAPI(options) {
   var self = this;
-  const { wrapper, api_key } = options;
-  this._options = { wrapper, api_key };
+  this._options = utils.pick(options, ['wrapper', 'api_key']);
   this._init();
   Emitter(this);
 
