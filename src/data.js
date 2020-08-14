@@ -29,6 +29,7 @@ var methods = {
     'getUserDatastore': '/v1/datastore/user',
     'getCurrentDay': '/v1/currentday',
     'getTokenBalance': '/v1/tokenbalance',
+    'getGame': '/v1/game',
     'getCurrentUser': provider.current,
     'userLogin': provider.login,
     'userLogout': provider.logout,
@@ -129,6 +130,31 @@ var methods = {
           resolve(entity);
         });
       }
+    });
+    return promise;
+  },
+
+  getAPIKey: function() {
+    var self = this,
+        params = {};
+
+    var promise = new Promise(function(resolve, reject) {
+      if(session.api_key) {
+        params = { game: session.api_key }
+      } else if(session.keyword && session.keywordtype) {
+        params = { keyword: session.keyword, keywordtype: session.keywordtype };
+      } else {
+        reject('Must provide api_key, or keyword and keywordtype');
+      }
+
+      self.getAPIData({
+        method: self.apiMethods['getGame'],
+        params: params
+      })
+      .then(function(entity) {
+        session.entity = entity;
+        resolve(entity);
+      });
     });
     return promise;
   },
