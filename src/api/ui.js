@@ -12,6 +12,13 @@ var ui = require('../ui.js');
 var data = require('../data.js');
 var session = require('../session.js');
 
+function nextTick () {
+  // This forces a repaint which allows the browser to populate the DOM
+  // from any elements that have had their innerHTML changed before
+  // this is called.
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
 var methods = {
 
   events: {
@@ -115,94 +122,94 @@ var methods = {
 
     return data
       .getScoreCategories()
-      .then(function(categories) {
+      .then(function (categories) {
         var scoreDialog = self.templates['dialogScore']({
           levels: categories
         });
-
         contentEl.innerHTML = scoreDialog;
 
-        var levelSelector = document.getElementById('swag-data-view-level');
-        var periodSelector = document.getElementById('swag-data-view-period');
-        var dataTableCont = document.getElementById('swag-data-table');
-        var contextCont = document.getElementById('swag-score-context');
+        nextTick().then(function () {
+          var levelSelector = contentEl.querySelector('.swag-data-view-level');
+          var periodSelector = contentEl.querySelector('.swag-data-view-period');
+          var dataTableCont = contentEl.querySelector('.swag-data-table');
+          var contextCont = contentEl.querySelector('.swag-score-context');
 
-        if(options.period && periodSelector) {
-          periodSelector.value = options.period;
-        }
+          if(options.period && periodSelector) {
+            periodSelector.value = options.period;
+          }
 
-        if(categories.length <= 1) {
-          levelSelector.style.display = 'none';
-        }
+          if(categories.length <= 1) {
+            levelSelector.style.display = 'none';
+          }
 
-        if(options.level_key && levelSelector) {
-          levelSelector.value = options.level_key;
-        }
+          if(options.level_key && levelSelector) {
+            levelSelector.value = options.level_key;
+          }
 
-        var scoreMethod = function(level_key, period) {
-          dataTableCont.innerHTML = '';
-          contentEl.classList.add('loading');
+          var scoreMethod = function(level_key, period) {
+            dataTableCont.innerHTML = '';
+            contentEl.classList.add('loading');
 
-        var scoresContextOptions = {
-          level_key: level_key,
-          period: period
-        };
+          var scoresContextOptions = {
+            level_key: level_key,
+            period: period
+          };
 
-        var scoresOptions = {
-          type: 'standard',
-          level_key: level_key,
-          period: period
-        };
+          var scoresOptions = {
+            type: 'standard',
+            level_key: level_key,
+            period: period
+          };
 
-        if(options.value_formatter) {
-          scoresContextOptions.value_formatter = options.value_formatter;
-          scoresOptions.value_formatter = options.value_formatter;
-        }
+          if(options.value_formatter) {
+            scoresContextOptions.value_formatter = options.value_formatter;
+            scoresOptions.value_formatter = options.value_formatter;
+          }
 
-        return Promise.all([
-          data.getScoresContext(scoresContextOptions),
-          data.getScores(scoresOptions)
-        ])
-          .then(function(values) {
+          return Promise.all([
+            data.getScoresContext(scoresContextOptions),
+            data.getScores(scoresOptions)
+          ])
+            .then(function(values) {
 
-            var scoresContext = values[0];
-            var scores = values[1];
+              var scoresContext = values[0];
+              var scores = values[1];
 
-            var selectedCategory = _.find(categories, function(category) {
-              return level_key === category.level_key;
+              var selectedCategory = _.find(categories, function(category) {
+                return level_key === category.level_key;
+              });
+
+              var formatted = self.templates['dataScore']({
+                category: selectedCategory,
+                scores: scores
+              });
+
+              dataTableCont.innerHTML = formatted;
+
+              var contextFormatted = self.templates['dataScoreContext']({
+                context: scoresContext
+              });
+
+              contextCont.innerHTML = contextFormatted;
+
+            })
+            .finally(function() {
+              contentEl.classList.remove('loading');
             });
+          };
 
-            var formatted = self.templates['dataScore']({
-              category: selectedCategory,
-              scores: scores
-            });
+          levelSelector.addEventListener('change', function() {
+            return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+              periodSelector.options[periodSelector.selectedIndex].value);
+          }, true);
 
-            dataTableCont.innerHTML = formatted;
+          periodSelector.addEventListener('change', function() {
+            return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
+              periodSelector.options[periodSelector.selectedIndex].value);
+          }, true);
 
-            var contextFormatted = self.templates['dataScoreContext']({
-              context: scoresContext
-            });
-
-            contextCont.innerHTML = contextFormatted;
-
-          })
-          .finally(function() {
-            contentEl.classList.remove('loading');
-          });
-        };
-
-        levelSelector.addEventListener('change', function() {
-          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
-            periodSelector.options[periodSelector.selectedIndex].value);
-        }, true);
-
-        periodSelector.addEventListener('change', function() {
-          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
-            periodSelector.options[periodSelector.selectedIndex].value);
-        }, true);
-
-        return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
-
+          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
+        });
       });
   },
 

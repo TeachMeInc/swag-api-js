@@ -2949,6 +2949,7 @@
   -webkit-box-pack: center;
   -webkit-justify-content: center;
           justify-content: center;
+  color: #272727;
   -webkit-justify-content: space-around;
           justify-content: space-around;
   pointer-events: auto;
@@ -3004,6 +3005,7 @@
   padding: 1em;
   overflow: hidden;
   font-size: 1em;
+  color: #272727;
   pointer-events: auto;
   touch-action: pan-y; }
   .swag-data-table .swag-data-header {
@@ -3015,12 +3017,16 @@
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 auto;
             flex: 0 0 auto;
+    color: #0164a0;
     font-weight: 700;
-    border: 1px solid;
+    border: 1px solid #d2d2d2;
     overflow: hidden;
+    -webkit-border-radius: 10px 10px 0px 0px;
+            border-radius: 10px 10px 0px 0px;
     padding: 0.5em;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box; }
+            box-sizing: border-box;
+    background-color: #e3e7ea; }
     .swag-data-table .swag-data-header > div {
       border: none;
       padding: 0em; }

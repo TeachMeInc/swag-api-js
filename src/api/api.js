@@ -168,8 +168,7 @@ var methods = {
 
   renderTokenBalance: function(options) {
     options.el = ui.renderInline(options.el, 'swag-token-balance');
-    options.el.innerHTML = 'Token Balance';
-    // return ui.renderScores(options);
+    options.el.innerHTML = session.uid ? 0 : 'Not logged in'; // TODO
   },
 
   renderFriendsSection: function(options) {
