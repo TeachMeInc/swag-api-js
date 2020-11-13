@@ -12,33 +12,33 @@
       flex: 1 1 70%;
     }
 
-    .swag-data-selector {
-      flex-wrap: wrap;
-      .swag-score-context {
-        flex: 1 1 100%;
-        > div {
-          text-align: center;
-        }
-      }
-      .swag-select-container {
-        padding: 1em 0em;
-      }
-    }
+    // .swag-data-selector {
+    //   flex-wrap: wrap;
+    //   .swag-score-context {
+    //     flex: 1 1 100%;
+    //     > div {
+    //       text-align: center;
+    //     }
+    //   }
+    //   .swag-select-container {
+    //     padding: 1em 0em;
+    //   }
+    // }
 
-    .swag-dialog-content {
-      .swag-data-table {
-        > div {
-          .data-screen-name {
-            flex: 0 0 30%;
-          }
-          .data-score {
-            flex: 1 1 30%;
-          }
-          .data-date {
-            flex: 0 0 25%;
-          }
-        }
-      }
-    }
+    // .swag-dialog-content {
+    //   .swag-data-table {
+    //     > div {
+    //       .data-screen-name {
+    //         flex: 0 0 30%;
+    //       }
+    //       .data-score {
+    //         flex: 1 1 30%;
+    //       }
+    //       .data-date {
+    //         flex: 0 0 25%;
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

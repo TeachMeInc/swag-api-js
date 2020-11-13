@@ -166,6 +166,21 @@ var methods = {
     return data.userLogout();
   },
 
+  renderScoresSection: function(options) {
+    var wrapperEl = options.el;
+    wrapperEl.classList.add('swag-wrapper');
+    wrapperEl.classList.add(session.theme);
+    wrapperEl.innerHTML = '';
+
+    var innerEl = document.createElement('div');
+    innerEl.classList.add('swag-scores-section');
+    wrapperEl.appendChild(innerEl);
+
+    options.el = innerEl;
+
+    return ui.renderScores(options);
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {

@@ -81,10 +81,12 @@
   <body>
       <div id="demo-stage" class="demo-stage">
           <h1>SWAG API Demo</h1>
+          
           <h2>Current User</h2>
           <div class="demo-controls">
               <div id="user-info"></div>
           </div>
+
           <h2>Dialogs</h2>
           <div class="demo-controls">
               <input type="button" id="show-highscore-dialog" value="Show Score Dialog">
@@ -92,6 +94,7 @@
               <input type="button" id="show-achievements-dialog" value="Show Achievements Dialog">
               <input type="button" id="show-weeklyscores-dialog" value="Show Weekly Scores Dialog">
           </div>
+
           <h2>User Methods</h2>
           <div class="demo-controls">
             <input type="button" id="get-current-user" value="Get Current User">
@@ -102,6 +105,7 @@
           <div id="swag-api-wrapper" class="api-wrapper">
             <canvas id="game-canvas"></canvas>
           </div>
+
           <h2>Post Methods</h2>
           <div class="demo-controls">
               <div>
@@ -130,6 +134,7 @@
                 <input type="button" value="post data" id="post-data-submit">
               </div>
           </div>
+
           <h2>Data Views</h2>
           <div class="demo-controls">
               <div class="data-view-select">
@@ -148,6 +153,21 @@
               </div>
               <div id="data-view" class="data-view">
               </div>
+          </div>
+
+          <h2>Tokens</h2>
+          <div class="demo-controls">
+            <div id="token-balance-section">loading token balance...</div>
+          </div>
+
+          <h2>Friends</h2>
+          <div class="demo-controls">
+            <div id="friends-section">loading friends...</div>
+          </div>
+
+          <h2>High Scores</h2>
+          <div class="demo-controls">
+            <div id="high-scores-section">loading high scores...</div>
           </div>
       </div>
   </body>
@@ -203,7 +223,7 @@
               console.log("The current day is: " + apidate.day);
             });
 
-          api.showDialog('userlogin',{});
+          // api.showDialog('userlogin',{});
 
           api.getBrandingLogo()
             .then(function(logo) {
@@ -391,6 +411,26 @@
                   dataView.innerHTML = "invalid method.";
               };
 
+      });
+
+      // Inline components
+
+      // display tokens
+      // api.renderTokenBalance({ 
+      //   el: document.getElementById('token-balance-section')
+      // });
+
+      // display friend section
+      // api.renderFriendsSection({
+      //   el: document.getElementById('friends-section')
+      // });
+
+      console.log(api);
+
+      // display high scores
+      api.renderScoresSection({
+        el: document.getElementById('high-scores-section'),
+        keyword: 'shockwave-original-daily-pyramid-solitaire'
       });
 
 //-------- SWAG API Listeners ---------------------------------------------

@@ -2413,6 +2413,259 @@
       -webkit-transition: none !important;
       animation: unset !important;
       transition: none !important; } }
+  .swag-wrapper .swag-data-selector {
+    padding: 1.5em;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+    color: #272727;
+    -webkit-justify-content: space-around;
+            justify-content: space-around;
+    pointer-events: auto;
+    touch-action: auto; }
+    .swag-wrapper .swag-data-selector div.swag-score-context {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 1 50%;
+              flex: 0 1 50%;
+      font-size: 1em;
+      line-height: 1.2em;
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      min-height: 3.6em; }
+      .swag-wrapper .swag-data-selector div.swag-score-context > div {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 100%;
+                flex: 1 1 100%;
+        text-align: left; }
+    .swag-wrapper .swag-data-selector div.swag-select-container {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: space-around;
+              justify-content: space-around; }
+    .swag-wrapper .swag-data-selector div.selector-title {
+      padding-right: 2em;
+      text-align: center;
+      font-size: 1.5em; }
+  .swag-wrapper .swag-data-table {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+    -webkit-align-items: flex-start;
+            align-items: flex-start;
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+            justify-content: flex-start;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 100%;
+            flex: 1 1 100%;
+    padding: 1em;
+    overflow: hidden;
+    font-size: 1em;
+    color: #272727;
+    pointer-events: auto;
+    touch-action: pan-y; }
+    .swag-wrapper .swag-data-table .swag-data-header {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-flex-wrap: nowrap;
+              flex-wrap: nowrap;
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 auto;
+              flex: 0 0 auto;
+      color: #0164a0;
+      font-weight: 700;
+      border: 1px solid #d2d2d2;
+      overflow: hidden;
+      -webkit-border-radius: 10px 10px 0px 0px;
+              border-radius: 10px 10px 0px 0px;
+      padding: 0.5em;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      background-color: #e3e7ea; }
+      .swag-wrapper .swag-data-table .swag-data-header > div {
+        border: none;
+        padding: 0em; }
+        .swag-wrapper .swag-data-table .swag-data-header > div:nth-child(odd), .swag-wrapper .swag-data-table .swag-data-header > div:nth-child(even) {
+          background-color: initial; }
+    .swag-wrapper .swag-data-table > div {
+      border: 1px solid #efefef;
+      overflow-y: scroll;
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 100%;
+              flex: 1 1 100%;
+      width: 100%;
+      -webkit-flex-wrap: wrap;
+              flex-wrap: wrap;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      position: relative;
+      pointer-events: auto;
+      touch-action: pan-y; }
+      .swag-wrapper .swag-data-table > div > div {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1 1 100%;
+                flex: 1 1 100%;
+        -webkit-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+        padding: 0.5em;
+        border-bottom: 1px solid #EFEFEE;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+                align-items: center;
+        pointer-events: auto;
+        touch-action: pan-y; }
+        .swag-wrapper .swag-data-table > div > div.data-achievement-row {
+          -webkit-flex-wrap: wrap;
+                  flex-wrap: wrap;
+          border: 1px solid #efefef;
+          margin-bottom: 1em; }
+          .swag-wrapper .swag-data-table > div > div.data-achievement-row > div {
+            text-align: left;
+            padding-left: 1em;
+            color: #afafaf; }
+          .swag-wrapper .swag-data-table > div > div.data-achievement-row:nth-child(odd), .swag-wrapper .swag-data-table > div > div.data-achievement-row:nth-child(even) {
+            background-color: #fff; }
+          .swag-wrapper .swag-data-table > div > div.data-achievement-row:before {
+            width: 2.6em;
+            height: 2.6em;
+            line-height: 2.8em;
+            content: "\2713";
+            background-color: #fff;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.6em;
+            -webkit-border-radius: 50%;
+                    border-radius: 50%;
+            border: 1px solid #efefef; }
+          .swag-wrapper .swag-data-table > div > div.data-achievement-row.achieved {
+            border: 1px solid green; }
+            .swag-wrapper .swag-data-table > div > div.data-achievement-row.achieved:before {
+              content: "\2713";
+              background-color: green; }
+            .swag-wrapper .swag-data-table > div > div.data-achievement-row.achieved > div {
+              color: black; }
+            .swag-wrapper .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-name {
+              color: green; }
+            .swag-wrapper .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-description {
+              color: #868585; }
+        .swag-wrapper .swag-data-table > div > div:nth-child(even) {
+          background-color: #f0f8ff; }
+    .swag-wrapper .swag-data-table > div .data-empty,
+    .swag-wrapper .swag-data-table .swag-data-header .data-empty {
+      -webkit-box-align: center;
+      -webkit-align-items: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center;
+      position: absolute;
+      width: 100%;
+      padding: 0;
+      height: 100%;
+      font-size: 1.5em;
+      color: #7e7e7e; }
+    .swag-wrapper .swag-data-table > div .data-position,
+    .swag-wrapper .swag-data-table .swag-data-header .data-position {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 2em;
+              flex: 0 0 2em;
+      text-align: center;
+      -webkit-box-pack: center;
+      -webkit-justify-content: center;
+              justify-content: center; }
+    .swag-wrapper .swag-data-table > div .data-screen-name,
+    .swag-wrapper .swag-data-table .swag-data-header .data-screen-name {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 40%;
+              flex: 0 0 40%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .swag-wrapper .swag-data-table > div .data-day,
+    .swag-wrapper .swag-data-table .swag-data-header .data-day {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 1 60%;
+              flex: 0 1 60%;
+      text-align: left; }
+    .swag-wrapper .swag-data-table > div .data-score,
+    .swag-wrapper .swag-data-table .swag-data-header .data-score {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 40%;
+              flex: 0 0 40%;
+      text-align: left; }
+    .swag-wrapper .swag-data-table > div .data-date,
+    .swag-wrapper .swag-data-table .swag-data-header .data-date {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 1 20%;
+              flex: 0 1 20%;
+      text-align: left; }
+    .swag-wrapper .swag-data-table > div .data-achievement-name,
+    .swag-wrapper .swag-data-table .swag-data-header .data-achievement-name {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 100%;
+              flex: 1 1 100%;
+      font-size: 1.5em;
+      font-weight: 700; }
+    .swag-wrapper .swag-data-table > div .data-achievement-description,
+    .swag-wrapper .swag-data-table .swag-data-header .data-achievement-description {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1 1 100%;
+              flex: 1 1 100%;
+      font-size: 1.2em;
+      font-weight: 400; }
+    .swag-wrapper .swag-data-table > div.col5 .data-screen-name,
+    .swag-wrapper .swag-data-table .swag-data-header.col5 .data-screen-name {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 30%;
+              flex: 0 0 30%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .swag-wrapper .swag-data-table > div.col5 .data-meta,
+    .swag-wrapper .swag-data-table .swag-data-header.col5 .data-meta {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 30%;
+              flex: 0 0 30%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    .swag-wrapper .swag-data-table > div.col5 .data-score,
+    .swag-wrapper .swag-data-table .swag-data-header.col5 .data-score {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 0 20%;
+              flex: 0 0 20%;
+      text-align: left; }
+    .swag-wrapper .swag-data-table > div.col5 .data-date,
+    .swag-wrapper .swag-data-table .swag-data-header.col5 .data-date {
+      -webkit-box-flex: 0;
+      -webkit-flex: 0 1 20%;
+              flex: 0 1 20%; }
   .swag-wrapper .swag-dialog-wrapper {
     display: -webkit-box;
     display: -webkit-flex;
@@ -2553,259 +2806,6 @@
           background-repeat: no-repeat;
           background-position: center center;
           background-size: 20%; }
-        .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-box-orient: vertical;
-          -webkit-box-direction: normal;
-          -webkit-flex-direction: column;
-                  flex-direction: column;
-          -webkit-box-align: start;
-          -webkit-align-items: flex-start;
-                  align-items: flex-start;
-          -webkit-box-pack: start;
-          -webkit-justify-content: flex-start;
-                  justify-content: flex-start;
-          -webkit-box-flex: 1;
-          -webkit-flex: 1 1 100%;
-                  flex: 1 1 100%;
-          padding: 1em;
-          overflow: hidden;
-          font-size: 1em;
-          color: #272727;
-          pointer-events: auto;
-          touch-action: pan-y; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: flex;
-            -webkit-flex-wrap: nowrap;
-                    flex-wrap: nowrap;
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 auto;
-                    flex: 0 0 auto;
-            color: #0164a0;
-            font-weight: 700;
-            border: 1px solid #d2d2d2;
-            overflow: hidden;
-            -webkit-border-radius: 10px 10px 0px 0px;
-                    border-radius: 10px 10px 0px 0px;
-            padding: 0.5em;
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-            background-color: #e3e7ea; }
-            .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div {
-              border: none;
-              padding: 0em; }
-              .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(odd), .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header > div:nth-child(even) {
-                background-color: initial; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div {
-            border: 1px solid #efefef;
-            overflow-y: scroll;
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 100%;
-                    flex: 1 1 100%;
-            width: 100%;
-            -webkit-flex-wrap: wrap;
-                    flex-wrap: wrap;
-            -webkit-box-sizing: border-box;
-                    box-sizing: border-box;
-            position: relative;
-            pointer-events: auto;
-            touch-action: pan-y; }
-            .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div {
-              display: -webkit-box;
-              display: -webkit-flex;
-              display: flex;
-              -webkit-box-flex: 1;
-              -webkit-flex: 1 1 100%;
-                      flex: 1 1 100%;
-              -webkit-flex-wrap: nowrap;
-                      flex-wrap: nowrap;
-              padding: 0.5em;
-              border-bottom: 1px solid #EFEFEE;
-              -webkit-box-sizing: border-box;
-                      box-sizing: border-box;
-              -webkit-box-align: center;
-              -webkit-align-items: center;
-                      align-items: center;
-              pointer-events: auto;
-              touch-action: pan-y; }
-              .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row {
-                -webkit-flex-wrap: wrap;
-                        flex-wrap: wrap;
-                border: 1px solid #efefef;
-                margin-bottom: 1em; }
-                .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row > div {
-                  text-align: left;
-                  padding-left: 1em;
-                  color: #afafaf; }
-                .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:nth-child(odd), .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:nth-child(even) {
-                  background-color: #fff; }
-                .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row:before {
-                  width: 2.6em;
-                  height: 2.6em;
-                  line-height: 2.8em;
-                  content: "\2713";
-                  background-color: #fff;
-                  color: #fff;
-                  font-weight: 700;
-                  font-size: 1.6em;
-                  -webkit-border-radius: 50%;
-                          border-radius: 50%;
-                  border: 1px solid #efefef; }
-                .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved {
-                  border: 1px solid green; }
-                  .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved:before {
-                    content: "\2713";
-                    background-color: green; }
-                  .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved > div {
-                    color: black; }
-                  .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-name {
-                    color: green; }
-                  .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div.data-achievement-row.achieved .data-achievement-description {
-                    color: #868585; }
-              .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div > div:nth-child(even) {
-                background-color: #f0f8ff; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-empty,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-empty {
-            -webkit-box-align: center;
-            -webkit-align-items: center;
-                    align-items: center;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-                    justify-content: center;
-            position: absolute;
-            width: 100%;
-            padding: 0;
-            height: 100%;
-            font-size: 1.5em;
-            color: #7e7e7e; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-position,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-position {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 2em;
-                    flex: 0 0 2em;
-            text-align: center;
-            -webkit-box-pack: center;
-            -webkit-justify-content: center;
-                    justify-content: center; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-screen-name,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-screen-name {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 40%;
-                    flex: 0 0 40%;
-            text-align: left;
-            overflow: hidden;
-            text-overflow: ellipsis; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-day,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-day {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 1 60%;
-                    flex: 0 1 60%;
-            text-align: left; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-score,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-score {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 40%;
-                    flex: 0 0 40%;
-            text-align: left; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-date,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-date {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 1 20%;
-                    flex: 0 1 20%;
-            text-align: left; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-achievement-name,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-achievement-name {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 100%;
-                    flex: 1 1 100%;
-            font-size: 1.5em;
-            font-weight: 700; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div .data-achievement-description,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header .data-achievement-description {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 100%;
-                    flex: 1 1 100%;
-            font-size: 1.2em;
-            font-weight: 400; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div.col5 .data-screen-name,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header.col5 .data-screen-name {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 30%;
-                    flex: 0 0 30%;
-            text-align: left;
-            overflow: hidden;
-            text-overflow: ellipsis; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div.col5 .data-meta,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header.col5 .data-meta {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 30%;
-                    flex: 0 0 30%;
-            text-align: left;
-            overflow: hidden;
-            text-overflow: ellipsis; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div.col5 .data-score,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header.col5 .data-score {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 0 20%;
-                    flex: 0 0 20%;
-            text-align: left; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table > div.col5 .data-date,
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-content .swag-data-table .swag-data-header.col5 .data-date {
-            -webkit-box-flex: 0;
-            -webkit-flex: 0 1 20%;
-                    flex: 0 1 20%; }
-      .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-selector {
-        padding: 1.5em;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-flex-wrap: nowrap;
-                flex-wrap: nowrap;
-        -webkit-box-align: center;
-        -webkit-align-items: center;
-                align-items: center;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-                justify-content: center;
-        color: #272727;
-        -webkit-justify-content: space-around;
-                justify-content: space-around;
-        pointer-events: auto;
-        touch-action: auto; }
-        .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-selector div.swag-score-context {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-flex-wrap: wrap;
-                  flex-wrap: wrap;
-          -webkit-box-flex: 0;
-          -webkit-flex: 0 1 50%;
-                  flex: 0 1 50%;
-          font-size: 1em;
-          line-height: 1.2em;
-          -webkit-box-align: center;
-          -webkit-align-items: center;
-                  align-items: center;
-          min-height: 3.6em; }
-          .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-selector div.swag-score-context > div {
-            -webkit-box-flex: 1;
-            -webkit-flex: 1 1 100%;
-                    flex: 1 1 100%;
-            text-align: left; }
-        .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-selector div.swag-select-container {
-          display: -webkit-box;
-          display: -webkit-flex;
-          display: flex;
-          -webkit-justify-content: space-around;
-                  justify-content: space-around; }
-        .swag-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-selector div.selector-title {
-          padding-right: 2em;
-          text-align: center;
-          font-size: 1.5em; }
       .swag-wrapper .swag-dialog-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-content {
         -webkit-box-align: center;
         -webkit-align-items: center;
@@ -2852,7 +2852,6 @@
         background-color: #f0f8ff; }
   .swag-wrapper .swag-select {
     display: block;
-    font-size: 1em;
     font-family: sans-serif;
     font-weight: 700;
     color: #444;
@@ -2905,6 +2904,17 @@
     cursor: pointer; }
     .swag-wrapper .swag-button-confirmation:hover {
       background-color: #01446d; }
+  .swag-wrapper .swag-scores-section {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+            flex-direction: column; }
+    .swag-wrapper .swag-scores-section .swag-data-table {
+      min-height: 10em; }
   .swag-wrapper .swag-form {
     display: -webkit-box;
     display: -webkit-flex;
@@ -3023,29 +3033,6 @@
       -webkit-box-flex: 1;
       -webkit-flex: 1 1 70%;
               flex: 1 1 70%; }
-    .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector {
-      -webkit-flex-wrap: wrap;
-              flex-wrap: wrap; }
-      .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector .swag-score-context {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1 1 100%;
-                flex: 1 1 100%; }
-        .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector .swag-score-context > div {
-          text-align: center; }
-      .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-data-selector .swag-select-container {
-        padding: 1em 0em; }
-    .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-screen-name {
-      -webkit-box-flex: 0;
-      -webkit-flex: 0 0 30%;
-              flex: 0 0 30%; }
-    .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-score {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1 1 30%;
-              flex: 1 1 30%; }
-    .swag-wrapper[data-breakpoint="media-phone"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-date {
-      -webkit-box-flex: 0;
-      -webkit-flex: 0 0 25%;
-              flex: 0 0 25%; }
   .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog {
     font-size: 0.8em;
     width: 96%;
@@ -3057,29 +3044,6 @@
       -webkit-box-flex: 1;
       -webkit-flex: 1 1 70%;
               flex: 1 1 70%; }
-    .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-data-selector {
-      -webkit-flex-wrap: wrap;
-              flex-wrap: wrap; }
-      .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-data-selector .swag-score-context {
-        -webkit-box-flex: 1;
-        -webkit-flex: 1 1 100%;
-                flex: 1 1 100%; }
-        .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-data-selector .swag-score-context > div {
-          text-align: center; }
-      .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-data-selector .swag-select-container {
-        padding: 1em 0em; }
-    .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-screen-name {
-      -webkit-box-flex: 0;
-      -webkit-flex: 0 0 30%;
-              flex: 0 0 30%; }
-    .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-score {
-      -webkit-box-flex: 1;
-      -webkit-flex: 1 1 30%;
-              flex: 1 1 30%; }
-    .swag-wrapper[data-breakpoint="media-phablet"] .swag-dialog .swag-dialog-content .swag-data-table > div .data-date {
-      -webkit-box-flex: 0;
-      -webkit-flex: 0 0 25%;
-              flex: 0 0 25%; }
   .swag-wrapper[data-breakpoint="media-tablet"] .swag-dialog {
     font-size: 80%;
     width: 60%;

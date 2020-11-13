@@ -97,15 +97,13 @@ var methods = {
 
   },
 
-  renderScoresDialog: function(options) {
+  renderScores: function(options) {
     var self = this;
-    var dialogEl = document.getElementById('swag-dialog');
-    var contentEl = document.getElementById('swag-dialog-content');
-    options = options || {};
+    var contentEl = options.el;
 
-    return data.getScoreCategories()
+    return data
+      .getScoreCategories()
       .then(function(categories) {
-
         var scoreDialog = self.templates['dialogScore']({
           levels: categories
         });
@@ -194,6 +192,14 @@ var methods = {
         return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
 
       });
+  },
+
+  renderScoresDialog: function(options) {
+    var self = this;
+    options = options || {};
+    options.el = document.getElementById('swag-dialog-content');
+
+    return self.renderScores(options);
   },
 
   renderDailyScoresDialog: function(options) {

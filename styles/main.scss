@@ -1,28 +1,29 @@
 .swag-wrapper {
+  position: relative;
+  overflow-y: hidden;
+  font-family: "Arial, Helvetica, sans-serif";
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
 
-    position: relative;
-    overflow-y: hidden;
-    font-family: "Arial, Helvetica, sans-serif";
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    flex: 1 1 100%;
-    display: flex;
-    flex-direction: column;
+  * {
+    user-select: none;
+  }
 
-    * {
-      user-select: none;
-    }
-
-    @import "variables";
-    @import "../node_modules/animate.css/animate.min";
-    @import "dialog";
-    @import "ui";
-    @import "forms";
-    @import "breakpoints/phone.scss";
-    @import "breakpoints/phablet.scss";
-    @import "breakpoints/tablet.scss";
-    @import "breakpoints/desktop.scss";
+  @import "variables";
+  @import "../node_modules/animate.css/animate.min";
+  @import "data-selector";
+  @import "data-table";
+  @import "dialog";
+  @import "ui";
+  @import "forms";
+  @import "breakpoints/phone";
+  @import "breakpoints/phablet";
+  @import "breakpoints/tablet";
+  @import "breakpoints/desktop";
 }
 
 @import "static";
