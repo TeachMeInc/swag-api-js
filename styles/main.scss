@@ -1,7 +1,7 @@
-.swag-wrapper {
+.swag-dialog-wrapper {
   position: relative;
   overflow-y: hidden;
-  font-family: "Arial, Helvetica, sans-serif";
+  // font-family: "Arial, Helvetica, sans-serif";
   height: 100%;
   margin: 0;
   padding: 0;
@@ -14,16 +14,22 @@
   }
 
   @import "variables";
-  @import "../node_modules/animate.css/animate.min";
-  @import "data-selector";
-  @import "data-table";
   @import "dialog";
-  @import "ui";
-  @import "forms";
   @import "breakpoints/phone";
   @import "breakpoints/phablet";
   @import "breakpoints/tablet";
   @import "breakpoints/desktop";
 }
 
+.swag-inline-wrapper {
+  * {
+    user-select: none;
+  }
+}
+
+@import "../node_modules/animate.css/animate.min";
+@import "ui";
+@import "forms";
+@import "data-selector";
+@import "data-table";
 @import "static";

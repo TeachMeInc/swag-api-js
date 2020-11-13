@@ -166,18 +166,19 @@ var methods = {
     return data.userLogout();
   },
 
+  renderTokenBalance: function(options) {
+    options.el = ui.renderInline(options.el, 'swag-token-balance');
+    options.el.innerHTML = 'Token Balance';
+    // return ui.renderScores(options);
+  },
+
+  renderFriendsSection: function(options) {
+    options.el = ui.renderInline(options.el, 'swag-friends-section');
+    return ui.renderScores(options);
+  },
+
   renderScoresSection: function(options) {
-    var wrapperEl = options.el;
-    wrapperEl.classList.add('swag-wrapper');
-    wrapperEl.classList.add(session.theme);
-    wrapperEl.innerHTML = '';
-
-    var innerEl = document.createElement('div');
-    innerEl.classList.add('swag-scores-section');
-    wrapperEl.appendChild(innerEl);
-
-    options.el = innerEl;
-
+    options.el = ui.renderInline(options.el, 'swag-scores-section');
     return ui.renderScores(options);
   },
 
@@ -189,7 +190,7 @@ var methods = {
 
     session.api_key = this._options.api_key;
     session.wrapper = this._options.wrapper;
-    session.wrapper.classList.add('swag-wrapper');
+    session.wrapper.classList.add('swag-dialog-wrapper');
     session.theme = siteMode;
     session.apiRoot = config.themes[siteMode].apiRoot;
 

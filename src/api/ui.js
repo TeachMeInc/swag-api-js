@@ -55,6 +55,18 @@ var methods = {
     'userlogin': 'Sign In'
   },
 
+  renderInline: function(wrapperEl, innerClass) {
+    wrapperEl.classList.add('swag-inline-wrapper');
+    wrapperEl.classList.add(session.theme);
+    wrapperEl.innerHTML = '';
+
+    var innerEl = document.createElement('div');
+    innerEl.classList.add(innerClass);
+    wrapperEl.appendChild(innerEl);
+
+    return innerEl;
+  },
+
   renderDialog: function(type, options) {
     var self = this;
     var dialogOptions = _.extend({
