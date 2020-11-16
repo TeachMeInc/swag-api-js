@@ -583,7 +583,32 @@ var methods = {
     contentEl.innerHTML = inlineLogin;
 
     nextTick().then(function () {
-      console.log('all done');
+      var wrapperEl = document.getElementById('swag-api-wrapper');
+      var wrapperBrect = wrapperEl.getBoundingClientRect();
+
+      var loginEl = contentEl.querySelector('.swag-login-button');
+      if (!options.loginButtonHref) {
+        if (options.loginButtonAction) {
+          loginEl.addEventListener('click', options.loginButtonAction, true);
+        } else {
+          loginEl.addEventListener('click', function () {
+            window.scrollTo({ y: wrapperBrect.y });
+            self.renderDialog('userlogin', {});
+          }, true);
+        }
+      }
+
+      var registerEl = contentEl.querySelector('.swag-register-link');
+      if (!options.registerLinkHref) {
+        if (options.registerLinkAction) {
+          registerEl.addEventListener('click', options.registerLinkAction, true);
+        } else {
+          registerEl.addEventListener('click', function () {
+            window.scrollTo({ y: wrapperBrect.y });
+            self.renderDialog('usercreate', {});
+          }, true);
+        }
+      }
     })
   },
 
