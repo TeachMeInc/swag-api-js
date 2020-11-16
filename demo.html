@@ -422,13 +422,30 @@
 
       // display friend section
       api.renderFriendsSection({
-        el: document.getElementById('friends-section')
+        el: document.getElementById('friends-section'),
+        keyword: 'shockwave-original-daily-pyramid-solitare',
+        hideControls: true,
+
+        loginButtonText: 'Sign In',
+        // loginButtonHref: '//shockwave.com/login',
+        loginButtonAction: function () {
+          console.log('LOGIN CLICKED');
+        },
+
+        registerLinkText: 'REGISTER',
+        // registerLinkHref: '//shockwave.com/login',
+        registerLinkAction: function () {
+          console.log('REGISTER CLICKED');
+        },
+
+        registerText: `Not a member? {registerLink}<br>It's quick and easy!`
       });
 
       // display high scores
       api.renderScoresSection({
         el: document.getElementById('high-scores-section'),
-        keyword: 'shockwave-original-daily-pyramid-solitaire'
+        keyword: 'shockwave-original-daily-pyramid-solitaire',
+        hideControls: true
       });
 
 //-------- SWAG API Listeners ---------------------------------------------

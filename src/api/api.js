@@ -173,7 +173,7 @@ var methods = {
 
   renderFriendsSection: function(options) {
     options.el = ui.renderInline(options.el, 'swag-friends-section');
-    return ui.renderScores(options);
+    return ui.renderInlineLogin(options);
   },
 
   renderScoresSection: function(options) {

@@ -40,7 +40,8 @@ var methods = {
     'dataWeeklyScores': require('../templates/api/data-weeklyscores.handlebars'),
     'brandingAnimation': require('../templates/api/branding-animation.handlebars'),
     'dialogUserLogin': require('../templates/api/dialog-user-login.handlebars'),
-    'dialogUserCreate': require('../templates/api/dialog-user-create.handlebars')
+    'dialogUserCreate': require('../templates/api/dialog-user-create.handlebars'),
+    'inlineUserLogin': require('../templates/api/inline-login.handlebars'),
   },
 
   dialogMethods: {
@@ -133,6 +134,14 @@ var methods = {
           var periodSelector = contentEl.querySelector('.swag-data-view-period');
           var dataTableCont = contentEl.querySelector('.swag-data-table');
           var contextCont = contentEl.querySelector('.swag-score-context');
+          var controlsCont = contentEl.querySelector('.swag-select-container');
+
+          if(options.hideControls) {
+            contextCont.innerHTML = '';
+            contextCont.style.display = 'none';
+            controlsCont.innerHTML = '';
+            controlsCont.style.display = 'none';
+          }
 
           if(options.period && periodSelector) {
             periodSelector.value = options.period;
@@ -150,52 +159,51 @@ var methods = {
             dataTableCont.innerHTML = '';
             contentEl.classList.add('loading');
 
-          var scoresContextOptions = {
-            level_key: level_key,
-            period: period
-          };
+            var scoresContextOptions = {
+              level_key: level_key,
+              period: period
+            };
 
-          var scoresOptions = {
-            type: 'standard',
-            level_key: level_key,
-            period: period
-          };
+            var scoresOptions = {
+              type: 'standard',
+              level_key: level_key,
+              period: period
+            };
 
-          if(options.value_formatter) {
-            scoresContextOptions.value_formatter = options.value_formatter;
-            scoresOptions.value_formatter = options.value_formatter;
-          }
+            if(options.value_formatter) {
+              scoresContextOptions.value_formatter = options.value_formatter;
+              scoresOptions.value_formatter = options.value_formatter;
+            }
 
-          return Promise.all([
-            data.getScoresContext(scoresContextOptions),
-            data.getScores(scoresOptions)
-          ])
-            .then(function(values) {
+            return Promise.all([
+              data.getScoresContext(scoresContextOptions),
+              data.getScores(scoresOptions)
+            ])
+              .then(function(values) {
+                var scoresContext = values[0];
+                var scores = values[1];
 
-              var scoresContext = values[0];
-              var scores = values[1];
+                var selectedCategory = _.find(categories, function(category) {
+                  return level_key === category.level_key;
+                });
 
-              var selectedCategory = _.find(categories, function(category) {
-                return level_key === category.level_key;
+                var formatted = self.templates['dataScore']({
+                  category: selectedCategory,
+                  scores: scores
+                });
+
+                dataTableCont.innerHTML = formatted;
+
+                if (!options.hideControls) {
+                  var contextFormatted = self.templates['dataScoreContext']({
+                    context: scoresContext
+                  });
+                  contextCont.innerHTML = contextFormatted;
+                }
+              })
+              .finally(function() {
+                contentEl.classList.remove('loading');
               });
-
-              var formatted = self.templates['dataScore']({
-                category: selectedCategory,
-                scores: scores
-              });
-
-              dataTableCont.innerHTML = formatted;
-
-              var contextFormatted = self.templates['dataScoreContext']({
-                context: scoresContext
-              });
-
-              contextCont.innerHTML = contextFormatted;
-
-            })
-            .finally(function() {
-              contentEl.classList.remove('loading');
-            });
           };
 
           levelSelector.addEventListener('change', function() {
@@ -556,6 +564,27 @@ var methods = {
     return new Promise(function(resolve,reject) {
       resolve({});
     });
+  },
+
+  renderInlineLogin: function(options) {
+    var self = this;
+    var contentEl = options.el;
+
+    var renderOptions = {};
+
+    renderOptions.loginButtonText = options.loginButtonText || 'Login';
+    renderOptions.loginButtonHref = options.loginButtonHref;
+
+    var registerLink = `<a class="swag-register-link"${options.registerLinkHref ? ` href="${options.registerLinkHref}"` : ''}>${options.registerLinkText || 'Register'}</a>`;
+    renderOptions.registerBlock = (options.registerText || '{registerLink}');
+    renderOptions.registerBlock = renderOptions.registerBlock.replace('{registerLink}', registerLink);
+
+    var inlineLogin = self.templates['inlineUserLogin'](renderOptions);
+    contentEl.innerHTML = inlineLogin;
+
+    nextTick().then(function () {
+      console.log('all done');
+    })
   },
 
   // UI Rendering

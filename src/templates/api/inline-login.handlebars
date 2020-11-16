@@ -1,0 +1,15 @@
+<div class="swag-inline-login">
+  <p>
+    Sign in to see your high scores, your friends' scores, your token earnings and to challenge a friend.
+  </p>
+  <p>
+    {{#if loginButtonHref}}
+      <a class="swag-login-link" href="{{loginButtonHref}}">{{loginButtonText}}</a>
+    {{else}}
+      <button class="swag-login-button" type="submit">{{loginButtonText}}</button>
+    {{/if}}
+  </p>
+  <p>
+    {{{registerBlock}}}
+  </p>
+</div>
