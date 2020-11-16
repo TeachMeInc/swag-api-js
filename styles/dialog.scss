@@ -118,6 +118,10 @@
       pointer-events: auto;
       touch-action: pan-y;
     }
+
+    .swag-data-table {
+      padding: 1em;
+    }
     
     &[data-dialog='scoreconfirmation'] {
       .swag-dialog-content {

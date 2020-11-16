@@ -134,11 +134,9 @@ var methods = {
           var periodSelector = contentEl.querySelector('.swag-data-view-period');
           var dataTableCont = contentEl.querySelector('.swag-data-table');
           var contextCont = contentEl.querySelector('.swag-score-context');
-          var controlsCont = contentEl.querySelector('.swag-select-container');
+          var controlsCont = contentEl.querySelector('.swag-data-selector');
 
           if(options.hideControls) {
-            contextCont.innerHTML = '';
-            contextCont.style.display = 'none';
             controlsCont.innerHTML = '';
             controlsCont.style.display = 'none';
           }

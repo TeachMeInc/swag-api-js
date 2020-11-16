@@ -160,6 +160,8 @@
           background-repeat: no-repeat;
           background-position: center center;
           background-size: 20%; }
+      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog .swag-data-table {
+        padding: 1em; }
       .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog[data-dialog='scoreconfirmation'] .swag-dialog-content {
         -webkit-box-align: center;
         -webkit-align-items: center;
@@ -3002,7 +3004,6 @@
   -webkit-box-flex: 1;
   -webkit-flex: 1 1 100%;
           flex: 1 1 100%;
-  padding: 1em;
   overflow: hidden;
   font-size: 1em;
   color: #272727;
