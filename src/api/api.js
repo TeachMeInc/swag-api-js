@@ -167,12 +167,12 @@ var methods = {
   },
 
   renderFriendsSection: function(options) {
-    options.el = ui.renderInline(options.el, 'swag-friends-section');
+    options.el = ui.renderEmbed(options.el, 'swag-friends-section');
     return ui.renderScores(options, true);
   },
 
   renderScoresSection: function(options) {
-    options.el = ui.renderInline(options.el, 'swag-scores-section');
+    options.el = ui.renderEmbed(options.el, 'swag-scores-section');
     return ui.renderScores(options, true);
   },
 

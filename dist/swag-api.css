@@ -45,8 +45,7 @@
     top: 0;
     left: 0;
     pointer-events: none;
-    touch-action: none;
-    /* Themes */ }
+    touch-action: none; }
     .swag-dialog-wrapper .swag-dialog-wrapper textarea, .swag-dialog-wrapper .swag-dialog-wrapper select, .swag-dialog-wrapper .swag-dialog-wrapper input, .swag-dialog-wrapper .swag-dialog-wrapper button {
       outline: none; }
     .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog {
@@ -179,33 +178,6 @@
         -webkit-box-flex: 1;
         -webkit-flex: 1 1 70%;
                 flex: 1 1 70%; }
-    .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave {
-      border: 2px solid #0263a0; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header {
-        background-color: #0064a0; }
-        .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
-          background-image: url(shockwave-logo.png); }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-content.loading {
-        background-image: url(shockwave-loader.gif); }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-data-selector {
-        background-color: #f0f8ff; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.shockwave .swag-form {
-        color: #0064a0; }
-    .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames {
-      border: 2px solid #E43D30; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-header {
-        color: #E43D30; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header {
-        background-color: #E43D30; }
-        .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header .swag-logo {
-          background-image: url(addictinggames-logo.svg); }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content .swag-data-table .swag-data-header {
-        color: #E43D30; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content.loading {
-        background-image: url(addictinggames-loader.gif);
-        background-size: 64px 64px; }
-      .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-selector {
-        background-color: #f0f8ff; }
   .swag-dialog-wrapper[data-breakpoint="media-phone"] .swag-dialog {
     font-size: 70%;
     width: 96%;
@@ -256,7 +228,7 @@
       -webkit-flex: 1 1 60%;
               flex: 1 1 60%; }
 
-.swag-inline-wrapper * {
+.swag-embed-wrapper * {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -3135,14 +3107,14 @@
   .swag-data-table > div .data-day,
   .swag-data-table .swag-data-header .data-day {
     -webkit-box-flex: 0;
-    -webkit-flex: 0 1 60%;
-            flex: 0 1 60%;
+    -webkit-flex: 0 1 20%;
+            flex: 0 1 20%;
     text-align: left; }
   .swag-data-table > div .data-score,
   .swag-data-table .swag-data-header .data-score {
     -webkit-box-flex: 0;
-    -webkit-flex: 0 0 40%;
-            flex: 0 0 40%;
+    -webkit-flex: 0 0 30%;
+            flex: 0 0 30%;
     text-align: left; }
   .swag-data-table > div .data-date,
   .swag-data-table .swag-data-header .data-date {
@@ -3230,5 +3202,64 @@ body.swag-dialog-open {
   .swag-branding-animation-wrapper video {
     width: 100%;
     height: auto; }
+
+.swag-dialog-wrapper .swag-dialog.addictinggames {
+  border: 2px solid #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-header {
+    color: #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header {
+    background-color: #E43D30; }
+    .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header .swag-logo {
+      background-image: url(addictinggames-logo.svg); }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content .swag-data-table .swag-data-header {
+    color: #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content.loading {
+    background-image: url(addictinggames-loader.gif);
+    background-size: 64px 64px; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-selector {
+    background-color: #f0f8ff; }
+
+.swag-dialog-wrapper .swag-dialog.shockwave {
+  border: 2px solid #0263a0; }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header {
+    background-color: #0064a0; }
+    .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
+      background-image: url(shockwave-logo.png); }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-content.loading {
+    background-image: url(shockwave-loader.gif); }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-data-selector {
+    background-color: #f0f8ff; }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-form {
+    color: #0064a0; }
+
+.swag-embed-wrapper.shockwave .swag-data-table {
+  color: #666;
+  font-size: 11px;
+  font-family: Helvetica, Arial, sans-serif; }
+  .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header {
+    color: #666;
+    font-weight: 700;
+    background: #eee;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+    padding: 0; }
+    .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header > div {
+      padding: 3px 6px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+  .swag-embed-wrapper.shockwave .swag-data-table > div > div {
+    white-space: nowrap;
+    padding: 0; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div:nth-child(even) {
+      background-color: transparent; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div > div {
+      padding: 3px 6px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div .data-screen-name {
+      font-weight: 700;
+      color: #003d7b; }
+  .swag-embed-wrapper.shockwave .swag-data-table .data-empty {
+    font-size: 11px; }
 
 /*# sourceMappingURL=swag-api.css.map*/

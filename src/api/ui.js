@@ -62,8 +62,8 @@ var methods = {
     'userlogin': 'Sign In'
   },
 
-  renderInline: function(wrapperEl, innerClass) {
-    wrapperEl.classList.add('swag-inline-wrapper');
+  renderEmbed: function(wrapperEl, innerClass) {
+    wrapperEl.classList.add('swag-embed-wrapper');
     wrapperEl.classList.add(session.theme);
     wrapperEl.innerHTML = '';
 
@@ -116,9 +116,12 @@ var methods = {
 
   },
 
-  renderScores: function(options, inline = false, dataSource = 'getScoreCategories') {
+  renderScores: function(options, embedded = false, dataSource = 'getScoreCategories') {
     var self = this;
     var contentEl = options.el;
+
+    // TODO: do something with keyword
+    console.log('KEYWORD', options.keyword)
 
     return data
       [dataSource]() // TODO: swap for friends API when appropriate
@@ -135,7 +138,7 @@ var methods = {
           var contextCont = contentEl.querySelector('.swag-score-context');
           var controlsCont = contentEl.querySelector('.swag-data-selector');
 
-          if(options.hideControls) {
+          if(options.hide_controls) {
             controlsCont.innerHTML = '';
             controlsCont.style.display = 'none';
           } else {
@@ -188,10 +191,9 @@ var methods = {
                   category: selectedCategory,
                   scores: scores
                 });
-
                 dataTableCont.innerHTML = formatted;
 
-                if (!options.hideControls) {
+                if (!options.hide_controls) {
                   var contextFormatted = self.templates['dataScoreContext']({
                     context: scoresContext
                   });
@@ -213,13 +215,16 @@ var methods = {
               periodSelector.options[periodSelector.selectedIndex].value);
           }, true);
 
-          if (inline) {
+          if (embedded) {
             window.addEventListener('changeScoreView', function(evt) {
               scoreMethod(evt.detail.level_key, evt.detail.period);
             });
           }
 
-          return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
+          const initialLevelKey = options.level_key || levelSelector.options[levelSelector.selectedIndex].value;
+          const initialPeriod = options.period || periodSelector.options[periodSelector.selectedIndex].value;
+          
+          return scoreMethod(initialLevelKey, initialPeriod);
         });
       });
   },
@@ -348,7 +353,6 @@ var methods = {
   },
 
   renderAchievementsDialog: function(options) {
-
     var self = this;
     var dialogEl = document.getElementById('swag-dialog');
     var contentEl = document.getElementById('swag-dialog-content');

@@ -159,24 +159,18 @@
           <div class="demo-controls">
             <div style="display:block">
               <div>
-                <div style="display:flex;width:100%">
-                  <div style="flex:1;width:50%">
-                    <select id="change-score-level" class="changeScoreLevel">
-                    </select>
-                  </div>
-                  <div style="flex:1;width:50%">
-                    <button class="changeScorePeriod" data-period="daily">Daily</button>
-                    <button class="changeScorePeriod" data-period="weekly">Weekly</button>
-                    <button class="changeScorePeriod" data-period="monthly">Monthly</button>
-                    <button class="changeScorePeriod" data-period="alltime">All-Time</button>
-                  </div>
-                </div>
+                <select id="change-score-level" class="changeScoreLevel">
+                </select>
+                <button class="changeScorePeriod" data-period="daily">Daily</button>
+                <button class="changeScorePeriod" data-period="weekly">Weekly</button>
+                <button class="changeScorePeriod" data-period="monthly">Monthly</button>
+                <button class="changeScorePeriod" data-period="alltime">All-Time</button>
               </div>
               <div style="display:flex;width:100%">
-                <div style="flex:1;width:50%">
+                <div style="flex:1;width:50%;padding:10px 5px">
                   <div id="high-scores-section">loading high scores...</div>
                 </div>
-                <div style="flex:1;width:50%">
+                <div style="flex:1;width:50%;padding:10px 5px">
                   <div id="friends-section">loading friends...</div>
                 </div>
               </div>
@@ -426,12 +420,11 @@
 
       });
 
-      // Inline components
+      // Embedded components
 
-      // display friend section
       (function () {
         var selectedScoreOpts = {
-          level_key: '',
+          level_key: 'level1',
           period: 'daily'
         };
         
@@ -442,15 +435,13 @@
           selectedScoreOpts.level_key = evt.target.value;
           api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
         });
+        console.log(selectedScoreOpts.level_key);
 
         // Attach events to period buttons
         Array
           .from(document.querySelectorAll('.changeScorePeriod'))
           .forEach((el) => el.addEventListener('click', function(evt) {
-            var level_key = changeLevelEl.options[changeLevelEl.selectedIndex].value;
-            var period = evt.target.getAttribute('data-period');
-            selectedScoreOpts.level_key = level_key;
-            selectedScoreOpts.period = period;
+            selectedScoreOpts.period = evt.target.getAttribute('data-period');
             api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
           }, true));
 
@@ -458,14 +449,18 @@
         api.renderFriendsSection({
           el: document.getElementById('friends-section'),
           keyword: 'shockwave-original-daily-pyramid-solitare',
-          hideControls: true
+          hide_controls: true,
+          level_key: selectedScoreOpts.level_key,
+          period: selectedScoreOpts.period
         });
 
         // Display high scores
         api.renderScoresSection({
           el: document.getElementById('high-scores-section'),
           keyword: 'shockwave-original-daily-pyramid-solitaire',
-          hideControls: true
+          hide_controls: true,
+          level_key: selectedScoreOpts.level_key,
+          period: selectedScoreOpts.period
         });
       })();
 

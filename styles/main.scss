@@ -21,7 +21,7 @@
   @import "breakpoints/desktop";
 }
 
-.swag-inline-wrapper {
+.swag-embed-wrapper {
   * {
     user-select: none;
   }
@@ -33,3 +33,5 @@
 @import "data-selector";
 @import "data-table";
 @import "static";
+@import "themes/addictinggames";
+@import "themes/shockwave";

@@ -1,0 +1,42 @@
+// Dialog
+
+.swag-dialog-wrapper {
+  .swag-dialog {
+    &.addictinggames {
+      border: 2px solid #E43D30;
+      
+      .swag-data-header {
+        color: #E43D30;
+      }
+      
+      .swag-dialog-header {
+        background-color: #E43D30;
+        
+        .swag-logo {
+          background-image: url("images/addictinggames-logo.svg");
+        }
+      }
+      
+      .swag-dialog-content {
+        .swag-data-table {
+          .swag-data-header {
+            color: #E43D30;
+          }
+        }
+
+        &.loading {
+          background-image: url("images/addictinggames-loader.gif");
+          background-size: 64px 64px;
+        }
+      }
+      
+      .swag-data-selector {
+        background-color: #f0f8ff;
+      }
+    }
+  }
+}
+
+// Embedded components
+
+// TODO
