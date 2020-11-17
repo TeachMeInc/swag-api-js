@@ -166,19 +166,20 @@ var methods = {
     return data.userLogout();
   },
 
-  renderTokenBalance: function(options) {
-    options.el = ui.renderInline(options.el, 'swag-token-balance');
-    options.el.innerHTML = session.uid ? 0 : 'Not logged in'; // TODO
-  },
-
   renderFriendsSection: function(options) {
     options.el = ui.renderInline(options.el, 'swag-friends-section');
-    return ui.renderInlineLogin(options);
+    return ui.renderScores(options, true);
   },
 
   renderScoresSection: function(options) {
     options.el = ui.renderInline(options.el, 'swag-scores-section');
-    return ui.renderScores(options);
+    return ui.renderScores(options, true);
+  },
+
+  setScoreView: function(level_key, period) {
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent('changeScoreView', false, false, { level_key, period });
+    window.dispatchEvent(evt);
   },
 
   // ---------------------------------------------------------------------------

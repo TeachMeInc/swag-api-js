@@ -155,16 +155,22 @@
               </div>
           </div>
 
-          <h2>Tokens</h2>
-          <div class="demo-controls">
-            <div id="token-balance">loading token balance...</div>
-          </div>
-
           <h2>Friends &amp; High Scores</h2>
           <div class="demo-controls">
             <div style="display:block">
               <div>
-                TODO
+                <div style="display:flex;width:100%">
+                  <div style="flex:1;width:50%">
+                    <select id="change-score-level" class="changeScoreLevel">
+                    </select>
+                  </div>
+                  <div style="flex:1;width:50%">
+                    <button class="changeScorePeriod" data-period="daily">Daily</button>
+                    <button class="changeScorePeriod" data-period="weekly">Weekly</button>
+                    <button class="changeScorePeriod" data-period="monthly">Monthly</button>
+                    <button class="changeScorePeriod" data-period="alltime">All-Time</button>
+                  </div>
+                </div>
               </div>
               <div style="display:flex;width:100%">
                 <div style="flex:1;width:50%">
@@ -422,38 +428,46 @@
 
       // Inline components
 
-      // display tokens
-      api.renderTokenBalance({ 
-        el: document.getElementById('token-balance')
-      });
-
       // display friend section
-      api.renderFriendsSection({
-        el: document.getElementById('friends-section'),
-        keyword: 'shockwave-original-daily-pyramid-solitare',
-        hideControls: true,
+      (function () {
+        var selectedScoreOpts = {
+          level_key: '',
+          period: 'daily'
+        };
+        
+        // Attach events to level selector
+        var changeLevelEl = document.querySelector('.changeScoreLevel');
+        api.populateLevelSelect('change-score-level');
+        changeLevelEl.addEventListener('change', function(evt) {
+          selectedScoreOpts.level_key = evt.target.value;
+          api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
+        });
 
-        loginButtonText: 'Sign In',
-        // loginButtonHref: '//shockwave.com/login',
-        // loginButtonAction: function () {
-        //   console.log('LOGIN CLICKED');
-        // },
+        // Attach events to period buttons
+        Array
+          .from(document.querySelectorAll('.changeScorePeriod'))
+          .forEach((el) => el.addEventListener('click', function(evt) {
+            var level_key = changeLevelEl.options[changeLevelEl.selectedIndex].value;
+            var period = evt.target.getAttribute('data-period');
+            selectedScoreOpts.level_key = level_key;
+            selectedScoreOpts.period = period;
+            api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
+          }, true));
 
-        registerLinkText: 'REGISTER NOW',
-        // registerLinkHref: '//shockwave.com/login',
-        // registerLinkAction: function () {
-        //   console.log('REGISTER CLICKED');
-        // },
+        // Display friend scores
+        api.renderFriendsSection({
+          el: document.getElementById('friends-section'),
+          keyword: 'shockwave-original-daily-pyramid-solitare',
+          hideControls: true
+        });
 
-        registerText: `Not a member? {registerLink}<br>It's quick and easy!`
-      });
-
-      // display high scores
-      api.renderScoresSection({
-        el: document.getElementById('high-scores-section'),
-        keyword: 'shockwave-original-daily-pyramid-solitaire',
-        hideControls: true
-      });
+        // Display high scores
+        api.renderScoresSection({
+          el: document.getElementById('high-scores-section'),
+          keyword: 'shockwave-original-daily-pyramid-solitaire',
+          hideControls: true
+        });
+      })();
 
 //-------- SWAG API Listeners ---------------------------------------------
 

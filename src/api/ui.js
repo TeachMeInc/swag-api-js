@@ -40,8 +40,7 @@ var methods = {
     'dataWeeklyScores': require('../templates/api/data-weeklyscores.handlebars'),
     'brandingAnimation': require('../templates/api/branding-animation.handlebars'),
     'dialogUserLogin': require('../templates/api/dialog-user-login.handlebars'),
-    'dialogUserCreate': require('../templates/api/dialog-user-create.handlebars'),
-    'inlineUserLogin': require('../templates/api/inline-login.handlebars'),
+    'dialogUserCreate': require('../templates/api/dialog-user-create.handlebars')
   },
 
   dialogMethods: {
@@ -117,12 +116,12 @@ var methods = {
 
   },
 
-  renderScores: function(options) {
+  renderScores: function(options, inline = false, dataSource = 'getScoreCategories') {
     var self = this;
     var contentEl = options.el;
 
     return data
-      .getScoreCategories()
+      [dataSource]() // TODO: swap for friends API when appropriate
       .then(function (categories) {
         var scoreDialog = self.templates['dialogScore']({
           levels: categories
@@ -139,18 +138,18 @@ var methods = {
           if(options.hideControls) {
             controlsCont.innerHTML = '';
             controlsCont.style.display = 'none';
-          }
+          } else {
+            if(options.period && periodSelector) {
+              periodSelector.value = options.period;
+            }
 
-          if(options.period && periodSelector) {
-            periodSelector.value = options.period;
-          }
+            if(categories.length <= 1) {
+              levelSelector.style.display = 'none';
+            }
 
-          if(categories.length <= 1) {
-            levelSelector.style.display = 'none';
-          }
-
-          if(options.level_key && levelSelector) {
-            levelSelector.value = options.level_key;
+            if(options.level_key && levelSelector) {
+              levelSelector.value = options.level_key;
+            }
           }
 
           var scoreMethod = function(level_key, period) {
@@ -213,6 +212,12 @@ var methods = {
             return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value,
               periodSelector.options[periodSelector.selectedIndex].value);
           }, true);
+
+          if (inline) {
+            window.addEventListener('changeScoreView', function(evt) {
+              scoreMethod(evt.detail.level_key, evt.detail.period);
+            });
+          }
 
           return scoreMethod(levelSelector.options[levelSelector.selectedIndex].value, periodSelector.options[periodSelector.selectedIndex].value);
         });
@@ -562,52 +567,6 @@ var methods = {
     return new Promise(function(resolve,reject) {
       resolve({});
     });
-  },
-
-  renderInlineLogin: function(options) {
-    var self = this;
-    var contentEl = options.el;
-
-    var renderOptions = {};
-
-    renderOptions.loginButtonText = options.loginButtonText || 'Login';
-    renderOptions.loginButtonHref = options.loginButtonHref;
-
-    var registerLink = `<a class="swag-register-link"${options.registerLinkHref ? ` href="${options.registerLinkHref}"` : ''}>${options.registerLinkText || 'Register'}</a>`;
-    renderOptions.registerBlock = (options.registerText || '{registerLink}');
-    renderOptions.registerBlock = renderOptions.registerBlock.replace('{registerLink}', registerLink);
-
-    var inlineLogin = self.templates['inlineUserLogin'](renderOptions);
-    contentEl.innerHTML = inlineLogin;
-
-    nextTick().then(function () {
-      var wrapperEl = document.getElementById('swag-api-wrapper');
-      var wrapperBrect = wrapperEl.getBoundingClientRect();
-
-      var loginEl = contentEl.querySelector('.swag-login-button');
-      if (!options.loginButtonHref) {
-        if (options.loginButtonAction) {
-          loginEl.addEventListener('click', options.loginButtonAction, true);
-        } else {
-          loginEl.addEventListener('click', function () {
-            window.scrollTo({ y: wrapperBrect.y });
-            self.renderDialog('userlogin', {});
-          }, true);
-        }
-      }
-
-      var registerEl = contentEl.querySelector('.swag-register-link');
-      if (!options.registerLinkHref) {
-        if (options.registerLinkAction) {
-          registerEl.addEventListener('click', options.registerLinkAction, true);
-        } else {
-          registerEl.addEventListener('click', function () {
-            window.scrollTo({ y: wrapperBrect.y });
-            self.renderDialog('usercreate', {});
-          }, true);
-        }
-      }
-    })
   },
 
   // UI Rendering
