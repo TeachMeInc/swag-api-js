@@ -189,16 +189,20 @@ var methods = {
     var siteMode = this._getSiteMode();
 
     session.api_key = this._options.api_key;
-    session.wrapper = this._options.wrapper;
-    session.wrapper.classList.add('swag-dialog-wrapper');
+    if (this._options.wrapper) {
+      session.wrapper = this._options.wrapper;
+      session.wrapper.classList.add('swag-dialog-wrapper');
+    }
     session.theme = siteMode;
     session.apiRoot = config.themes[siteMode].apiRoot;
 
-    elementResizeEvent(session.wrapper, function() {
-      _isRendering = setTimeout(function() {
-        ui.resize();
-      }, 400);
-    });
+    if (this._options.wrapper) {
+      elementResizeEvent(session.wrapper, function() {
+        _isRendering = setTimeout(function() {
+          ui.resize();
+        }, 400);
+      });
+    }
   },
 
   _getSiteMode: function() {
