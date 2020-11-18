@@ -116,15 +116,12 @@ var methods = {
 
   },
 
-  renderScores: function(options, embedded = false, dataSource = 'getScoreCategories') {
+  renderScores: function(options, embedded = false) {
     var self = this;
     var contentEl = options.el;
 
-    // TODO: do something with keyword
-    console.log('KEYWORD', options.keyword)
-
     return data
-      [dataSource]() // TODO: swap for friends API when appropriate
+      getScoreCategories()
       .then(function (categories) {
         var scoreDialog = self.templates['dialogScore']({
           levels: categories
@@ -174,6 +171,10 @@ var methods = {
               scoresContextOptions.value_formatter = options.value_formatter;
               scoresOptions.value_formatter = options.value_formatter;
             }
+
+            // TODO: swap for friends API when appropriate
+            // TODO: do something with keyword
+            console.log('KEYWORD', options.keyword)
 
             return Promise.all([
               data.getScoresContext(scoresContextOptions),
