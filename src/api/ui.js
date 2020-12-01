@@ -118,9 +118,10 @@ var methods = {
     var self = this;
     var contentEl = options.el;
 
-    return data
-      getScoreCategories()
+    return data.getScoreCategories()
       .then(function (categories) {
+        console.log('RENDER SCORES, CATEGORIES', categories);
+
         var scoreDialog = self.templates['dialogScore']({
           levels: categories
         });
@@ -180,7 +181,7 @@ var methods = {
                 var scoresContext = values[0];
                 var scores = values[1];
 
-                var selectedCategory = _.find(categories, function(category) {
+                var selectedCategory = categories.find(function(category) {
                   return level_key === category.level_key;
                 });
 
@@ -587,6 +588,7 @@ var methods = {
     var self = this;
     return data.getScoreCategories()
       .then(function(categories) {
+        console.log('CATEGORIES', categories)
         var levelSelect = document.getElementById(domId);
         if(levelSelect) {
           categories.map(function(category) {

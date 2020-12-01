@@ -120,7 +120,7 @@
           pointer-events: auto; }
           .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-header .swag-header-link[data-action="back"]:before {
             display: inline-block;
-            content: "\D7";
+            content: "\00D7";
             color: #fff; }
           .swag-dialog-wrapper .swag-dialog-wrapper .swag-dialog .swag-dialog-header .swag-header-link[data-action="back"]:hover {
             background-color: #980707; }
@@ -2761,10 +2761,10 @@
   font-weight: normal; }
 
 .branding-logo-sw {
-  background-image: url(shockwave-logo.svg); }
+  background-image: url("./images/shockwave-logo.svg"); }
 
 .branding-logo-ag {
-  background-image: url(addictinggames-logo.svg); }
+  background-image: url("./images/addictinggames-logo.svg"); }
 
 .swag-button-confirmation {
   background-color: #0163a0;
@@ -2849,13 +2849,13 @@
         padding-left: 1.4em; }
       .swag-form .swag-form-container input[type=text][type=password],
       .swag-form .swag-form-container input[type=password][type=password] {
-        background-image: url(input-lock.png); }
+        background-image: url("images/input-lock.png"); }
       .swag-form .swag-form-container input[type=text][placeholder="username"],
       .swag-form .swag-form-container input[type=password][placeholder="username"] {
-        background-image: url(input-user.png); }
+        background-image: url("images/input-user.png"); }
       .swag-form .swag-form-container input[type=text][placeholder="email"],
       .swag-form .swag-form-container input[type=password][placeholder="email"] {
-        background-image: url(input-envelope.png); }
+        background-image: url("images/input-envelope.png"); }
       .swag-form .swag-form-container input[type=text]::-webkit-input-placeholder,
       .swag-form .swag-form-container input[type=password]::-webkit-input-placeholder {
         color: #d4d4d4;
@@ -2886,7 +2886,7 @@
       cursor: pointer;
       font-weight: 200; }
       .swag-form .swag-form-container input[type=button].loading {
-        background-image: url(button-loader.gif);
+        background-image: url("images/button-loader.gif");
         background-size: 1em 1em;
         background-position: center center;
         background-repeat: no-repeat;
@@ -3007,7 +3007,7 @@
         background-color: initial; }
   .swag-data-table > div {
     border: 1px solid #efefef;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 100%;
             flex: 1 1 100%;
@@ -3164,6 +3164,65 @@
     -webkit-flex: 0 1 20%;
             flex: 0 1 20%; }
 
+.swag-dialog-wrapper .swag-dialog.addictinggames {
+  border: 2px solid #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-header {
+    color: #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header {
+    background-color: #E43D30; }
+    .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header .swag-logo {
+      background-image: url("images/addictinggames-logo.svg"); }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content .swag-data-table .swag-data-header {
+    color: #E43D30; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content.loading {
+    background-image: url("images/addictinggames-loader.gif");
+    background-size: 64px 64px; }
+  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-selector {
+    background-color: #f0f8ff; }
+
+.swag-dialog-wrapper .swag-dialog.shockwave {
+  border: 2px solid #0263a0; }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header {
+    background-color: #0064a0; }
+    .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
+      background-image: url("images/shockwave-logo.png"); }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-content.loading {
+    background-image: url("images/shockwave-loader.gif"); }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-data-selector {
+    background-color: #f0f8ff; }
+  .swag-dialog-wrapper .swag-dialog.shockwave .swag-form {
+    color: #0064a0; }
+
+.swag-embed-wrapper.shockwave .swag-data-table {
+  color: #666;
+  font-size: 11px;
+  font-family: Helvetica, Arial, sans-serif; }
+  .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header {
+    color: #666;
+    font-weight: 700;
+    background: #eee;
+    -webkit-border-radius: 0;
+            border-radius: 0;
+    padding: 0; }
+    .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header > div {
+      padding: 3px 6px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+  .swag-embed-wrapper.shockwave .swag-data-table > div > div {
+    white-space: nowrap;
+    padding: 0; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div:nth-child(even) {
+      background-color: transparent; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div > div {
+      padding: 3px 6px;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+    .swag-embed-wrapper.shockwave .swag-data-table > div > div .data-screen-name {
+      font-weight: 700;
+      color: #003d7b; }
+  .swag-embed-wrapper.shockwave .swag-data-table .data-empty {
+    font-size: 11px; }
+
 body.swag-dialog-open {
   pointer-events: none;
   touch-action: none; }
@@ -3203,63 +3262,5 @@ body.swag-dialog-open {
     width: 100%;
     height: auto; }
 
-.swag-dialog-wrapper .swag-dialog.addictinggames {
-  border: 2px solid #E43D30; }
-  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-header {
-    color: #E43D30; }
-  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header {
-    background-color: #E43D30; }
-    .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-header .swag-logo {
-      background-image: url(addictinggames-logo.svg); }
-  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content .swag-data-table .swag-data-header {
-    color: #E43D30; }
-  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-dialog-content.loading {
-    background-image: url(addictinggames-loader.gif);
-    background-size: 64px 64px; }
-  .swag-dialog-wrapper .swag-dialog.addictinggames .swag-data-selector {
-    background-color: #f0f8ff; }
-
-.swag-dialog-wrapper .swag-dialog.shockwave {
-  border: 2px solid #0263a0; }
-  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header {
-    background-color: #0064a0; }
-    .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-header .swag-logo {
-      background-image: url(shockwave-logo.png); }
-  .swag-dialog-wrapper .swag-dialog.shockwave .swag-dialog-content.loading {
-    background-image: url(shockwave-loader.gif); }
-  .swag-dialog-wrapper .swag-dialog.shockwave .swag-data-selector {
-    background-color: #f0f8ff; }
-  .swag-dialog-wrapper .swag-dialog.shockwave .swag-form {
-    color: #0064a0; }
-
-.swag-embed-wrapper.shockwave .swag-data-table {
-  color: #666;
-  font-size: 11px;
-  font-family: Helvetica, Arial, sans-serif; }
-  .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header {
-    color: #666;
-    font-weight: 700;
-    background: #eee;
-    -webkit-border-radius: 0;
-            border-radius: 0;
-    padding: 0; }
-    .swag-embed-wrapper.shockwave .swag-data-table .swag-data-header > div {
-      padding: 3px 6px;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box; }
-  .swag-embed-wrapper.shockwave .swag-data-table > div > div {
-    white-space: nowrap;
-    padding: 0; }
-    .swag-embed-wrapper.shockwave .swag-data-table > div > div:nth-child(even) {
-      background-color: transparent; }
-    .swag-embed-wrapper.shockwave .swag-data-table > div > div > div {
-      padding: 3px 6px;
-      -webkit-box-sizing: border-box;
-              box-sizing: border-box; }
-    .swag-embed-wrapper.shockwave .swag-data-table > div > div .data-screen-name {
-      font-weight: 700;
-      color: #003d7b; }
-  .swag-embed-wrapper.shockwave .swag-data-table .data-empty {
-    font-size: 11px; }
 
 /*# sourceMappingURL=swag-api.css.map*/
