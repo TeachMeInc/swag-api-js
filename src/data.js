@@ -1,8 +1,5 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
 var config = require('config');
 var utils = utils = require('utils');
@@ -32,6 +29,7 @@ var methods = {
     'getUserDatastore': '/v1/datastore/user',
     'getCurrentDay': '/v1/currentday',
     'getTokenBalance': '/v1/tokenbalance',
+    'getGame': '/v1/game',
     'getCurrentUser': provider.current,
     'userLogin': provider.login,
     'userLogout': provider.logout,
@@ -40,23 +38,20 @@ var methods = {
 
 
   // API
-  buildUrlParamString: function(urlParams) {
-    return '?' + _.map(_.keys(urlParams), function(key) {
-      return key + '=' + utils.formatParam(urlParams[key]);
-    }).join('&');
+  buildUrlParamString: function(params) {
+    return params && params instanceof Object
+      ? '?' + Object.keys(params).map(function(key) {
+          return key + '=' + utils.formatParam(params[key]);
+        }).join('&')
+      : '';
   },
 
   getAPIData: function(options) {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
-
       var rootUrl = options.apiRoot || session.apiRoot;
-
-      var params = '?' + _.map(_.keys(options.params), function(key) {
-        return key + '=' + utils.formatParam(options.params[key]);
-      }).join('&');
-
+      var params = methods.buildUrlParamString(options.params);
       xhr.open('GET', encodeURI(rootUrl + options.method + params));
       xhr.withCredentials = true;
       xhr.onload = function() {
@@ -139,6 +134,31 @@ var methods = {
     return promise;
   },
 
+  getAPIKey: function() {
+    var self = this,
+        params = {};
+
+    var promise = new Promise(function(resolve, reject) {
+      if(session.api_key) {
+        params = { game: session.api_key }
+      } else if(session.keyword && session.keywordtype) {
+        params = { keyword: session.keyword, keywordtype: session.keywordtype };
+      } else {
+        reject('Must provide api_key, or keyword and keywordtype');
+      }
+
+      self.getAPIData({
+        method: self.apiMethods['getGame'],
+        params: params
+      })
+      .then(function(entity) {
+        session.entity = entity;
+        resolve(entity);
+      });
+    });
+    return promise;
+  },
+
   isSubscriber: function() {
     var self = this;
     var promise = new Promise(function(resolve, reject) {
@@ -215,9 +235,8 @@ var methods = {
 
   getScores: function(options) {
     var self = this,
-        clean = _.pick(options,
-          ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
-        params = _.extend({game: session['api_key']}, clean);
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
+        params = Object.assign({ game: session['api_key'] }, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
@@ -233,9 +252,8 @@ var methods = {
 
   getScoresContext: function(options) {
     var self = this,
-        clean = _.pick(options,
-          ['day', 'type', 'level_key', 'period', 'target_date', 'value_formatter']),
-        params = _.extend({game: session['api_key']}, clean);
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'target_date', 'value_formatter']),
+        params = Object.assign({game: session['api_key']}, clean);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
@@ -366,7 +384,7 @@ var methods = {
 
   userLogin: function(options) {
     var self = this;
-    var body = _.pick(options, ['username', 'password']);
+    var body = utils.pick(options, ['username', 'password']);
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.login,
@@ -387,7 +405,7 @@ var methods = {
 
   userCreate: function(options) {
     var self = this;
-    var body = _.pick(options, ['username', 'mail', 'password']);
+    var body = utils.pick(options, ['username', 'password', 'mail']);
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.create,

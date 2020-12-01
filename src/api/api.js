@@ -1,10 +1,7 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
-var config = require('../config');
+var config = require('config');
 var elementResizeEvent = require('element-resize-event');
 var session = require('../session');
 var data = require('./data');
@@ -16,7 +13,7 @@ var _isRendering = false;
 
 function SWAGAPI(options) {
   var self = this;
-  this._options = _.pick(options, ['wrapper','api_key']);
+  this._options = utils.pick(options, ['wrapper', 'api_key', 'keyword']);
   this._init();
   Emitter(this);
 
@@ -50,10 +47,17 @@ var methods = {
     var self = this;
     utils.debug('start session');
 
-      return data.getEntity()
-        .then(function() {
-          utils.debug('session ready');
-          self.emit(config.events.SESSION_READY, { session_ready: true });
+      return data.getAPIKey()
+        .then(function (key) {
+          session.api_key = key.game;
+          return data.getEntity()
+            .then(function() {
+              utils.debug('session ready');
+              self.emit(config.events.SESSION_READY, { session_ready: true });
+            });
+        })
+        .catch(function() {
+          self.emit(config.events.ERROR, { message: 'Could not find game.  Please check api key'});
         });
   },
 
@@ -189,14 +193,22 @@ var methods = {
     var siteMode = this._getSiteMode();
 
     session.api_key = this._options.api_key;
+
     if (this._options.wrapper) {
       session.wrapper = this._options.wrapper;
       session.wrapper.classList.add('swag-dialog-wrapper');
     }
+
+    session.keyword = this._options.keyword;
     session.theme = siteMode;
+    session.keywordtype = siteMode;
     session.apiRoot = config.themes[siteMode].apiRoot;
 
-    if (this._options.wrapper) {
+    //wrapper
+    if(this._options.wrapper) {
+      session.wrapper = this._options.wrapper;
+      session.wrapper.classList.add('swag-wrapper');
+
       elementResizeEvent(session.wrapper, function() {
         _isRendering = setTimeout(function() {
           ui.resize();
@@ -232,6 +244,6 @@ var methods = {
 
 };
 
-_.extend(SWAGAPI.prototype, methods);
+Object.assign(SWAGAPI.prototype, methods);
 
 module.exports = SWAGAPI;

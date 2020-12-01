@@ -1,10 +1,7 @@
 'use strict';
 
-require('es6-promise').polyfill();
-
-var _ = require('lodash').noConflict();
 var Emitter = require('component-emitter');
-var config = require('../config');
+var config = require('config');
 var elementResizeEvent = require('element-resize-event');
 var bodyScrollLock = require('body-scroll-lock');
 var utils = utils = require('../utils');
@@ -76,7 +73,7 @@ var methods = {
 
   renderDialog: function(type, options) {
     var self = this;
-    var dialogOptions = _.extend({
+    var dialogOptions = Object.assign({
         theme: session.theme,
         header: {
             backButton: true
@@ -103,10 +100,11 @@ var methods = {
         return self[self.dialogMethods[type]](dialogOptions)
             .then(function() {
                 var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
-                _.each(backBtn, function(el) {
-                    el.addEventListener('click', function(event) {
-                        self.onCloseDialog(event);
-                    }, true);
+                backBtn.forEach(function(el) {
+                  console.log('add event listener');
+                  el.addEventListener('click', function(event) {
+                      window.removeEventListener('keypress', enterKeyListener, true);
+                  }, true);
                 });
 
             });
@@ -173,8 +171,6 @@ var methods = {
             }
 
             // TODO: swap for friends API when appropriate
-            // TODO: do something with keyword
-            console.log('KEYWORD', options.keyword)
 
             return Promise.all([
               data.getScoresContext(scoresContextOptions),
@@ -304,7 +300,7 @@ var methods = {
             var scoresContext = values[0];
             var scores = values[1];
 
-            var selectedCategory = _.find(categories, function(category) {
+            var selectedCategory = categories.find(function(category) {
               return level_key === category.level_key;
             });
 
@@ -459,10 +455,12 @@ var methods = {
     };
 
     var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
-    _.each(backBtn, function(el) {
-        el.addEventListener('click', function(event) {
-            window.removeEventListener('keypress', enterKeyListener, true);
-        }, true);
+
+    backBtn.forEach(function(el) {
+      console.log('add event listener');
+      el.addEventListener('click', function(event) {
+          window.removeEventListener('keypress', enterKeyListener, true);
+      }, true);
     });
 
     var submitForm = function(event) {
@@ -531,10 +529,11 @@ var methods = {
     };
 
     var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
-    _.each(backBtn, function(el) {
-        el.addEventListener('click', function(event) {
-            window.removeEventListener('keypress', enterKeyListener, true);
-        }, true);
+    backBtn.forEach(function(el) {
+      console.log('add event listener 2');
+      el.addEventListener('click', function(event) {
+          window.removeEventListener('keypress', enterKeyListener, true);
+      }, true);
     });
 
     var submitForm = function(event) {
@@ -579,8 +578,8 @@ var methods = {
     bodyScrollLock.clearAllBodyScrollLocks()
     document.body.classList.remove('swag-dialog-open');
     var elems = session.wrapper.getElementsByClassName('swag-dialog-wrapper');
-    _.each(elems, function(elem) {
-      elem.parentNode.removeChild(elem);
+    Array.prototype.forEach.call(elems, function (elem) {
+        elem.parentNode.removeChild(elem);
     });
   },
 
@@ -692,6 +691,12 @@ var methods = {
     });
   },
 
+  leaderboardComponent: function(element, key, callback) {
+    return new Promise(function(resolve, reject) {
+      resolve();
+    });
+  },
+
   onCloseDialog: function(event) {
     var self = this;
     event.preventDefault();
@@ -700,4 +705,4 @@ var methods = {
   }
 };
 
-module.exports = _.extend(ui, methods);
+module.exports = Object.assign(ui, methods);
