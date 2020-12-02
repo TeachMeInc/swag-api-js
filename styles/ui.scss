@@ -1,6 +1,6 @@
 .swag-select {
     display: block;
-    font-size: 1em;
+    // font-size: 1em;
     font-family: sans-serif;
     font-weight: 700;
     color: #444;
@@ -60,4 +60,28 @@
     background-color: darken( #0163a0, 10% );
   }
 
+}
+
+.swag-token-balance {
+  // TODO
+}
+
+.swag-friends-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .swag-data-table {
+    min-height: 10em;
+  }
+}
+
+.swag-scores-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .swag-data-table {
+    min-height: 10em;
+  }
 }

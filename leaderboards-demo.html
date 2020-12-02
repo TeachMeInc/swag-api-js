@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>SWAG JS API Demo</title>
+    <link rel="stylesheet" type="text/css" href="/dist/swag-api.css">
+  </head>
+  <body>
+    <div>
+      <select id="change-score-level" class="changeScoreLevel">
+      </select>
+      <button class="changeScorePeriod" data-period="daily">Daily</button>
+      <button class="changeScorePeriod" data-period="weekly">Weekly</button>
+      <button class="changeScorePeriod" data-period="monthly">Monthly</button>
+      <button class="changeScorePeriod" data-period="alltime">All-Time</button>
+    </div>
+    <div style="display:flex;width:100%">
+      <div style="flex:1;width:50%;padding:10px 5px">
+        <div id="high-scores-section">loading high scores...</div>
+      </div>
+      <div style="flex:1;width:50%;padding:10px 5px">
+        <div id="friends-section">loading friends...</div>
+      </div>
+    </div>
+  </body>
+
+  <script src="/dist/swag-api.js"></script>
+  <script>
+    var api = SWAGAPI.getInstance({
+      keyword: 'shockwave-original-daily-pyramid-solitaire',
+      theme: 'shockwave'
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      api.startSession().then(function () {
+        var selectedScoreOpts = {
+          level_key: 'level1',
+          period: 'daily'
+        };
+        
+        // Attach events to level selector
+        var changeLevelEl = document.querySelector('.changeScoreLevel');
+        api.populateLevelSelect('change-score-level');
+        changeLevelEl.addEventListener('change', function(evt) {
+          selectedScoreOpts.level_key = evt.target.value;
+          api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
+        });
+
+        // Attach events to period buttons
+        Array
+          .from(document.querySelectorAll('.changeScorePeriod'))
+          .forEach((el) => el.addEventListener('click', function(evt) {
+            selectedScoreOpts.period = evt.target.getAttribute('data-period');
+            api.setScoreView(selectedScoreOpts.level_key, selectedScoreOpts.period);
+          }, true));
+
+        // Display friend scores
+        api.renderFriendsSection({
+          el: document.getElementById('friends-section'),
+          hide_controls: true,
+          level_key: selectedScoreOpts.level_key,
+          period: selectedScoreOpts.period
+        });
+
+        // Display high scores
+        api.renderScoresSection({
+          el: document.getElementById('high-scores-section'),
+          hide_controls: true,
+          level_key: selectedScoreOpts.level_key,
+          period: selectedScoreOpts.period
+        });
+      });
+    });
+  </script>
+</html>

@@ -170,6 +170,22 @@ var methods = {
     return data.userLogout();
   },
 
+  renderFriendsSection: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-friends-section');
+    return ui.renderScores(options, true);
+  },
+
+  renderScoresSection: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-scores-section');
+    return ui.renderScores(options, true);
+  },
+
+  setScoreView: function(level_key, period) {
+    var evt = document.createEvent('CustomEvent');
+    evt.initCustomEvent('changeScoreView', false, false, { level_key, period });
+    window.dispatchEvent(evt);
+  },
+
   // ---------------------------------------------------------------------------
 
   _init: function() {
@@ -177,6 +193,12 @@ var methods = {
     var siteMode = this._getSiteMode();
 
     session.api_key = this._options.api_key;
+
+    if (this._options.wrapper) {
+      session.wrapper = this._options.wrapper;
+      session.wrapper.classList.add('swag-dialog-wrapper');
+    }
+
     session.keyword = this._options.keyword;
     session.theme = siteMode;
     session.keywordtype = siteMode;
@@ -193,7 +215,6 @@ var methods = {
         }, 400);
       });
     }
-
   },
 
   _getSiteMode: function() {

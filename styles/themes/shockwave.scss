@@ -1,0 +1,79 @@
+// Dialog
+
+.swag-dialog-wrapper {  
+  .swag-dialog {
+    &.shockwave {
+      border: 2px solid #0263a0;
+      
+      .swag-dialog-header {
+        background-color: #0064a0;
+        
+        .swag-logo {
+          background-image: url("images/shockwave-logo.png");
+        }
+      }
+
+      .swag-dialog-content {
+        &.loading {
+          background-image: url("images/shockwave-loader.gif");
+        }
+      }
+
+      .swag-data-selector {
+        background-color: #f0f8ff;
+      }
+
+      .swag-form {
+        color: #0064a0;
+      }
+    }
+  }
+}
+
+// Embedded components
+
+.swag-embed-wrapper {
+  &.shockwave {
+    .swag-data-table {
+      color: #666;
+      font-size: 11px;
+      font-family: Helvetica, Arial, sans-serif;
+
+      .swag-data-header {
+        color: #666;
+        font-weight: 700;
+        background: #eee;
+        border-radius: 0;
+        padding: 0;
+
+        > div {
+          padding: 3px 6px;
+          box-sizing: border-box;
+        }
+      }
+
+      > div > div {
+        white-space: nowrap;
+        padding: 0;
+
+        &:nth-child(even) {
+          background-color: transparent;
+        }
+
+        > div {
+          padding: 3px 6px;
+          box-sizing: border-box;
+        }
+
+        .data-screen-name {
+          font-weight: 700;
+          color: #003d7b;
+        }
+      }
+
+      .data-empty {
+        font-size: 11px;
+      }
+    }
+  }
+}

@@ -1,0 +1,201 @@
+.swag-data-table {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1 1 100%;
+  overflow: hidden;
+  font-size: 1em;
+  color: #272727;
+  
+  pointer-events: auto;
+  touch-action: pan-y;
+  
+  .swag-data-header {
+    
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 0 0 auto;
+    color: #0164a0;
+    font-weight: 700;
+    border: 1px solid #d2d2d2;
+    overflow: hidden;
+    border-radius: 10px 10px 0px 0px;
+    padding: 0.5em;
+    box-sizing: border-box;
+    background-color: #e3e7ea;
+    
+    > div {
+      border: none;
+      &:nth-child(odd),
+      &:nth-child(even) {
+        background-color: initial;
+      }
+      padding: 0em;
+    }
+  }
+  
+  > div {
+    border: 1px solid #efefef;
+    overflow-y: auto;
+    flex: 1 1 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    position: relative;
+    
+    pointer-events: auto;
+    touch-action: pan-y;
+    
+    > div {
+      display: flex;
+      flex: 1 1 100%;
+      flex-wrap: nowrap;
+      padding: 0.5em;
+      border-bottom: 1px solid #EFEFEE;
+      box-sizing: border-box;
+      align-items: center;
+      
+      pointer-events: auto;
+      touch-action: pan-y;
+      
+      &.data-achievement-row {
+        flex-wrap: wrap;
+        border: 1px solid #efefef;
+        margin-bottom: 1em;
+        
+        > div {
+          text-align: left;
+          padding-left: 1em;
+          color: #afafaf;
+        }
+        
+        &:nth-child(odd),
+        &:nth-child(even) {
+          background-color: #fff;
+        }
+        
+        &:before {
+          width: 2.6em;
+          height: 2.6em;
+          line-height: 2.8em;
+          content: "\2713";
+          background-color: #fff;
+          color: #fff;
+          font-weight: 700;
+          font-size: 1.6em;
+          border-radius: 50%;
+          border: 1px solid #efefef;
+        }
+        
+        &.achieved {
+          border: 1px solid green;
+          
+          &:before {
+            content: "\2713";
+            background-color: green;
+          }
+          
+          > div {
+            color: black;
+          }
+          
+          .data-achievement-name {
+            color: green;
+          }
+          
+          .data-achievement-description {
+            color: #868585;
+          }
+        }
+      }
+      
+      &:nth-child(even) {
+        background-color: #f0f8ff;
+      }
+    }
+  }
+  
+  > div,
+  .swag-data-header {
+    
+    .data-empty {
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      width: 100%;
+      padding: 0;
+      height: 100%;
+      font-size: 1.5em;
+      color: #7e7e7e;
+    }
+    
+    .data-position {
+      flex: 0 0 2em;
+      text-align: center;
+      justify-content: center;
+    }
+    
+    .data-screen-name {
+      flex: 0 0 40%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .data-day {
+      flex: 0 1 20%;
+      text-align: left;
+    }
+    
+    .data-score {
+      flex: 0 0 30%;
+      text-align: left;
+    }
+    
+    .data-date {
+      flex: 0 1 20%;
+      text-align: left;
+    }
+    
+    .data-achievement-name {
+      flex: 1 1 100%;
+      font-size: 1.5em;
+      font-weight: 700;
+    }
+    
+    .data-achievement-description {
+      flex: 1 1 100%;
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+    
+  }
+  
+  > div.col5,
+  .swag-data-header.col5 {
+    
+    .data-screen-name {
+      flex: 0 0 30%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .data-meta {
+      flex: 0 0 30%;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .data-score {
+      flex: 0 0 20%;
+      text-align: left;
+    }
+    
+    .data-date {
+      flex: 0 1 20%;
+    }
+  }
+}
