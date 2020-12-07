@@ -170,6 +170,11 @@ var methods = {
     return data.userLogout();
   },
 
+  renderTokenBalance: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-token-section');
+    return ui.renderTokenBalance(options, true);
+  },
+
   renderFriendsSection: function(options) {
     options.el = ui.renderEmbed(options.el, 'swag-friends-section');
     return ui.renderScores(options, true);
