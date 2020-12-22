@@ -198,6 +198,7 @@ var methods = {
 
   renderBestScoresSection: function(options) {
     options.el = ui.renderEmbed(options.el, 'swag-best-scores-section');
+    options.context = 'best';
     return ui.renderScores(options, true);
   },
 
