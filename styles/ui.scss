@@ -85,3 +85,13 @@
     min-height: 10em;
   }
 }
+
+.swag-best-scores-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .swag-data-table {
+    min-height: 10em;
+  }
+}

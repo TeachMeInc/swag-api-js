@@ -120,8 +120,6 @@ var methods = {
     
     return data.getScoreCategories()
     .then(function (categories) {
-      console.log('RENDER SCORES, CATEGORIES', categories);
-      
       var scoreDialog = self.templates['dialogScore']({
         levels: categories
       });
@@ -165,17 +163,21 @@ var methods = {
             level_key: level_key,
             period: period
           };
-          
+
           if(options.value_formatter) {
             scoresContextOptions.value_formatter = options.value_formatter;
             scoresOptions.value_formatter = options.value_formatter;
           }
           
-          // TODO: swap for friends API when appropriate
-          
           return Promise.all([
             data.getScoresContext(scoresContextOptions),
-            data.getScores(scoresOptions)
+            (
+              options.context === 'best'
+                ? data.getUserBest(scoresOptions)
+                : options.context === 'friends'
+                  ? data.getFriendsScores(scoresOptions)
+                  : data.getScores(scoresOptions)
+            )
           ])
           .then(function(values) {
             var scoresContext = values[0];
@@ -582,6 +584,50 @@ var methods = {
           contentEl.innerHTML = balance.total_tokens;
       })
   },
+
+  renderBestScore: function (options) {
+    var scoresContextOptions = {
+      level_key: options.level_key,
+      period: options.period
+    };
+    if (options.value_formatter) {
+      scoresContextOptions.value_formatter = options.value_formatter;
+    }
+
+    return data.getScoresContext(scoresContextOptions)
+      .then((context) => {
+        var contentEl = options.el;
+
+        if (!context.allTimeBest) {
+          contentEl.innerText = '-';
+          return false;
+        } else {
+          if (!options.returnValueOnly) contentEl.innerText = context.allTimeBest;
+          return context.allTimeBest;
+        }
+      })
+  },
+
+  renderBestPlace: function (options) {
+    var scoresOptions = {
+      type: 'standard',
+      level_key: options.level_key,
+      period: options.period
+    };
+
+    return data.getUserBest(scoresOptions)
+      .then((scores) => {
+        var contentEl = options.el;
+
+        if (!scores.length) {
+          return false;
+        } else {
+          var place = scores[0].position;
+          if (!options.returnValueOnly) contentEl.innerText = place;
+          return place;
+        }
+      })
+  },
   
   // UI Rendering
   cleanStage: function() {
@@ -597,7 +643,6 @@ var methods = {
     var self = this;
     return data.getScoreCategories()
     .then(function(categories) {
-      console.log('CATEGORIES', categories)
       var levelSelect = document.getElementById(domId);
       if(levelSelect) {
         categories.map(function(category) {

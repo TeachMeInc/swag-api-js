@@ -175,13 +175,29 @@ var methods = {
     return ui.renderTokenBalance(options, true);
   },
 
+  renderBestScore: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-best-score-section');
+    return ui.renderBestScore(options, true);
+  },
+
+  renderBestPlace: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-best-place-section');
+    return ui.renderBestPlace(options, true);
+  },
+
   renderFriendsSection: function(options) {
     options.el = ui.renderEmbed(options.el, 'swag-friends-section');
+    options.context = 'friends';
     return ui.renderScores(options, true);
   },
 
   renderScoresSection: function(options) {
     options.el = ui.renderEmbed(options.el, 'swag-scores-section');
+    return ui.renderScores(options, true);
+  },
+
+  renderBestScoresSection: function(options) {
+    options.el = ui.renderEmbed(options.el, 'swag-best-scores-section');
     return ui.renderScores(options, true);
   },
 
