@@ -2802,6 +2802,18 @@
   .swag-scores-section .swag-data-table {
     min-height: 10em; }
 
+.swag-best-scores-section {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column; }
+  .swag-best-scores-section .swag-data-table {
+    min-height: 10em; }
+
 .swag-form {
   display: -webkit-box;
   display: -webkit-flex;

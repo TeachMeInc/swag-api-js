@@ -22,6 +22,7 @@ var methods = {
     'getScoreCategories': '/v1/score/categories',
     'getDays': '/v1/days',
     'getScores': '/v1/scores',
+    'getUserBest': '/v1/userbest',
     'getScoresContext': '/v1/scores/context',
     'hasDailyScore': '/v1/scores/hasDailyScore',
     'getAchievementCategories': '/v1/achievement/categories',
@@ -241,6 +242,40 @@ var methods = {
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
         method: self.apiMethods['getScores'],
+        params: params
+      })
+      .then(function(scores) {
+        resolve(scores);
+      });
+    });
+    return promise;
+  },
+
+  getFriendsScores: function(options) {
+    var self = this,
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
+        params = Object.assign({ game: session['api_key'] }, clean);
+
+    var promise = new Promise(function(resolve, reject) {
+      self.getAPIData({
+        method: self.apiMethods['getScores'],
+        params: params
+      })
+      .then(function(scores) {
+        resolve(scores);
+      });
+    });
+    return promise;
+  },
+
+  getUserBest: function(options) {
+    var self = this,
+        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
+        params = Object.assign({ game: session['api_key'] }, clean);
+
+    var promise = new Promise(function(resolve, reject) {
+      self.getAPIData({
+        method: self.apiMethods['getUserBest'],
         params: params
       })
       .then(function(scores) {
