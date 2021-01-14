@@ -100,11 +100,11 @@
             period: selectedScoreOpts.period
           })
 
-        // Display token balance
+        // Display best place
         api
           .renderBestPlace({
             el: document.getElementById('best-place'),
-            level_key: selectedScoreOpts.level_key,
+            level_key: 'easy',
             period: selectedScoreOpts.period,
             returnValueOnly: true
           })

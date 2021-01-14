@@ -270,8 +270,7 @@ var methods = {
 
   getUserBest: function(options) {
     var self = this,
-        clean = utils.pick(options, ['day', 'type', 'level_key', 'period', 'current_user', 'target_date', 'value_formatter', 'use_daily']),
-        params = Object.assign({ game: session['api_key'] }, clean);
+        params = Object.assign({ game: session['api_key'] }, options);
 
     var promise = new Promise(function(resolve, reject) {
       self.getAPIData({
