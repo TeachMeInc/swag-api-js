@@ -30,6 +30,7 @@ var methods = {
     'dialogScoreConfirmation': require('../templates/api/dialog-score-confirmation.handlebars'),
     'dataScore': require('../templates/api/data-scores.handlebars'),
     'dataScoreContext': require('../templates/api/data-score-context.handlebars'),
+    'dataUserScoreContext': require('../templates/api/data-user-score-context.handlebars'),
     'dataDailyScoreContext': require('../templates/api/data-daily-scores-context.handlebars'),
     'dialogAchievements': require('../templates/api/dialog-achievements.handlebars'),
     'dataAchievements': require('../templates/api/data-achievements.handlebars'),
@@ -596,15 +597,9 @@ var methods = {
 
     return data.getScoresContext(scoresContextOptions)
       .then((context) => {
+        var self = this;
         var contentEl = options.el;
-
-        if (!context.allTimeBest) {
-          contentEl.innerText = '-';
-          return false;
-        } else {
-          if (!options.returnValueOnly) contentEl.innerText = context.allTimeBest;
-          return context.allTimeBest;
-        }
+        contentEl.innerHTML = self.templates['dataUserScoreContext']({ context: context });;
       })
   },
 
