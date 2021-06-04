@@ -62,9 +62,10 @@ var methods = {
   },
 
   pick: function(o, props) {
-    return Object.assign({}, ...props.map(function(prop) {
+    var entries = Object.assign({}, ...props.map(function(prop) {
       return { [prop]: o[prop] };
     }));
+    return Object.fromEntries(Object.entries(entries).filter(([_, v]) => v != null));
   },
 
   debug: function(message, data) {
