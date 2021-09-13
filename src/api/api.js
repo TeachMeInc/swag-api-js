@@ -174,6 +174,7 @@ var methods = {
     session.wrapper = this._options.wrapper;
     session.wrapper.classList.add('swag-wrapper');
     session.theme = siteMode;
+    session.provider = siteMode;
     session.apiRoot = config.themes[siteMode].apiRoot;
 
     elementResizeEvent(session.wrapper, function() {

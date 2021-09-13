@@ -4,7 +4,8 @@ var session = {
   entity: null,
   wrapper: null,
   theme: null,
-  debug: false
+  debug: false,
+  provider: null
 };
 
 module.exports = session;
