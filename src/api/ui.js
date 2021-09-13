@@ -82,7 +82,6 @@ var methods = {
             .then(function() {
                 var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
                 backBtn.forEach(function(el) {
-                  console.log('add event listener');
                   el.addEventListener('click', function(event) {
                       self.onCloseDialog(event);
                   }, true);
@@ -418,7 +417,6 @@ var methods = {
     var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
 
     backBtn.forEach(function(el) {
-      console.log('add event listener');
       el.addEventListener('click', function(event) {
           window.removeEventListener('keypress', enterKeyListener, true);
       }, true);
@@ -491,7 +489,6 @@ var methods = {
 
     var backBtn = session.wrapper.querySelectorAll('div[data-action="back"]');
     backBtn.forEach(function(el) {
-      console.log('add event listener 2');
       el.addEventListener('click', function(event) {
           window.removeEventListener('keypress', enterKeyListener, true);
       }, true);
