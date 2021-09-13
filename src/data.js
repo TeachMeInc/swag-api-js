@@ -5,8 +5,6 @@ var config = require('config');
 var utils = utils = require('utils');
 var session = require('session');
 
-var provider = config.providers[session.provider] || config.providers['default'];
-
 var methods = {
 
   events: {
@@ -28,11 +26,7 @@ var methods = {
     'getUserAchievements': '/v1/achievement/user',
     'getUserDatastore': '/v1/datastore/user',
     'getCurrentDay': '/v1/currentday',
-    'getTokenBalance': '/v1/tokenbalance',
-    'getCurrentUser': provider.current,
-    'userLogin': provider.login,
-    'userLogout': provider.logout,
-    'userCreate': provider.create
+    'getTokenBalance': '/v1/tokenbalance'
   },
 
 
@@ -342,6 +336,7 @@ var methods = {
 
   getCurrentUser: function() {
     var self = this;
+    var provider = self.getProvider();
     var promise = new Promise(function(resolve, reject) {
         self.getAPIData({
           apiRoot: provider.root,
@@ -362,6 +357,7 @@ var methods = {
     var self = this;
     const {username, password} = options;
     var body = { username, password };
+    var provider = self.getProvider();
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.login,
@@ -384,6 +380,7 @@ var methods = {
     var self = this;
     const { username, mail, password } = options;
     var body = { username, mail, password };
+    var provider = self.getProvider();
     return self.postAPIData({
       apiRoot: provider.root,
       method: provider.create,
@@ -404,6 +401,7 @@ var methods = {
 
   userLogout: function() {
     var self = this;
+    var provider = self.getProvider();
     return self.getAPIData({
       apiRoot: provider.root,
       method: provider.logout
@@ -418,7 +416,12 @@ var methods = {
     .catch(function(error) {
       self.emit(self.events.DATA_ERROR, config.events.API_COMMUNICATION_ERROR);
     });
+  },
+
+  getProvider: function() {
+    return config.providers[session.provider] || config.providers['default'];
   }
+
 };
 
 module.exports = Emitter(methods);
