@@ -1,8 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CopyPlugin = require('copy-webpack-plugin');
 const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
@@ -31,18 +30,29 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/env']
+                        presets: ['@babel/preset-env']
                     }
                 }
             },
             {
               test:/\.(s*)css$/,
               use: [
-                MiniCssExtractPlugin.loader,
-                { loader: 'css-loader', options: { url: false, sourceMap: true } },
+                { loader: MiniCssExtractPlugin.loader },
+                { loader: 'css-loader', options: { url: true, sourceMap: true } },
                 { loader: 'postcss-loader', options: { sourceMap: true } },
                 { loader: 'sass-loader', options: { sourceMap: true } }
               ]
+
+            },
+            {
+              test: /\.(png|woff|woff2|eot|ttf|svg|htc|gif)$/,
+              use: {
+                loader: 'file-loader',
+                options: {
+                  name: '[name].[ext]',
+                  outputPath: 'images'
+                }
+              }
             },
             { test: /\.json$/, loader: 'json-loader' },
             { test: /\.handlebars$/, loader: "handlebars-loader" }
@@ -60,11 +70,6 @@ module.exports = {
         new UglifyJsPlugin({uglifyOptions: { compress: true, mangle: true} }),
         new MiniCssExtractPlugin({
           filename: 'swag-api.css'
-        }),
-        new CopyPlugin({
-          patterns: [
-            { from: path.join(__dirname, 'styles/images/'), to: path.join(__dirname, './dist/images') }
-          ]
         })
     ]
 };
