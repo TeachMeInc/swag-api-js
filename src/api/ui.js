@@ -84,7 +84,7 @@ var methods = {
                 backBtn.forEach(function(el) {
                   console.log('add event listener');
                   el.addEventListener('click', function(event) {
-                      window.removeEventListener('keypress', enterKeyListener, true);
+                      self.onCloseDialog(event);
                   }, true);
                 });
 
