@@ -17,7 +17,7 @@ module.exports = {
         create: '/ag-auth/create'
       },
       'shockwave': {
-        root: 'https://qa.shockwave.com',
+        root: 'https://www.shockwave.com',
         current: '/shockwave-auth/current',
         login: '/shockwave-auth/login',
         logout: '/shockwave-auth/logout',
