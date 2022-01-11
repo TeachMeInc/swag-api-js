@@ -132,7 +132,7 @@ var methods = {
 
         var scoresContextOptions = {
           level_key: level_key,
-          period: period
+          period: 'daily'
         };
 
         var scoresOptions = {
@@ -146,14 +146,16 @@ var methods = {
           scoresOptions.value_formatter = options.value_formatter;
         }
 
-        return Promise.all([
-          data.getScoresContext(scoresContextOptions),
-          data.getScores(scoresOptions)
-        ])
-          .then(function(values) {
+        data.getScoresContext(scoresContextOptions)
+          .then(function(scoresContext) {
+            var contextFormatted = self.templates['dataScoreContext']({
+              context: scoresContext
+            });
+            contextCont.innerHTML = contextFormatted;
+          })
 
-            var scoresContext = values[0];
-            var scores = values[1];
+        data.getScores(scoresOptions)
+          .then(function(scores) {
 
             var selectedCategory = categories.find(function(category) {
               return level_key === category.level_key;
@@ -165,12 +167,6 @@ var methods = {
             });
 
             dataTableCont.innerHTML = formatted;
-
-            var contextFormatted = self.templates['dataScoreContext']({
-              context: scoresContext
-            });
-
-            contextCont.innerHTML = contextFormatted;
 
           })
           .finally(function() {
