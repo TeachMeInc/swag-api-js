@@ -1,7 +1,7 @@
 {{#if context.totalScores.value}}
   <div><b>Today's best score:</b> {{context.dailyBest.value}}</div>
   {{#if context.scorePosition.value}}
-    <div>You placed #{{context.scorePosition.value}} out of {{context.totalScores.value}} scores today</div>
+    <div>You placed {{context.scorePosition.value}} out of {{context.totalScores.value}} scores today</div>
   {{else}}
     <div>Not yet placed</div>
   {{/if}}
